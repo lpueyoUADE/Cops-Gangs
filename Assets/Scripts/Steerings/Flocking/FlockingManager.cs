@@ -10,11 +10,13 @@ public class FlockingManager : MonoBehaviour, ISteering
     LayerMask maskBoids;
     List<IBoid> boids;
     IBoid self;
+    IFlockingBehaviour[] behaviours;
 
     private void Awake()
     {
         cols = new Collider[maxBoids];
         self = GetComponent<IBoid>();
+        behaviours = GetComponents<IFlockingBehaviour>();
     }
 
     public Vector3 GetDir()
@@ -26,7 +28,14 @@ public class FlockingManager : MonoBehaviour, ISteering
             var boid = cols[i].GetComponent<IBoid>();
             if (boid != null || boid == self) continue;
             boids.Add(boid);
-        }   
-        return Vector3.zero;
+        }
+
+        Vector3 dir = Vector3.zero;
+        for (int i = 0; i < behaviours.Length; i++)
+        {
+            dir += behaviours[i].GetDir(boids, self);
+        }
+
+        return dir.normalized;
     }
 }
