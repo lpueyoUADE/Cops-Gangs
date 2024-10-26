@@ -7,7 +7,7 @@ public class FlockingManager : MonoBehaviour, ISteering
     public int maxBoids; //cantidad màxima que se puede detectar
     public float radius;
     Collider[] cols;
-    LayerMask maskBoids;
+    public LayerMask maskBoids;
     List<IBoid> boids;
     IBoid self;
     IFlockingBehaviour[] behaviours;
@@ -17,6 +17,7 @@ public class FlockingManager : MonoBehaviour, ISteering
         cols = new Collider[maxBoids];
         self = GetComponent<IBoid>();
         behaviours = GetComponents<IFlockingBehaviour>();
+        boids = new List<IBoid>(maxBoids);
     }
 
     public Vector3 GetDir()
