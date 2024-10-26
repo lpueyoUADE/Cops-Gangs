@@ -10,6 +10,7 @@ public abstract class EntityController<T> : MonoBehaviour where T: Enum
 
     protected IIdle _idle;
     protected IMove _move;
+    protected IAttack _attack;
     protected IPain _pain;
     protected IDead _dead;
 
@@ -26,11 +27,12 @@ public abstract class EntityController<T> : MonoBehaviour where T: Enum
     {
         _idle = GetComponent<IIdle>();
         _move = GetComponent<IMove>();
+        _attack = GetComponent<IAttack>();
         _pain = GetComponent<IPain>();
         _dead = GetComponent<IDead>();
     }
 
-    void Update()
+    protected virtual void Update()
     {
         fsm.OnUpdate();
     }
