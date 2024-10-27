@@ -5,29 +5,33 @@ using UnityEngine;
 public class RyderStateRun : State<PlayerStates>
 {
     FSM<PlayerStates> fsm;
-    IMove move;
+    IMoveMouse moveMouse;
+    IReload reload;
+    IPain pain;
+    IDead dead;
 
-    private LayerMask groundMask;
-
-    public RyderStateRun(FSM<PlayerStates> fsm, IMove move, LayerMask groundMask)
+    public RyderStateRun(FSM<PlayerStates> fsm, IMoveMouse moveMouse, IReload reload, IPain pain, IDead dead)
     {
         this.fsm = fsm;
-        this.move = move;
-        this.groundMask = groundMask;
+        this.moveMouse = moveMouse;
+        this.reload = reload;
+        this.pain = pain;
+        this.dead = dead;
     }
     public override void Execute()
     {
         base.Execute();
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundMask))
-        {
-            move.Look(hit.point);
-        }
+        moveMouse.LookAround();
     }
     public override void FixedExecute()
     {
         base.FixedExecute();
+        
+        if (dead.IsDead)
+        {
+            fsm.Transition(PlayerStates.Dead);
+            return;
+        }
 
         var h = Input.GetAxisRaw("Horizontal");
         var v = Input.GetAxisRaw("Vertical");
@@ -40,12 +44,18 @@ public class RyderStateRun : State<PlayerStates>
         {
             Vector3 dir = new Vector3(h, 0, v).normalized;
 
-            move.Move(dir);
+            moveMouse.Move(dir);
 
             if (Input.GetMouseButton(0))
             {
                 fsm.Transition(PlayerStates.Attack);
             }
+
+            if (reload.NeedsToReload() || (Input.GetKey(KeyCode.R) && reload.CanReload()))
+                fsm.Transition(PlayerStates.Reload);
+
+            if (pain.IsInPain)
+                fsm.Transition(PlayerStates.Pain);
         }
     }
 }

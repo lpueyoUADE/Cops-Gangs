@@ -5,29 +5,36 @@ using UnityEngine;
 public class RyderStateIdle : State<PlayerStates>
 {
     FSM<PlayerStates> fsm;
-    IMove move;
+    IMoveMouse moveMouse;
+    IReload reload;
+    IPain pain;
+    IDead dead;
 
-    private LayerMask groundMask;
-    public RyderStateIdle(FSM<PlayerStates> fsm, IMove move, LayerMask groundMask)
+    public RyderStateIdle(FSM<PlayerStates> fsm, IMoveMouse moveMouse, IReload reload, IPain pain, IDead dead)
     {
         this.fsm = fsm;
-        this.move = move;
-        this.groundMask = groundMask;
+        this.moveMouse = moveMouse;
+        this.reload = reload;
+        this.pain = pain;
+        this.dead = dead;
     }
     public override void Enter()
     {
         base.Enter();
-        move.Move(Vector3.zero);
+        moveMouse.Move(Vector3.zero);
     }
 
     public override void FixedExecute()
     {
         base.FixedExecute();
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (dead.IsDead)
+        { 
+            fsm.Transition(PlayerStates.Dead);
+            return;
+        }
 
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundMask))
-            move.Look(hit.point);
+        moveMouse.LookAround();
 
         var h = Input.GetAxis("Horizontal");
         var v = Input.GetAxis("Vertical");
@@ -37,5 +44,11 @@ public class RyderStateIdle : State<PlayerStates>
 
         if(Input.GetMouseButton(0))
             fsm.Transition(PlayerStates.Attack);
+
+        if (reload.NeedsToReload() || (Input.GetKey(KeyCode.R) && reload.CanReload()))
+            fsm.Transition(PlayerStates.Reload);
+
+        if (pain.IsInPain)
+            fsm.Transition(PlayerStates.Pain);
     }
 }

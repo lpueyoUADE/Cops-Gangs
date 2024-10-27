@@ -4,6 +4,10 @@ using UnityEngine;
 
 public interface IReload
 {
+    public void Reload();
+    bool CanReload();
+    bool NeedsToReload();
+    bool IsReloading { get; set; }
 
 }
 
