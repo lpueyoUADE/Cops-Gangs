@@ -5,37 +5,73 @@ using UnityEngine;
 public class RyderStateAttack : State<PlayerStates>
 {
     FSM<PlayerStates> fsm;
-    IMove move;
+    IMoveMouse moveMouse;
     IAttack attack;
-    LayerMask groundMask;
+    IReload reload;
+    IPain pain;
+    IDead dead;
 
-    public RyderStateAttack(FSM<PlayerStates> fsm, IMove move, IAttack attack, LayerMask groundMask)
+    Cooldown attackCoolDown;
+
+    public RyderStateAttack(FSM<PlayerStates> fsm, IMoveMouse moveMouse, IAttack attack, IReload reload, IPain pain, IDead dead)
     {
         this.fsm = fsm;
-        this.move = move;
+        this.moveMouse = moveMouse;
         this.attack = attack;
-        this.groundMask = groundMask;
+        this.reload = reload;
+        this.pain = pain;
+        this.dead = dead;
+
+        attackCoolDown = new(this.attack.AttackCooldownTime);
     }
     public override void Enter()
     {
         base.Enter();
         attack.Attack();
-        move.Move(Vector3.zero);
     }
 
     public override void Execute()
     {
         base.Execute();
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (dead.IsDead)
+        {
+            fsm.Transition(PlayerStates.Dead);
+            return;
+        }
 
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundMask))
-            move.Look(hit.point);
+        moveMouse.LookAround();
 
-        if (!Input.GetMouseButton(0))
+        var h = Input.GetAxisRaw("Horizontal");
+        var v = Input.GetAxisRaw("Vertical");
+        Vector3 dir = new Vector3(h, 0, v).normalized;
+
+        moveMouse.MoveSlow(dir);
+
+            if (!Input.GetMouseButton(0))
         {
             attack.IsAttacking = false;
             fsm.Transition(PlayerStates.Idle);
         }
+
+        attackCoolDown.RunCooldown();
+
+        if (!attackCoolDown.IsCooldown())
+        {
+            attack.Shoot();
+            attackCoolDown.ResetCooldown();
+        }
+
+        if(reload.NeedsToReload() || (Input.GetKey(KeyCode.R) && reload.CanReload()))
+            fsm.Transition(PlayerStates.Reload);
+
+        if (pain.IsInPain)
+            fsm.Transition(PlayerStates.Pain);
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        attack.IsAttacking = false;
     }
 }

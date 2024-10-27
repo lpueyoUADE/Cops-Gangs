@@ -27,18 +27,30 @@ public class Cooldown
         _executedFinishAction = true;
         _lastInterval = -1;
     }
+    /// <summary>
+    /// Reinicia el cooldown.
+    /// </summary>
     public void ResetCooldown()
     {
         _executedFinishAction = false;
         _lastInterval = Time.realtimeSinceStartup;
     }
+    /// <summary>
+    /// Devuelve true mientras el tiempo siga corriendo.
+    /// Cuando el timer se agota, IsCoolDown devuelve false.
+    /// </summary>
+    /// <returns></returns>
     public bool IsCooldown()
-    {
-        // IsCooldown devuelve true mientras el tiempo siga corriendo.
-        // Cuando el timer se agota, IsCoolDown devuelve false.
+    { 
         RunCooldown();
         return _lastInterval != -1 && TimeElapsed < _initTimer;
     }
+
+    /// <summary>
+    /// Valida si el cooldown terminó.
+    /// En caso afirmativo ejecuta la acción de fin de cooldown.
+    /// El reloj del cooldown sigue contando aunque no se llame a esta función.
+    /// </summary>
     public void RunCooldown()
     {
         if (TimeElapsed >= _initTimer && _onFinishCooldown != null && !_executedFinishAction)

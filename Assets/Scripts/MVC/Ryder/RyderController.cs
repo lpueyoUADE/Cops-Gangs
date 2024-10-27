@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class RyderController : EntityController<PlayerStates>
 {
-    [Header("Raycast")]
-    public LayerMask groundMask;
-
+    protected IMoveMouse _moveMouse;
     protected override void InitFSM()
     {
         base.InitFSM();
 
         fsm = new();
 
-        var idle = new RyderStateIdle(fsm, _move, groundMask);
-        var run = new RyderStateRun(fsm, _move, groundMask);
-        var attack = new RyderStateAttack(fsm, _move, _attack, groundMask);
-        var reload = new RyderStateReload(fsm);
-        var pain = new RyderStatePain(fsm);
+        _moveMouse = GetComponent<IMoveMouse>();
+
+        var idle = new RyderStateIdle(fsm, _moveMouse, _reload, _pain, _dead);
+        var run = new RyderStateRun(fsm, _moveMouse, _reload, _pain, _dead);
+        var attack = new RyderStateAttack(fsm, _moveMouse, _attack, _reload, _pain, _dead);
+        var reload = new RyderStateReload(fsm, _reload, _dead);
+        var pain = new RyderStatePain(fsm, _moveMouse, _pain, _dead);
         var dead = new RyderStateDead(fsm);
 
         idle.AddTransition(PlayerStates.Run, run);
@@ -58,10 +58,11 @@ public class RyderController : EntityController<PlayerStates>
 
         fsm.SetInitial(idle);
     }
-
+    /*
     override protected void Update()
     {
         base.Update();
         print(fsm.GetCurrent);
     }
+    */
 }
