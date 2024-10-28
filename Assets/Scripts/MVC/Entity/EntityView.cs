@@ -9,13 +9,15 @@ public abstract class EntityView : EntityBase
 
     [Header("HUD")]
     [SerializeField] private Transform canvas;
-    [SerializeField] private Transform HUD; 
+    [SerializeField] private HUDController HUD; 
     [SerializeField] private Vector3 offset;
 
     IAttack _attack;
     IReload _reload;
     IPain _pain;
     IDead _dead;
+
+    private EntityModel entityModel;
 
     protected override void Awake()
     {
@@ -24,11 +26,22 @@ public abstract class EntityView : EntityBase
         _reload = GetComponent<IReload>();
         _pain = GetComponent<IPain>();
         _dead = GetComponent<IDead>();
+
+        entityModel = GetComponent<EntityModel>();
     }
 
     void Start()
     {
         HUD.transform.SetParent(canvas);
+
+        HUD.SetName(entityModel.EntityName);
+        HUD.InitSlider(HUDController.SliderType.health, entityModel.MaxLifePoints);
+        HUD.InitSlider(HUDController.SliderType.shield, entityModel.MaxShieldPoints);
+        HUD.InitSlider(HUDController.SliderType.ammo, entityModel.MaxAmmo);
+
+        HUD.setSliderValue(HUDController.SliderType.health, entityModel.currentLifePoints);
+        HUD.setSliderValue(HUDController.SliderType.health, entityModel.currentShieldPoints);
+        HUD.setSliderValue(HUDController.SliderType.health, entityModel.currentAmmo);
     }
 
     protected virtual void Update()
@@ -41,5 +54,9 @@ public abstract class EntityView : EntityBase
         anim.SetBool("IsReloading", _reload.IsReloading);
         anim.SetBool("IsInPain", _pain.IsInPain);
         anim.SetBool("IsDead", _dead.IsDead);
+
+        HUD.setSliderValue(HUDController.SliderType.health, entityModel.currentLifePoints);
+        HUD.setSliderValue(HUDController.SliderType.shield, entityModel.currentShieldPoints);
+        HUD.setSliderValue(HUDController.SliderType.ammo, entityModel.currentAmmo);
     }
 }

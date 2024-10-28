@@ -7,6 +7,9 @@ using UnityEngine.UIElements;
 
 public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, IDead
 {
+    [Header("Name")]
+    [SerializeField] string entityName;
+
     [Header("Life")]
     [SerializeField] float maxShieldPoints;
     [SerializeField] float maxLifePoints;
@@ -57,12 +60,14 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public bool IsReloading { get => isReloading; set => isReloading = value; }
     public bool IsInPain { get => isInPain; set => isInPain = value; }
     public bool IsDead { get => isDead; set => isDead = value; }
+    public string EntityName { get => entityName; set => entityName = value; }
+    public int MaxAmmo { get => maxAmmo; set => maxAmmo = value; }
 
     protected void Start()
     {
         IsAttacking = false;
         IsReloading = false;
-        currentAmmo = maxAmmo;
+        currentAmmo = MaxAmmo;
         currentShieldPoints = maxShieldPoints;
         currentLifePoints = maxLifePoints;
 
@@ -127,12 +132,12 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public void Reload()
     {
         IsReloading = true;
-        currentAmmo = maxAmmo;
+        currentAmmo = MaxAmmo;
     }
 
     public bool CanReload()
     {
-        return currentAmmo != maxAmmo;
+        return currentAmmo != MaxAmmo;
     }
 
     public bool NeedsToReload()
