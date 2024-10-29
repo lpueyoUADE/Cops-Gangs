@@ -31,16 +31,16 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     [Header("Eye Sight")]
     [SerializeField] Transform eyeSight;
 
-    private bool isAttacking;
-    private bool isReloading;
-    private bool isInPain;
-    private bool isDead;
+    bool isAttacking;
+    bool isReloading;
+    bool isInPain;
+    bool isDead;
 
-    public int currentAmmo;
-    private float acceleration = 35f;
+    float acceleration = 35f;
 
-    public float currentShieldPoints;
-    public float currentLifePoints;
+    float currentShieldPoints;
+    float currentLifePoints;
+    int currentAmmo;
 
     private enum painRouletteEnum
     {
@@ -60,16 +60,26 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public bool IsReloading { get => isReloading; set => isReloading = value; }
     public bool IsInPain { get => isInPain; set => isInPain = value; }
     public bool IsDead { get => isDead; set => isDead = value; }
-    public string EntityName { get => entityName; set => entityName = value; }
+    public string EntityName { get => entityName; set { entityName = value; ; OnNameAlteredAction?.Invoke(value); } }
     public int MaxAmmo { get => maxAmmo; set => maxAmmo = value; }
+    public float CurrentLifePoints { get => currentLifePoints; set { currentLifePoints = value; ; OnLifePointsAlteredAction?.Invoke(value); } }
+    public float CurrentShieldPoints { get => currentShieldPoints; set { currentShieldPoints = value; ; OnShieldPointsAlteredAction?.Invoke(value); } }
+    public int CurrentAmmo { get => currentAmmo; set { currentAmmo = value; ; OnAmmoAlteredAction?.Invoke(value); } }
+
+    public Action<string> OnNameAlteredAction;
+    public Action<float> OnLifePointsAlteredAction;
+    public Action<float> OnShieldPointsAlteredAction;
+    public Action<float> OnAmmoAlteredAction;
 
     protected void Start()
     {
         IsAttacking = false;
         IsReloading = false;
-        currentAmmo = MaxAmmo;
-        currentShieldPoints = maxShieldPoints;
-        currentLifePoints = maxLifePoints;
+
+        EntityName = entityName;
+        CurrentLifePoints = maxLifePoints;
+        CurrentShieldPoints = maxShieldPoints;
+        CurrentAmmo = MaxAmmo;
 
         painRoulette = new()
         {
@@ -107,7 +117,6 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
         dir.y = 0;
         Look(dir);
     }
-
     public void Attack()
     {
         IsAttacking = true;
@@ -115,34 +124,33 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
 
     public void Shoot()
     {
-        print("Shoot");
         var newBullet = Instantiate(bullet, attackSpawnPoint.position, bullet.transform.rotation);
         newBullet.Direction = transform.forward;
         newBullet.Owner = this.tag;
         newBullet.Damage = this.damage;
 
-        currentAmmo--;
+        CurrentAmmo--;
     }
 
     public bool CanAttack()
     {
-        return !IsReloading && currentAmmo > 0;
+        return !IsReloading && CurrentAmmo > 0;
     }
 
     public void Reload()
     {
         IsReloading = true;
-        currentAmmo = MaxAmmo;
+        CurrentAmmo = MaxAmmo;
     }
 
     public bool CanReload()
     {
-        return currentAmmo != MaxAmmo;
+        return CurrentAmmo != MaxAmmo;
     }
 
     public bool NeedsToReload()
     {
-        return currentAmmo == 0;
+        return CurrentAmmo == 0;
     }
     /// <summary>
     /// Amount es un valor positivo que indica cuantos puntos se restan al escudo o la vida según corresponda.
@@ -152,13 +160,13 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     {
         amount = MathF.Abs(amount);
 
-        if (currentShieldPoints > 0)
-            currentShieldPoints = Mathf.Clamp(currentShieldPoints - amount, 0, maxShieldPoints);
+        if (CurrentShieldPoints > 0)
+            CurrentShieldPoints = Mathf.Clamp(CurrentShieldPoints - amount, 0, MaxShieldPoints);
 
         else
-            currentLifePoints = Mathf.Clamp(currentLifePoints - amount, 0, MaxLifePoints);
+            CurrentLifePoints = Mathf.Clamp(CurrentLifePoints - amount, 0, MaxLifePoints);
 
-        if (currentLifePoints > 0)
+        if (CurrentLifePoints > 0)
             Pain();
 
         else
@@ -168,13 +176,13 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public void ReceiveShield(float amount)
     {
         amount = MathF.Abs(amount);
-        currentShieldPoints = Mathf.Clamp(currentShieldPoints + amount, 0, MaxShieldPoints);
+        CurrentShieldPoints = Mathf.Clamp(CurrentShieldPoints + amount, 0, MaxShieldPoints);
     }
 
     public void ReceiveLife(float amount)
     {
         amount = MathF.Abs(amount);
-        currentLifePoints = Mathf.Clamp(currentLifePoints + amount, 0, MaxLifePoints);
+        CurrentLifePoints = Mathf.Clamp(CurrentLifePoints + amount, 0, MaxLifePoints);
     }
     public void Pain()
     {

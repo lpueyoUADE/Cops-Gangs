@@ -428,9 +428,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityName: {fileID: 2531869710900162745}
-  healthSlider: {fileID: 1290404059374752952}
+  lifeSlider: {fileID: 1290404059374752952}
   shieldSlider: {fileID: 6051469663008070645}
   ammoSlider: {fileID: 1155237051458188987}
+  offset: {x: 0, y: 2.25, z: 0}
+  canvas: {fileID: 0}
+  entityModel: {fileID: 0}
 --- !u!1 &2531869710900162743
 GameObject:
   m_ObjectHideFlags: 0
@@ -1111,7 +1114,7 @@ GameObject:
   - component: {fileID: 3348938013351636436}
   - component: {fileID: 1290404059374752952}
   m_Layer: 5
-  m_Name: Health
+  m_Name: Life
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
