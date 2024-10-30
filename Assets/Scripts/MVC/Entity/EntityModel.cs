@@ -69,6 +69,7 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public Action<float> OnLifePointsAlteredAction;
     public Action<float> OnShieldPointsAlteredAction;
     public Action<float> OnAmmoAlteredAction;
+    public Action<float> OnMoneyAlteredAction;
 
     protected void Start()
     {
@@ -173,7 +174,7 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
         return CurrentAmmo == 0;
     }
     /// <summary>
-    /// Amount es un valor positivo que indica cuantos puntos se restan al escudo o la vida según corresponda.
+    /// Amount es un valor positivo que indica cuantos puntos se restan al escudo o la vida segï¿½n corresponda.
     /// </summary>
     /// <param name="amount"></param>
     public void ReceiveDamage(float amount)
@@ -215,8 +216,8 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
         // TODO: Consultar si es correcto
         /*
         - Es correcto que el model Setee IsInPain, IsAttacking, IsDead? 
-	        - Se puede pasar esa lógica a los estados?
-	        - Si la lógica es interna a los estados, como consulto si el está en IsInPain, IsAttacking, IsDead?
+	        - Se puede pasar esa lï¿½gica a los estados?
+	        - Si la lï¿½gica es interna a los estados, como consulto si el estï¿½ en IsInPain, IsAttacking, IsDead?
          */
         IsDead = true;
     }
