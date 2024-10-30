@@ -9,14 +9,20 @@ public abstract class BasePathFinderState <T> : State<T>
     Transform user;
     float AcceptableDistanceToTarget;
     bool destinationReached = true;
+    public bool DestinationReached { get { return destinationReached; } }
 
-    public System.Action OnDestinationReached;
-    public System.Action OnStartMoving;
+    public System.Action OnDestinationReached = delegate { };
+    public System.Action OnStartMoving = delegate { };
 
     public BasePathFinderState(Transform entity, float minDistToTarget = 0.2f)
     {
         user = entity;
         AcceptableDistanceToTarget = minDistToTarget;
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
     }
 
     public override void Execute()

@@ -8,4 +8,6 @@ public interface IMove
     void MoveSlow(Vector3 direction);
     void Look(Vector3 direction);
     void Look(Transform target);
+
+    public void SetPosition(Vector3 position);
 }

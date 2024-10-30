@@ -200,4 +200,9 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
          */
         IsDead = true;
     }
+
+    void IMove.SetPosition(Vector3 position)
+    {
+        throw new NotImplementedException();
+    }
 }
