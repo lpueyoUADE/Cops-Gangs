@@ -5,20 +5,31 @@ using UnityEngine;
 public class RyderController : EntityController<PlayerStates>
 {
     protected IMoveMouse _moveMouse;
+
+    /*
     protected override void InitFSM()
     {
         base.InitFSM();
 
-        fsm = new();
+        GenerateStateDictionary(
+            ( PlayerStates.Idle, idle ),
+            ( PlayerStates.Run, run ),
+            ( PlayerStates.Attack, attack ),
+            ( PlayerStates.Reload, reload ),
+            ( PlayerStates.Pain, pain ),
+            ( PlayerStates.Dead, dead )
+        );
 
-        _moveMouse = GetComponent<IMoveMouse>();
+        foreach (var statei in states)
+        {
+            foreach (var statej in states)
+            {
+                if (statei.Key == statej.Key)
+                    continue;
 
-        var idle = new RyderStateIdle(fsm, _moveMouse, _reload, _pain, _dead);
-        var run = new RyderStateRun(fsm, _moveMouse, _reload, _pain, _dead);
-        var attack = new RyderStateAttack(fsm, _moveMouse, _attack, _reload, _pain, _dead);
-        var reload = new RyderStateReload(fsm, _reload, _dead);
-        var pain = new RyderStatePain(fsm, _moveMouse, _pain, _dead);
-        var dead = new RyderStateDead(fsm);
+                statei.Value.AddTransition(statej.Key, statej.Value);
+            }
+        }
 
         idle.AddTransition(PlayerStates.Run, run);
         idle.AddTransition(PlayerStates.Attack, attack);
@@ -56,13 +67,41 @@ public class RyderController : EntityController<PlayerStates>
         dead.AddTransition(PlayerStates.Reload, reload);
         dead.AddTransition(PlayerStates.Pain, pain);
 
-        fsm.SetInitial(idle);
+
+        
+    }
+    */
+    protected override void GenerateStatesDictionary()
+    {
+        _moveMouse = GetComponent<IMoveMouse>();
+
+        var idle = new RyderStateIdle(fsm, _moveMouse, _reload, _pain, _dead);
+        var run = new RyderStateRun(fsm, _moveMouse, _reload, _pain, _dead);
+        var attack = new RyderStateAttack(fsm, _moveMouse, _attack, _reload, _pain, _dead);
+        var reload = new RyderStateReload(fsm, _reload, _dead);
+        var pain = new RyderStatePain(fsm, _moveMouse, _pain, _dead);
+        var dead = new RyderStateDead(fsm);
+
+        statesDict = new()
+        {
+            { PlayerStates.Idle, idle },
+            { PlayerStates.Run, run },
+            { PlayerStates.Attack, attack },
+            { PlayerStates.Reload, reload },
+            { PlayerStates.Pain, pain },
+            { PlayerStates.Dead, dead }
+        };
+    }
+
+    protected override void SetInitialState()
+    {
+        fsm.SetInitial(statesDict[PlayerStates.Idle]);
     }
     /*
     override protected void Update()
     {
-        base.Update();
-        print(fsm.GetCurrent);
+       base.Update();
+       print(fsm.GetCurrent);
     }
     */
 }

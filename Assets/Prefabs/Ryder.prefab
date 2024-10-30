@@ -737,7 +737,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &4968073623547922119
 MonoBehaviour:
@@ -762,10 +762,7 @@ MonoBehaviour:
   attackCooldownTime: 0.15
   damage: 1
   maxAmmo: 30
-  eyeSight: {fileID: 4968073623449006870}
-  currentAmmo: 0
-  currentShieldPoints: 0
-  currentLifePoints: 0
+  entityAnimController: {fileID: 1556188330565963465}
   groundMask:
     serializedVersion: 2
     m_Bits: 8
@@ -782,9 +779,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 1556188330565963466}
-  canvas: {fileID: 0}
-  HUD: {fileID: 2344159085908803076}
-  offset: {x: 0, y: 2.25, z: 0}
 --- !u!114 &4968073623547922121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1982,7 +1976,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.1737
+      value: 1.99
       objectReference: {fileID: 0}
     - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2054,17 +2048,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
---- !u!114 &2344159085908803076 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5141148085580303962, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
-  m_PrefabInstance: {fileID: 7480803015644459102}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32e82241c9c7aa44d9c50659ef1dfa58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &4968073622369675603 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}

@@ -14,7 +14,8 @@ public class BulletController : MonoBehaviour
     public Dictionary<string, HashSet<string>> AppliesDamageToTable = new Dictionary<string, HashSet<string>>
     {
         {"Player", new(){"Enemy"}},
-        {"Enemy", new(){"Player"}}
+        {"Gang", new(){"Enemy"}},
+        {"Enemy", new(){"Player", "Gang"}}
     };
 
     public Vector3 Direction { get => transform.forward; set => transform.forward = value; }

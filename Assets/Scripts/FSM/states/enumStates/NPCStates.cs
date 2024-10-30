@@ -1,7 +1,10 @@
-public enum FollowerStates
+public enum NPCStates
 {
     Idle,
     Follow,
+    Patrol,
+    Pursuit,
+    RunningAway,
     Attack,
     Reload,
     Pain,

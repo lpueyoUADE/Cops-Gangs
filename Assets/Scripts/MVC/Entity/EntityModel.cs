@@ -28,8 +28,8 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     [SerializeField] float damage;
     [SerializeField] int maxAmmo;
 
-    [Header("Eye Sight")]
-    [SerializeField] Transform eyeSight;
+    [Header("Anim Controller")]
+    [SerializeField] EntityAnimController entityAnimController;
 
     bool isAttacking;
     bool isReloading;
@@ -49,7 +49,6 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     }
 
     private Dictionary<painRouletteEnum, float> painRoulette;
-    public Transform EyeSight { get => eyeSight; set => eyeSight = value; }
     public float MaxShieldPoints { get => maxShieldPoints; set => maxShieldPoints = value; }
     public float MaxLifePoints { get => maxShieldPoints; set => maxShieldPoints = value; }
     public float Speed { get => speed; set => speed = value; }
@@ -70,6 +69,7 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public Action<float> OnLifePointsAlteredAction;
     public Action<float> OnShieldPointsAlteredAction;
     public Action<float> OnAmmoAlteredAction;
+    public Action<float> OnMoneyAlteredAction;
 
     protected void Start()
     {
@@ -90,6 +90,29 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
 
     public static Action PainAction;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        entityAnimController.FinishedReloadAction += FinishedReloadActionHandler;
+        entityAnimController.FinishedPainAction += FinishedPainActionHandler;
+    }
+
+    private void OnDestroy()
+    {
+        entityAnimController.FinishedReloadAction -= FinishedReloadActionHandler;
+        entityAnimController.FinishedPainAction -= FinishedPainActionHandler;
+    }
+
+    private void FinishedReloadActionHandler()
+    {
+        IsReloading = false;
+    }
+
+    private void FinishedPainActionHandler()
+    {
+        IsInPain = false;
+    }
+
     private void _Move(Vector3 dir, float movementSpeed)
     {
         Vector3 smoothedVelocity = Vector3.MoveTowards(Rb.velocity, dir * movementSpeed, acceleration * Time.fixedDeltaTime);
@@ -104,11 +127,9 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     {
         _Move(dir, Speed / 3);
     }
-    public void Look(Vector3 dir)
+    public virtual void Look(Vector3 dir)
     {
-        dir = dir - transform.position;
         dir.y = 0;
-
         transform.forward = Vector3.RotateTowards(transform.forward, dir, Time.deltaTime * RotationSpeed, 0);
     }
     public void Look(Transform target)
@@ -153,7 +174,7 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
         return CurrentAmmo == 0;
     }
     /// <summary>
-    /// Amount es un valor positivo que indica cuantos puntos se restan al escudo o la vida según corresponda.
+    /// Amount es un valor positivo que indica cuantos puntos se restan al escudo o la vida segï¿½n corresponda.
     /// </summary>
     /// <param name="amount"></param>
     public void ReceiveDamage(float amount)
@@ -195,8 +216,8 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
         // TODO: Consultar si es correcto
         /*
         - Es correcto que el model Setee IsInPain, IsAttacking, IsDead? 
-	        - Se puede pasar esa lógica a los estados?
-	        - Si la lógica es interna a los estados, como consulto si el está en IsInPain, IsAttacking, IsDead?
+	        - Se puede pasar esa lï¿½gica a los estados?
+	        - Si la lï¿½gica es interna a los estados, como consulto si el estï¿½ en IsInPain, IsAttacking, IsDead?
          */
         IsDead = true;
     }

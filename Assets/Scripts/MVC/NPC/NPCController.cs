@@ -13,5 +13,10 @@ public abstract class NPCController<T> : EntityController<T> where T : Enum
         InitDecisionTree();
     }
 
+    protected override void Update()
+    {
+        base.Update();
+        actionTreeRoot.Execute();
+    }
     protected abstract void InitDecisionTree();
 }
