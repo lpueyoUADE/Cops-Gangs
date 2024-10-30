@@ -32,6 +32,13 @@ public class HUDController : MonoBehaviour
 
     private void Awake()
     {
+        sliderDict = new Dictionary<SliderType, Slider>()
+        {
+            { SliderType.Life, lifeSlider},
+            { SliderType.Shield, shieldSlider},
+            { SliderType.Ammo, ammoSlider},
+        };
+
         entityModel.OnNameAlteredAction += OnNameAlteredActionHandler;
         entityModel.OnLifePointsAlteredAction += OnLifePointsAlteredActionHandler;
         entityModel.OnShieldPointsAlteredAction += OnShieldPointsAlteredActionHandler;
@@ -67,13 +74,6 @@ public class HUDController : MonoBehaviour
 
     private void Start()
     {
-        sliderDict = new Dictionary<SliderType, Slider>()
-        {
-            { SliderType.Life, lifeSlider},
-            { SliderType.Shield, shieldSlider},
-            { SliderType.Ammo, ammoSlider},
-        };
-
         transform.SetParent(canvas);
 
         InitSlider(SliderType.Life, entityModel.MaxLifePoints);

@@ -6,28 +6,10 @@ public class RyderModel : EntityModel, IMoveMouse
 {
     [Header("Raycast")]
     public LayerMask groundMask;
-
-    protected override void Awake()
+    public override void Look(Vector3 dir)
     {
-        base.Awake();
-        RyderAnimController.FinishedReloadAction += FinishedReloadActionHandler;
-        RyderAnimController.FinishedPainAction += FinishedPainActionHandler;
-    }
-
-    private void OnDestroy()
-    {
-        RyderAnimController.FinishedReloadAction -= FinishedReloadActionHandler;
-        RyderAnimController.FinishedPainAction -= FinishedPainActionHandler;
-    }
-
-    private void FinishedReloadActionHandler()
-    {
-        IsReloading = false;
-    }
-
-    private void FinishedPainActionHandler()
-    {
-        IsInPain = false;
+        dir = dir - transform.position;
+        base.Look(dir);
     }
 
     public void LookAround()

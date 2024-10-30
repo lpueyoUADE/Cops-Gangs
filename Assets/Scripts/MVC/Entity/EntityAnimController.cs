@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RyderAnimController : MonoBehaviour
+public class EntityAnimController : MonoBehaviour
 {
-    public static Action FinishedReloadAction;
-    public static Action FinishedPainAction;
+    public Action FinishedReloadAction;
+    public Action FinishedPainAction;
     public bool FinishedReloading()
     {
         FinishedReloadAction?.Invoke();
