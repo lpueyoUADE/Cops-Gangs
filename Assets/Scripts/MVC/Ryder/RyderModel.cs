@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class RyderModel : EntityModel, IMoveMouse
 {
+
+    [SerializeField] private int currentMoney;
+    public int CurrentMoney { get => currentMoney; set { currentMoney = value; ; OnMoneyAlteredAction?.Invoke(value); } }
+    
+    
     [Header("Raycast")]
     public LayerMask groundMask;
     public override void Look(Vector3 dir)
@@ -26,5 +31,8 @@ public class RyderModel : EntityModel, IMoveMouse
         {
             ReceiveDamage(1);
         }
+
+        //Debug.Log(currentMoney + " dollars");
+        //Debug.Log(CurrentLifePoints);
     }
 }
