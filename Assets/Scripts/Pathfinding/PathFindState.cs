@@ -23,6 +23,6 @@ public class PathFindState<T> : BasePathFinderState<T>
 
     private void SetStartPoint()
     {
-        mode.SetPosition(nodes[0]);
+        //mode.SetPosition(nodes[0]);
     }
 }

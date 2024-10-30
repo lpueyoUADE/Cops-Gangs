@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class BFS_Dijkstra: MonoBehaviour
 {
+    private void Start()
+    {
+        print("Using Dijkstra");
+    }
 
     public static List<T> Run<T>(T start, Func<T, bool> verification, Func<T, List<T>> getConections, Func<T,T, float> getCost,int watchDog = 500)
     {
@@ -32,6 +36,11 @@ public class BFS_Dijkstra: MonoBehaviour
                 }
 
                 path.Reverse();
+
+                foreach (T node in path)
+                {
+                    print("Dijkstra:" + node);
+                }
                 return path;
             }
             else

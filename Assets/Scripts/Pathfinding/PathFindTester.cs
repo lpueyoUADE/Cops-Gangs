@@ -14,7 +14,7 @@ public class PathFindTester : MonoBehaviour, IMove
     // Start is called before the first frame update
     void Start()
     {
-        var temp = BFS.Run<Node>(start, CheckForGoal, GetNeighbours);
+        var temp = BFS_Dijkstra.Run<Node>(start, CheckForGoal, GetNeighbours, CalculateCost);
         foreach (var node in temp)
         {
             path.Enqueue(node);
@@ -70,5 +70,29 @@ public class PathFindTester : MonoBehaviour, IMove
     List<Node> GetNeighbours(Node node)
     {
         return node.Neighbours;
+    }
+
+    float CalculateCost(Node parent, Node child)
+    {
+        float cost = 0;
+
+        cost += Vector3.Distance(parent.transform.position, child.transform.position);
+
+        if (child.hasBonus)
+        {
+            cost -= 500;
+        }
+
+        if (child.hasObstacle)
+        {
+            cost += 1000;
+        }
+
+        return cost;
+    }
+
+    public void MoveSlow(Vector3 direction)
+    {
+        throw new System.NotImplementedException();
     }
 }
