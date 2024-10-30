@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCStateAttack : State<FollowerStates>
+public class NPCStateAttack : State<NPCStates>
 {
     IAttack attack;
     Cooldown attackCoolDown;

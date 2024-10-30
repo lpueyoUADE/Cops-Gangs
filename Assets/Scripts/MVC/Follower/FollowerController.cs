@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FollowerController : NPCController<FollowerStates>
+public class FollowerController : NPCController<NPCStates>
 {
     private FollowerModel _model;
 
@@ -14,12 +14,12 @@ public class FollowerController : NPCController<FollowerStates>
     protected override void InitDecisionTree()
     {
         
-        var idle = new ActionTree(() => fsm.Transition(FollowerStates.Idle));
-        var follow = new ActionTree(() => fsm.Transition(FollowerStates.Follow));
-        var attack = new ActionTree(() => fsm.Transition(FollowerStates.Attack));
-        var reload = new ActionTree(() => fsm.Transition(FollowerStates.Reload));
-        var pain = new ActionTree(() => fsm.Transition(FollowerStates.Pain));
-        var dead = new ActionTree(() => fsm.Transition(FollowerStates.Dead));
+        var idle = new ActionTree(() => fsm.Transition(NPCStates.Idle));
+        var follow = new ActionTree(() => fsm.Transition(NPCStates.Follow));
+        var attack = new ActionTree(() => fsm.Transition(NPCStates.Attack));
+        var reload = new ActionTree(() => fsm.Transition(NPCStates.Reload));
+        var pain = new ActionTree(() => fsm.Transition(NPCStates.Pain));
+        var dead = new ActionTree(() => fsm.Transition(NPCStates.Dead));
 
         var qPlayerInSight = new QuestionTree(() => false, follow, idle);
         var qEnemyInSight = new QuestionTree(() => true, attack, qPlayerInSight);
@@ -43,18 +43,18 @@ public class FollowerController : NPCController<FollowerStates>
 
         statesDict = new()
         {
-            { FollowerStates.Idle, idle },
-            { FollowerStates.Follow, follow },
-            { FollowerStates.Attack, attack },
-            { FollowerStates.Reload, reload },
-            { FollowerStates.Pain, pain },
-            { FollowerStates.Dead, dead }
+            { NPCStates.Idle, idle },
+            { NPCStates.Follow, follow },
+            { NPCStates.Attack, attack },
+            { NPCStates.Reload, reload },
+            { NPCStates.Pain, pain },
+            { NPCStates.Dead, dead }
         };
     }
 
     protected override void SetInitialState()
     {
-         fsm.SetInitial(statesDict[FollowerStates.Idle]);
+         fsm.SetInitial(statesDict[NPCStates.Idle]);
     }
     override protected void Update()
     {

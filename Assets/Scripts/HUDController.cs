@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor.UIElements;
 
 public class HUDController : MonoBehaviour
 {
@@ -24,14 +25,18 @@ public class HUDController : MonoBehaviour
     [Header("Position offset")]
     [SerializeField] Vector3 offset;
 
-    [Header("Canvas")]
-    [SerializeField] Transform canvas;
+    [Header("World Canvas Tag")]
+    [SerializeField] string worldCanvasTagName;
 
     [Header("Entity")]
     [SerializeField] EntityModel entityModel;
 
+    Transform canvas;
+
     private void Awake()
     {
+        canvas = GameObject.FindGameObjectWithTag(worldCanvasTagName).transform;
+
         sliderDict = new Dictionary<SliderType, Slider>()
         {
             { SliderType.Life, lifeSlider},

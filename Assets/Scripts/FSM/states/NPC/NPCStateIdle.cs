@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCStateIdle : State<FollowerStates>
+public class NPCStateIdle : State<NPCStates>
 {
     IMove move;
 

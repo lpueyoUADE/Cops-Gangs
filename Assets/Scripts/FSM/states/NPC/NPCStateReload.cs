@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCStateReload : State<FollowerStates>
+public class NPCStateReload : State<NPCStates>
 {
     IReload reload;
 

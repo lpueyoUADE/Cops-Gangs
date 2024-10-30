@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCStatePain : State<FollowerStates>
+public class NPCStatePain : State<NPCStates>
 {
     IMove move;
     IPain pain;

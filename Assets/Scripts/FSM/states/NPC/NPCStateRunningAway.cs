@@ -2,13 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCStateFollow : State<NPCStates>
+public class NPCStateRunningAway : State<NPCStates>
 {
-    IMove move;
-
-    public NPCStateFollow(IMove move)
+    public NPCStateRunningAway()
     {
-        this.move = move;
     }
     public override void Enter()
     {
@@ -18,6 +15,5 @@ public class NPCStateFollow : State<NPCStates>
     public override void FixedExecute()
     {
         base.FixedExecute();
-        move.Move(new Vector3(1,0,0));
     }
 }
