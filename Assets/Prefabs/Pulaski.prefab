@@ -1318,6 +1318,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bf0fed6d7afc408d1190413eb5e3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityName: Pulaski
+  maxShieldPoints: 6
+  maxLifePoints: 6
+  painChance: 1
+  speed: 10
+  rotationSpeed: 6
+  attackSpawnPoint: {fileID: 7522428616621208228}
+  bullet: {fileID: 4379533153359173236, guid: 3a47c496c51e7b34c98886670361737a, type: 3}
+  attackCooldownTime: 0.5
+  damage: 1
+  maxAmmo: 10
+  entityAnimController: {fileID: 7522428616119600167}
+  currentShieldPoints: 0
+  currentLifePoints: 0
+  eyeSight: {fileID: 7522428616548162755}
+  lineOfSightGraceTime: 0
 --- !u!114 &347020948157647615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1330,6 +1346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54e6b719828f6394c985d72be5ef19bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 7522428616119600166}
 --- !u!114 &1956854666055833873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1421,7 +1438,7 @@ Animator:
   m_GameObject: {fileID: 7522428616119600165}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 186f4df297bf2ea43a6c0fb4e68c0d39, type: 3}
-  m_Controller: {fileID: 9100000, guid: 53f042c88ceb45d42972edbf9f92f7a0, type: 2}
+  m_Controller: {fileID: 9100000, guid: e06ecfa03eb7cda4282171ac8bb0e697, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1959,7 +1976,7 @@ PrefabInstance:
     - target: {fileID: 5141148085580303962, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
       propertyPath: entityModel
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 3053781497671510274}
     - target: {fileID: 5417229032515622753, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

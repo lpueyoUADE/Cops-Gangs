@@ -19,7 +19,7 @@ public class LeaderController : NPCController<NPCStates>
         var reload = new ActionTree(() => fsm.Transition(NPCStates.Reload));
         var pain = new ActionTree(() => fsm.Transition(NPCStates.Pain));
         var dead = new ActionTree(() => fsm.Transition(NPCStates.Dead));
-        /*
+        
         var qPlayerInSight = new QuestionTree(() => false, follow, idle);
         var qEnemyInSight = new QuestionTree(() => true, attack, qPlayerInSight);
         var qINeedToReload = new QuestionTree(() => _model.NeedsToReload(), reload, qEnemyInSight);
@@ -27,7 +27,7 @@ public class LeaderController : NPCController<NPCStates>
         var qIAmReloading = new QuestionTree(() => _model.IsReloading, reload, qIAmInPain);
         var qIAmDead = new QuestionTree(() => _model.IsDead, dead, qIAmReloading);
         actionTreeRoot = qIAmDead;
-        */
+        
     }
     protected override void GenerateStatesDictionary()
     {

@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LeaderModel : MonoBehaviour
+public class LeaderModel : NPCModel
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // TODO: Remover
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ReceiveDamage(1);
+        }
     }
 }
