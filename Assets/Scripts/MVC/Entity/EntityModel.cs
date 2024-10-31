@@ -38,8 +38,8 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
 
     float acceleration = 35f;
 
-    float currentShieldPoints;
-    float currentLifePoints;
+    public float currentShieldPoints;
+    public float currentLifePoints;
     int currentAmmo;
 
     private enum painRouletteEnum

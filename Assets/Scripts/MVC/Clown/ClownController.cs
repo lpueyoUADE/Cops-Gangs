@@ -4,23 +4,22 @@ using UnityEngine;
 
 public class ClownController : NPCController<NPCStates>
 {
-    private FollowerModel _model;
+    private ClownModel _model;
 
     private void Awake()
     {
-        _model = GetComponent<FollowerModel>();
+        _model = GetComponent<ClownModel>();
     }
     protected override void InitDecisionTree()
     {
-
         var idle = new ActionTree(() => fsm.Transition(NPCStates.Idle));
         var runningAway = new ActionTree(() => fsm.Transition(NPCStates.RunningAway));
         var pain = new ActionTree(() => fsm.Transition(NPCStates.Pain));
         var dead = new ActionTree(() => fsm.Transition(NPCStates.Dead));
     
-        var qPlayerInSight = new QuestionTree(() => false, runningAway, idle);
+        var qPlayerInSight = new QuestionTree(() => true, runningAway, idle);
         var qIAmInPain = new QuestionTree(() => _model.IsInPain, pain, qPlayerInSight);
-        var qIAmDead = new QuestionTree(() => _model.IsDead, dead, qIAmInPain); 
+        var qIAmDead = new QuestionTree(() => _model.IsDead, dead, qIAmInPain);
 
         actionTreeRoot = qIAmDead;
     }
@@ -28,7 +27,7 @@ public class ClownController : NPCController<NPCStates>
     protected override void GenerateStatesDictionary()
     {
         var idle = new NPCStateIdle(_move);
-        var runningAway = new NPCStateRunningAway();
+        var runningAway = new NPCStateRunningAway(_move);
         var pain = new NPCStatePain(_move, _pain);
         var dead = new NPCStateDead(_move, _dead);
 
@@ -48,6 +47,6 @@ public class ClownController : NPCController<NPCStates>
     override protected void Update()
     {
         base.Update();
-        print(fsm.GetCurrent);
+        // print(fsm.GetCurrent);
     }
 }

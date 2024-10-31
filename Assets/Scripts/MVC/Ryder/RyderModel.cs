@@ -32,6 +32,29 @@ public class RyderModel : EntityModel, IMoveMouse
             ReceiveDamage(1);
         }
 
+        // TODO: Quitar este test
+        // Test
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            DynamicItemRoulette dynamicRoulette = new(
+                new()
+                {
+                    {ItemType.Shield},
+                    {ItemType.Life},
+                    {ItemType.Money}
+                },
+                (0, MaxShieldPoints),
+                (0, MaxLifePoints),
+                () => { return CurrentShieldPoints; },
+                () => { return CurrentLifePoints; }
+            );
+
+            for (int i = 0; i < 1000; i++)
+            {
+                print(dynamicRoulette.RollItem());
+            }
+        }
+
         //Debug.Log(currentMoney + " dollars");
         //Debug.Log(CurrentLifePoints);
     }

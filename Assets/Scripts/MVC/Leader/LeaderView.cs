@@ -1,13 +1,11 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RyderView : EntityView
+public class LeaderView : NPCView
 {
     IAttack _attack;
     IReload _reload;
-
     protected override void Awake()
     {
         base.Awake();

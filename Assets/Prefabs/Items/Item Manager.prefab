@@ -204,7 +204,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 926c1bc7d00190745aac7c28715bc87c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemsToSpawn: []
+  itemsToSpawn:
+  - {fileID: 0}
   spawnPoints:
   - {fileID: 376287913855603244}
   - {fileID: 8348511481529123088}
