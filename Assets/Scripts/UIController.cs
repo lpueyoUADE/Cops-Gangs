@@ -8,6 +8,7 @@ public class UIController : MonoBehaviour
     [Header("Pause")]
     public GameObject pausePanel;
     public GameObject pauseButton;
+    public GameObject miniMap;
 
     bool isPaused;
 
@@ -30,6 +31,11 @@ public class UIController : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1;
     }
+
+    private void ToggleMiniMap()
+    {
+        if (miniMap) miniMap.SetActive(!miniMap.activeSelf);
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -38,6 +44,11 @@ public class UIController : MonoBehaviour
                 UnPause();
             else
                 Pause();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Tab) && !isPaused)
+        {
+            ToggleMiniMap();
         }
     }
     public void GoToNewGame()

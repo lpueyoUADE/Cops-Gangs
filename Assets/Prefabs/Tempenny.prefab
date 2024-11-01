@@ -1161,9 +1161,10 @@ GameObject:
   - component: {fileID: 3053781497671510274}
   - component: {fileID: 347020948157647615}
   - component: {fileID: 1956854666055833873}
+  - component: {fileID: 6078996368467798246}
   m_Layer: 0
   m_Name: Tempenny
-  m_TagString: Gang
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1244,6 +1245,13 @@ MonoBehaviour:
   currentLifePoints: 0
   eyeSight: {fileID: 7522428616548162755}
   lineOfSightGraceTime: 0
+  radius: 4
+  angle: 150
+  personalArea: 1
+  obsMask:
+    serializedVersion: 2
+    m_Bits: 128
+  timePrediction: 1
 --- !u!114 &347020948157647615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1269,6 +1277,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 815b60782f5689c489d7db24a19a49e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6078996368467798246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7252028129645289689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65cd288bb5ff5c24b875a6dfdaef5f79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 10
+  pov: {fileID: 7522428616548162755}
+  angle: 150
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &7417298508393815277
 GameObject:
   m_ObjectHideFlags: 0
