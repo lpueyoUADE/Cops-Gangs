@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class ClownModel : NPCModel
 {
+    protected override void Awake()
+    {
+        base.Awake();
+        Target = GameObject.FindAnyObjectByType<RyderModel>();
+    }
     private void Update()
     {
         // TODO: Remover

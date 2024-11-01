@@ -960,9 +960,10 @@ GameObject:
   - component: {fileID: 8090777672467576373}
   - component: {fileID: 4288905824114752757}
   - component: {fileID: 3603101392172843807}
+  - component: {fileID: 8673654070460750585}
   m_Layer: 0
   m_Name: Chancletas
-  m_TagString: Gang
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1039,8 +1040,17 @@ MonoBehaviour:
   damage: 0
   maxAmmo: 0
   entityAnimController: {fileID: 7522428616119600167}
+  currentShieldPoints: 0
+  currentLifePoints: 0
   eyeSight: {fileID: 7522428616548162755}
-  lineOfSightGraceTime: 0
+  lineOfSightGraceTime: 5
+  radius: 4
+  angle: 160
+  personalArea: 1
+  obsMask:
+    serializedVersion: 2
+    m_Bits: 128
+  timePrediction: 1
 --- !u!114 &4288905824114752757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1066,6 +1076,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4af40072c0fb56c41ac0510260345588, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8673654070460750585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7252028129645289689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65cd288bb5ff5c24b875a6dfdaef5f79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 10
+  pov: {fileID: 7522428616548162755}
+  angle: 150
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &7324107162201408266
 GameObject:
   m_ObjectHideFlags: 0

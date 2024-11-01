@@ -1093,6 +1093,7 @@ GameObject:
   - component: {fileID: 4111677956691615748}
   - component: {fileID: 4111677956691615771}
   - component: {fileID: 4111677956691615770}
+  - component: {fileID: 4940435727828513644}
   m_Layer: 0
   m_Name: Grove2
   m_TagString: Gang
@@ -1172,8 +1173,17 @@ MonoBehaviour:
   damage: 1
   maxAmmo: 5
   entityAnimController: {fileID: 7522428616119600167}
+  currentShieldPoints: 0
+  currentLifePoints: 0
   eyeSight: {fileID: 7522428616548162755}
   lineOfSightGraceTime: 0
+  radius: 4
+  angle: 150
+  personalArea: 1
+  obsMask:
+    serializedVersion: 2
+    m_Bits: 128
+  timePrediction: 1
 --- !u!114 &4111677956691615771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1199,6 +1209,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cec58461643a2b41b716181ad12ec48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4940435727828513644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7252028129645289689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65cd288bb5ff5c24b875a6dfdaef5f79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 10
+  pov: {fileID: 7522428616548162755}
+  angle: 150
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &7296848975488027819
 GameObject:
   m_ObjectHideFlags: 0
