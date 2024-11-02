@@ -45,9 +45,10 @@ public class PathFindState<T> : BasePathFinderState<T>
         SetPathDijkstra();
     }
 
-    protected override void Move(Vector3 dir)
+    protected override void Move(Vector3 pos, Vector3 dir)
     {
-        base.Move(dir);
+        base.Move(pos, dir);
+        _move.Move(pos);
         _move.Look(dir);
     }
 
@@ -114,6 +115,10 @@ public class PathFindState<T> : BasePathFinderState<T>
         float cost = 0;
         cost += Vector3.Distance(parent.transform.position, child.transform.position) * multiplierDistance;
 
+        if (child.hasObstacle)
+        {
+            cost += 100;
+        }
         return cost;
     }
     List<Vector3> GetPathVector(List<Node> path)
