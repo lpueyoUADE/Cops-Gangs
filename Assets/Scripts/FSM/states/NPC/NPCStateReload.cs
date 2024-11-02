@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class NPCStateReload : State<NPCStates>
 {
+    IMove move;
     IReload reload;
+    IFoeDetection foeDetection;
 
-    public NPCStateReload(IReload reload)
+    public NPCStateReload(IMove move, IReload reload, IFoeDetection foeDetection)
     {
+        this.move = move;
         this.reload = reload;
+        this.foeDetection = foeDetection;
     }
     public override void Enter()
     {
@@ -19,5 +23,9 @@ public class NPCStateReload : State<NPCStates>
     public override void FixedExecute()
     {
         base.FixedExecute();
+        if(foeDetection.Target != null)
+        {
+            move.Look(foeDetection.Target.Rb.position);
+        }
     }
 }

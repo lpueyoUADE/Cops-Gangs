@@ -29,5 +29,19 @@ public class Pursuit : ISteering
             return dirToPoint;
         }
     }
-    
+
+    public static Vector3 GetDir(Transform entity, Rigidbody target, float timePrediction)
+    {
+        Vector3 point = target.position + target.transform.forward * target.velocity.magnitude * timePrediction;
+        Vector3 dirToPoint = (point - entity.position).normalized;
+        Vector3 dirToTarget = (target.position - entity.position).normalized;
+        if (Vector3.Dot(dirToPoint, dirToTarget) < 0)
+        {
+            return dirToTarget;
+        }
+        else
+        {
+            return dirToPoint;
+        }
+    }
 }

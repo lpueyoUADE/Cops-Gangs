@@ -17,9 +17,4 @@ public class NPCStateDead : State<NPCStates>
         base.Enter();
         move.Move(Vector3.zero);
     }
-
-    public override void FixedExecute()
-    {
-        base.FixedExecute();
-    }
 }

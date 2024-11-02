@@ -90,6 +90,7 @@ public class HUDController : MonoBehaviour
     private void Update()
     {
         transform.position = entityModel.transform.position + offset;
+        // transform.LookAt(Camera.main.transform);
     }
 
     public void SetName(string name)

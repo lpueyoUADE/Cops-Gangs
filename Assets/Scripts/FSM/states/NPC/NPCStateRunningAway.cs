@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class NPCStateRunningAway : State<NPCStates>
 {
-    public NPCStateRunningAway()
+    IMove move;
+    public NPCStateRunningAway(IMove move)
     {
-    }
-    public override void Enter()
-    {
-        base.Enter();
+        this.move = move;
     }
 
     public override void FixedExecute()
     {
         base.FixedExecute();
+        move.Move(Vector3.forward);
     }
 }

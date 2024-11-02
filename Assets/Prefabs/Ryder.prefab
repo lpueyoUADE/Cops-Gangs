@@ -684,7 +684,7 @@ GameObject:
   - component: {fileID: 4968073623547922119}
   - component: {fileID: 4968073623547922120}
   - component: {fileID: 4968073623547922121}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ryder
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -763,6 +763,9 @@ MonoBehaviour:
   damage: 1
   maxAmmo: 30
   entityAnimController: {fileID: 1556188330565963465}
+  currentShieldPoints: 0
+  currentLifePoints: 0
+  currentMoney: 0
   groundMask:
     serializedVersion: 2
     m_Bits: 8
@@ -1960,7 +1963,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
       propertyPath: m_LocalRotation.y
@@ -1968,7 +1971,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1984,7 +1987,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

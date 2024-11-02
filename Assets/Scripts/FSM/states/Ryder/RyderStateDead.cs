@@ -5,6 +5,7 @@ using UnityEngine;
 public class RyderStateDead : State<PlayerStates>
 {
     FSM<PlayerStates> fsm;
+
     public RyderStateDead(FSM<PlayerStates> fsm)
     {
         this.fsm = fsm;
