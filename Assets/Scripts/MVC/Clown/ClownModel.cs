@@ -7,7 +7,7 @@ public class ClownModel : NPCModel
     protected override void Awake()
     {
         base.Awake();
-        Target = GameObject.FindAnyObjectByType<RyderModel>();
+        SetTarget(FindAnyObjectByType<RyderModel>());
     }
     private void Update()
     {

@@ -9,10 +9,6 @@ public class NPCStateRunningAway : State<NPCStates>
     {
         this.move = move;
     }
-    public override void Enter()
-    {
-        base.Enter();
-    }
 
     public override void FixedExecute()
     {

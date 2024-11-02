@@ -1032,9 +1032,9 @@ GameObject:
   - component: {fileID: 4111677956691615771}
   - component: {fileID: 4111677956691615770}
   - component: {fileID: 9107498006194674006}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Agente
-  m_TagString: Gang
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1103,7 +1103,7 @@ MonoBehaviour:
   maxShieldPoints: 3
   maxLifePoints: 3
   painChance: 1
-  speed: 10
+  speed: 7
   rotationSpeed: 6
   attackSpawnPoint: {fileID: 7522428616621208228}
   bullet: {fileID: 4379533153359173236, guid: 3a47c496c51e7b34c98886670361737a, type: 3}
@@ -1114,14 +1114,15 @@ MonoBehaviour:
   currentShieldPoints: 0
   currentLifePoints: 0
   eyeSight: {fileID: 7522428616548162755}
-  lineOfSightGraceTime: 0
+  lineOfSightGraceTime: 3
+  attackRange: 7
   radius: 4
   angle: 150
   personalArea: 1
   obsMask:
     serializedVersion: 2
     m_Bits: 128
-  timePrediction: 1
+  timePrediction: 0.5
 --- !u!114 &4111677956691615771
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,7 +6,6 @@ using UnityEngine;
 public abstract class EntityController<T> : MonoBehaviour where T: Enum, IComparable
 {
     protected FSM<T> fsm;
-    protected LineOfSight lineOfSight;
 
     protected IIdle _idle;
     protected IMove _move;
@@ -35,10 +34,6 @@ public abstract class EntityController<T> : MonoBehaviour where T: Enum, ICompar
         }
     }
 
-    private void Awake()
-    {
-        lineOfSight = GetComponent<LineOfSight>();
-    }
     protected virtual void Start()
     {
         InitFSM();

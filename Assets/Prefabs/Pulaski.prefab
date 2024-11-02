@@ -1252,7 +1252,7 @@ GameObject:
   - component: {fileID: 347020948157647615}
   - component: {fileID: 1956854666055833873}
   - component: {fileID: 1856485496489844872}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pulaski
   m_TagString: Enemy
   m_Icon: {fileID: 0}

@@ -961,7 +961,7 @@ GameObject:
   - component: {fileID: 4288905824114752757}
   - component: {fileID: 3603101392172843807}
   - component: {fileID: 8673654070460750585}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Chancletas
   m_TagString: Enemy
   m_Icon: {fileID: 0}

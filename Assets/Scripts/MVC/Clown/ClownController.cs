@@ -6,8 +6,9 @@ public class ClownController : NPCController<NPCStates>
 {
     private ClownModel _model;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _model = GetComponent<ClownModel>();
     }
     protected override void InitDecisionTree()
@@ -26,7 +27,7 @@ public class ClownController : NPCController<NPCStates>
 
     protected override void GenerateStatesDictionary()
     {
-        var idle = new NPCStateIdle(_move);
+        var idle = new NPCStateIdle(_move, _foeDetection);
         var runningAway = new NPCStateRunningAway(_move);
         var pain = new NPCStatePain(_move, _pain);
         var dead = new NPCStateDead(_move, _dead);

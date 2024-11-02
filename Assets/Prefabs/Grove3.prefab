@@ -1042,7 +1042,7 @@ GameObject:
   - component: {fileID: 4111677956691615771}
   - component: {fileID: 4111677956691615770}
   - component: {fileID: 3176107345272893767}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grove3
   m_TagString: Gang
   m_Icon: {fileID: 0}

@@ -59,6 +59,7 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public bool IsReloading { get => isReloading; set => isReloading = value; }
     public bool IsInPain { get => isInPain; set => isInPain = value; }
     public bool IsDead { get => isDead; set => isDead = value; }
+    public bool IsAlive { get => !isDead; }
     public string EntityName { get => entityName; set { entityName = value; ; OnNameAlteredAction?.Invoke(value); } }
     public int MaxAmmo { get => maxAmmo; set => maxAmmo = value; }
     public float CurrentLifePoints { get => currentLifePoints; set { currentLifePoints = value; ; OnLifePointsAlteredAction?.Invoke(value); } }

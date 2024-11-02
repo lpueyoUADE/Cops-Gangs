@@ -1189,7 +1189,7 @@ GameObject:
   - component: {fileID: 4111677956691615771}
   - component: {fileID: 4111677956691615770}
   - component: {fileID: 1021617179950022590}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grove1
   m_TagString: Gang
   m_Icon: {fileID: 0}
@@ -1257,21 +1257,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityName: Johny
-  maxShieldPoints: 3
-  maxLifePoints: 3
+  maxShieldPoints: 5
+  maxLifePoints: 5
   painChance: 1
-  speed: 10
+  speed: 7
   rotationSpeed: 6
   attackSpawnPoint: {fileID: 7522428616621208228}
   bullet: {fileID: 4379533153359173236, guid: 3a47c496c51e7b34c98886670361737a, type: 3}
   attackCooldownTime: 0.8
   damage: 1
-  maxAmmo: 5
+  maxAmmo: 10
   entityAnimController: {fileID: 7522428616119600167}
   currentShieldPoints: 0
   currentLifePoints: 0
   eyeSight: {fileID: 7522428616548162755}
   lineOfSightGraceTime: 0
+  attackRange: 10
   radius: 4
   angle: 150
   personalArea: 1
@@ -1316,7 +1317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65cd288bb5ff5c24b875a6dfdaef5f79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 10
+  range: 20
   pov: {fileID: 7522428616548162755}
   angle: 150
   obstacle:
@@ -1920,19 +1921,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.00000058114523
-      objectReference: {fileID: 0}
-    - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
-      propertyPath: m_LocalRotation.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
       propertyPath: m_AnchoredPosition.x
