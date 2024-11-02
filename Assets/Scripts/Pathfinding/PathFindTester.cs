@@ -90,7 +90,7 @@ public class PathFindTester : MonoBehaviour, IMove
     {
         _statePathfinding._start = start;
         _statePathfinding._goal = target;
-        _statePathfinding.SetPathDijkstra();
+        // _statePathfinding.SetPathDijkstra(); // TODO: Está tirando error esta linea 
     }
 
     public void Look(Vector3 direction)
