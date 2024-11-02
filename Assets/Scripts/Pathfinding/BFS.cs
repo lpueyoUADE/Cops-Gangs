@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BFS : MonoBehaviour
+public class BFS
 {
 
     public static List<T> Run<T>(T start, Func<T, bool> verification, Func<T, List<T>> getConections, int watchDog = 500)
