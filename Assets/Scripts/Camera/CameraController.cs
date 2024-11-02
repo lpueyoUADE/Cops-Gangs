@@ -5,37 +5,30 @@ public class CameraController : MonoBehaviour
     [Header("Target")]
     public Transform target;
 
-    [Header("Far FOV")]
-    [SerializeField] float farFOV;
-    [SerializeField] Vector3 farRotation;
+    [Header("Far")]
+    [SerializeField] float farSize;
     [SerializeField] Vector3 farOffset;
 
-    [Header("Near FOV")]
-    [SerializeField] float nearFOV;
-    [SerializeField] Vector3 nearRotation;
+    [Header("Near")]
+    [SerializeField] float nearSize;
     [SerializeField] Vector3 nearOffset;
 
     [Header("Speeds")]
-    [SerializeField] float speedFOV;
-    [SerializeField] float speedAngle;
+    [SerializeField] float speedSize;
     [SerializeField] float speedOffset;
 
-    float targetFOV;
-    Vector3 targetRotation;
+    float targetSize;
     Vector3 targetOffset;
-
 
     private void Update()
     {
-        targetFOV = farFOV;
-        targetRotation = farRotation;
-        targetOffset = farOffset;
+        targetSize = nearSize;
+        targetOffset = nearOffset;
 
         if (Input.GetMouseButton(1))
         {
-            targetFOV = nearFOV;
-            targetRotation = nearRotation;
-            targetOffset = nearOffset;
+            targetSize = farSize;
+            targetOffset = farOffset;
         } 
     }
 
@@ -45,8 +38,7 @@ public class CameraController : MonoBehaviour
             return;
 
         float fixedDeltaTime = Time.fixedDeltaTime;
-        Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, targetFOV, speedFOV * fixedDeltaTime);
-        this.transform.eulerAngles = Vector3.MoveTowards(this.transform.eulerAngles, targetRotation, speedAngle * fixedDeltaTime);
+        Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, targetSize, speedSize * fixedDeltaTime);
         this.transform.position = Vector3.MoveTowards(this.transform.position, target.position + targetOffset, speedOffset * fixedDeltaTime);
     }
 }

@@ -6,10 +6,14 @@ public class ClownController : NPCController<NPCStates>
 {
     private ClownModel _model;
 
+    IRunningAway _runningAway;
+
     protected override void Awake()
     {
         base.Awake();
         _model = GetComponent<ClownModel>();
+        _runningAway = GetComponent<IRunningAway>();
+
     }
     protected override void InitDecisionTree()
     {
@@ -28,7 +32,7 @@ public class ClownController : NPCController<NPCStates>
     protected override void GenerateStatesDictionary()
     {
         var idle = new NPCStateIdle(_move, _foeDetection);
-        var runningAway = new NPCStateRunningAway(_move);
+        var runningAway = new NPCStateRunningAway(_move, _runningAway, transform, _model.Target.Rb, _model.TimePrediction);
         var pain = new NPCStatePain(_move, _pain);
         var dead = new NPCStateDead(_move, _dead);
 
@@ -48,6 +52,6 @@ public class ClownController : NPCController<NPCStates>
     override protected void Update()
     {
         base.Update();
-        // print(fsm.GetCurrent);
+        print(fsm.GetCurrent);
     }
 }
