@@ -41,8 +41,8 @@ public class PathFindState<T> : BasePathFinderState<T>
     public override void Enter()
     {
         Debug.Log("Pathfinding");
-        base.Enter();        
-        SetPathDijkstra();
+        base.Enter();
+        SetPath();
     }
 
     protected override void Move(Vector3 pos, Vector3 dir)
@@ -50,63 +50,22 @@ public class PathFindState<T> : BasePathFinderState<T>
         base.Move(pos, dir);
         _move.Move(pos);
         _move.Look(dir);
-    }
+    }   
 
     public void SetPath()
     {
-        List<Node> path = BFS.Run<Node>(_start, IsSatisfies, GetConnections);
+        List<Node> path = AStar.Run<Node>(_start, IsSatisfies, GetConnections, GetCost, GetHeuristic);
         //Debug.Log(path.Count);
         if (path.Count <= 0) return;
         SetNodes(GetPathVector(path));
     }
 
-    public void SetPathDijkstra()
+    float GetHeuristic(Node node)
     {
-        List<Node> path = BFS_Dijkstra.Run<Node>(_start, IsSatisfies, GetConnections, GetCost);
-        //Debug.Log(path.Count);
-        if (path.Count <= 0) return;
-        SetNodes(GetPathVector(path));        
+        float h = 0;
+        h += Vector3.Distance(node.transform.position, _goal.transform.position);
+        return h;
     }
-
-    //public void SetPathAStar()
-    //{
-    //    var start = GetNearNode(_entity.position);
-    //    goal = GetNearNode(target.position);
-    //    List<Node> path = ASTAR.Run<Node>(start, IsSatisfies, GetConnections, GetCost, Heuristic);
-    //    //Debug.Log(path.Count);
-    //    if (path.Count <= 0) return;
-    //    SetWaypoints(GetPathVector(path));
-    //}
-
-    //Node GetNearNode(Vector3 pos)
-    //{
-    //    var colls = Physics.OverlapSphere(pos, Constants.nearNodeDistance, Constants.nodeMask);
-    //    Node nearNode = null;
-    //    float nearDistance = 0;
-    //    for (int i = 0; i < colls.Length; i++)
-    //    {
-    //        var currentNode = colls[i].GetComponent<Node>();
-    //        if (currentNode == null) continue;
-
-    //        var currentDistance = Vector3.Distance(currentNode.transform.position, pos);
-    //        if (nearNode == null || nearDistance > currentDistance)
-    //        {
-    //            Vector3 dir = currentNode.transform.position - pos;
-    //            if (Physics.Raycast(pos, dir.normalized, dir.magnitude, Constants.obsMask)) continue;
-
-    //            nearNode = currentNode;
-    //            nearDistance = currentDistance;
-    //        }
-    //    }
-    //    return nearNode;
-    //}
-
-    //float Heuristic(Node node)
-    //{
-    //    float h = 0;
-    //    h += Vector3.Distance(node.transform.position, goal.transform.position);
-    //    return h;
-    //}
 
     float GetCost(Node parent, Node child)
     {

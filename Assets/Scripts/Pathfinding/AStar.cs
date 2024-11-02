@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BFS_Dijkstra
+public class AStar
 {
     private void Start()
     {
-        Debug.Log("Using Dijkstra");
+        Debug.Log("Using A-Star");
     }
 
-    public static List<T> Run<T>(T start, Func<T, bool> verification, Func<T, List<T>> getConections, Func<T,T, float> getCost,int watchDog = 500)
+    public static List<T> Run<T>(T start, Func<T, bool> verification, Func<T, List<T>> getConections, Func<T,T, float> getCost, Func<T, float> getHeuristic, int watchDog = 500)
     {
         PriorityQueue<T> pending = new PriorityQueue<T>();
         HashSet<T> visited = new HashSet<T>();
@@ -39,7 +39,7 @@ public class BFS_Dijkstra
 
                 foreach (T node in path)
                 {
-                    Debug.Log("Dijkstra:" + node);
+                    Debug.Log("A-Star:" + node);
                 }
                 return path;
             }
@@ -52,13 +52,13 @@ public class BFS_Dijkstra
                 {
                     T child = connections[i];
                     if (visited.Contains(child)) continue;
-                    //**************
+                    //************** Dijskstra
                     var currentCost = costs[current] + getCost(current,child);
                     if (costs.ContainsKey(child) && costs[child] <= currentCost) continue;
                     costs[child] = currentCost;
 
                     //**************
-                    pending.Enqueue(child, currentCost);
+                    pending.Enqueue(child, currentCost + getHeuristic(child));
                     parents[child] = current;
                 }
             }
