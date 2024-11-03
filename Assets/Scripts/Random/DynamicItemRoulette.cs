@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DynamicItemRoulette
+public class DynamicItemRoulette 
 {
-    Dictionary<ItemType, float> items;
+    [SerializeField] private Dictionary<ItemType, float> items;
 
-    List<List<Vector3>> bilinearInterpolationMatrix;
+    [SerializeField] private List<List<Vector3>> bilinearInterpolationMatrix;
 
     (float min, float max) shieldRange;
     (float min, float max) lifeRange;
@@ -15,7 +15,7 @@ public class DynamicItemRoulette
     Func<float> ShieldGetter;
     Func<float> LifeGetter;
     /// <summary>
-    /// Interpolación bilineal R2 -> R3
+    /// Interpolaciï¿½n bilineal R2 -> R3
     /// Dominio(datos del modelo normalizados)
     /// - (porcentaje de escudo, porcentaje de vida) : ([0, 1], [0, 1])
     /// Imagen(peso de items normalizados)
@@ -36,8 +36,8 @@ public class DynamicItemRoulette
     {
         // Creo el diccionario de items y pesos.
 
-        // Esta hardcodeadisimo para que la imagen de la interpolación bilineal sea R3 (una dimension por item).
-        // En algun momento se podrá implementar una versión generica. Por ahora vamos con esto.
+        // Esta hardcodeadisimo para que la imagen de la interpolaciï¿½n bilineal sea R3 (una dimension por item).
+        // En algun momento se podrï¿½ implementar una versiï¿½n generica. Por ahora vamos con esto.
         this.items = new()
         {
             {ItemType.Shield, 1/3},
@@ -67,11 +67,11 @@ public class DynamicItemRoulette
             Mathf.InverseLerp(lifeRange.min, lifeRange.max, LifeGetter())
         );
 
-        // Paso 2: Interpolación en el eje x para cada par de puntos en y
+        // Paso 2: Interpolaciï¿½n en el eje x para cada par de puntos en y
         Vector3 fx_y0 = Vector3.Lerp(bilinearInterpolationMatrix[0][0], bilinearInterpolationMatrix[1][0], input.x);
         Vector3 fx_y1 = Vector3.Lerp(bilinearInterpolationMatrix[0][1], bilinearInterpolationMatrix[1][1], input.x);
 
-        // Paso 3: Interpolación en el eje y usando los resultados anteriores
+        // Paso 3: Interpolaciï¿½n en el eje y usando los resultados anteriores
         Vector3 f_xy = Vector3.Lerp(fx_y0, fx_y1, input.y);
 
         items[ItemType.Shield] = f_xy.x;
