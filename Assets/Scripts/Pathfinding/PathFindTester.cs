@@ -97,11 +97,6 @@ public class PathFindTester : MonoBehaviour, IMove
 
         cost += Vector3.Distance(parent.transform.position, child.transform.position);
 
-        if (child.canSeeEnemy)
-        {
-            cost -= 500;
-        }
-
         if (child.hasObstacle)
         {
             cost += 1000;
