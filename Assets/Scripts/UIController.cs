@@ -12,6 +12,7 @@ public class UIController : MonoBehaviour
     public GameObject miniMap;
 
     public Text moneyAmount;
+    public Text ammoAmount;
     public RyderModel ryderReference;
 
     bool isPaused;
@@ -56,10 +57,12 @@ public class UIController : MonoBehaviour
         }
 
         if (ryderReference != null)
+        {
             moneyAmount.text = ryderReference.CurrentMoney.ToString();
-
-
+            ammoAmount.text = ryderReference.CurrentAmmo.ToString();
+        }
     }
+
     public void GoToNewGame()
     {
         SceneManager.LoadScene("Gameplay");
