@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
@@ -9,6 +10,9 @@ public class UIController : MonoBehaviour
     public GameObject pausePanel;
     public GameObject pauseButton;
     public GameObject miniMap;
+
+    public Text moneyAmount;
+    public RyderModel ryderReference;
 
     bool isPaused;
 
@@ -50,6 +54,11 @@ public class UIController : MonoBehaviour
         {
             ToggleMiniMap();
         }
+
+        if (ryderReference != null)
+            moneyAmount.text = ryderReference.CurrentMoney.ToString();
+
+
     }
     public void GoToNewGame()
     {
