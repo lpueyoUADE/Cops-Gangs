@@ -42,6 +42,7 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public float currentLifePoints;
     int currentAmmo;
 
+    Vector3 originalBCSize;
     private enum painRouletteEnum
     {
         Pain,
@@ -59,6 +60,7 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public bool IsReloading { get => isReloading; set => isReloading = value; }
     public bool IsInPain { get => isInPain; set => isInPain = value; }
     public bool IsDead { get => isDead; set => isDead = value; }
+    public bool IsAlive { get => !isDead; }
     public string EntityName { get => entityName; set { entityName = value; ; OnNameAlteredAction?.Invoke(value); } }
     public int MaxAmmo { get => maxAmmo; set => maxAmmo = value; }
     public float CurrentLifePoints { get => currentLifePoints; set { currentLifePoints = value; ; OnLifePointsAlteredAction?.Invoke(value); } }
@@ -71,6 +73,8 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public Action<float> OnAmmoAlteredAction;
     public Action<float> OnMoneyAlteredAction;
 
+    public Action<Sound> OnEmmitSound;
+
     protected void Start()
     {
         IsAttacking = false;
@@ -81,6 +85,8 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
         CurrentShieldPoints = maxShieldPoints;
         CurrentAmmo = MaxAmmo;
 
+        originalBCSize = Bc.size;
+
         painRoulette = new()
         {
             { painRouletteEnum.Pain, painChance },
@@ -88,29 +94,35 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
         };
     }
 
-    public static Action PainAction;
-
     protected override void Awake()
     {
         base.Awake();
         entityAnimController.FinishedReloadAction += FinishedReloadActionHandler;
         entityAnimController.FinishedPainAction += FinishedPainActionHandler;
+        entityAnimController.StepAction += StepActionHandler;
     }
 
     private void OnDestroy()
     {
         entityAnimController.FinishedReloadAction -= FinishedReloadActionHandler;
         entityAnimController.FinishedPainAction -= FinishedPainActionHandler;
+        entityAnimController.StepAction += StepActionHandler;
     }
 
     private void FinishedReloadActionHandler()
     {
+        OnEmmitSound?.Invoke(Sound.finishReload);
         IsReloading = false;
     }
 
     private void FinishedPainActionHandler()
     {
         IsInPain = false;
+    }
+
+    private void StepActionHandler()
+    {
+        OnEmmitSound?.Invoke(Sound.step);
     }
 
     private void _Move(Vector3 dir, float movementSpeed)
@@ -142,9 +154,9 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     {
         IsAttacking = true;
     }
-
     public void Shoot()
     {
+        OnEmmitSound?.Invoke(Sound.shoot);
         var newBullet = Instantiate(bullet, attackSpawnPoint.position, bullet.transform.rotation);
         newBullet.Direction = transform.forward;
         newBullet.Owner = this.tag;
@@ -160,6 +172,7 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
 
     public void Reload()
     {
+        OnEmmitSound?.Invoke(Sound.reload);
         IsReloading = true;
         CurrentAmmo = MaxAmmo;
     }
@@ -208,17 +221,16 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public void Pain()
     {
         if (RandomUtils.Roulette(painRoulette) == painRouletteEnum.Pain)
+        {
+            OnEmmitSound?.Invoke(Sound.pain);
             IsInPain = true;
+        }
     }
 
-    public void Die()
+    public virtual void Die()
     {
-        // TODO: Consultar si es correcto
-        /*
-        - Es correcto que el model Setee IsInPain, IsAttacking, IsDead? 
-	        - Se puede pasar esa l�gica a los estados?
-	        - Si la l�gica es interna a los estados, como consulto si el est� en IsInPain, IsAttacking, IsDead?
-         */
+        OnEmmitSound?.Invoke(Sound.dead);
+        Bc.size = new(Bc.size.x, 0.1f, Bc.size.z);
         IsDead = true;
     }
 

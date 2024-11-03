@@ -8,12 +8,14 @@ public class PathFindTester : MonoBehaviour, IMove
     [SerializeField] Node start;
     private Queue<Node> path = new Queue<Node>();
 
+    public float speed;
+
     FSM<EnemyStates> _fsm;
     ITreeNode _root;
     PathFindState<EnemyStates> _statePathfinding;
 
-    private Node currentDestination;
-    bool moving = false;
+    //private Node currentDestination;
+    //bool moving = false;
 
     // Start is called before the first frame update
     void Start()
@@ -28,12 +30,17 @@ public class PathFindTester : MonoBehaviour, IMove
 
         _statePathfinding.OnStartMoving += TestStart;
         _statePathfinding.OnStartMoving += _statePathfinding.SetStartPoint;
-             
+        _statePathfinding.OnDestinationReached += TestEnd;
     }
 
     private void TestStart()
     {
         print("Start Moving");
+    }
+
+    private void TestEnd()
+    {
+        print("Finish Moving");
     }
 
     void InitializeFSM()
@@ -83,22 +90,34 @@ public class PathFindTester : MonoBehaviour, IMove
     {
         _statePathfinding._start = start;
         _statePathfinding._goal = target;
-        _statePathfinding.SetPathDijkstra();
+        // _statePathfinding.SetPathDijkstra(); // TODO: Está tirando error esta linea 
     }
 
     public void Look(Vector3 direction)
     {
-        this.transform.LookAt(direction);
+        //if (Vector3.Angle(transform.forward, direction) > (Mathf.PI * Mathf.Rad2Deg) / 2)
+        //{
+        //    transform.forward = direction;
+        //}
+        //else
+        //{
+        //    transform.forward = Vector3.Lerp(transform.forward, direction, 150 * Time.deltaTime);
+        //}
+
+        transform.LookAt(direction);
     }
 
     public void Look(Transform target)
     {
         this.transform.LookAt(target);
+        print("Look 2");
     }
 
     public void Move(Vector3 direction)
     {
-        this.transform.position = Vector3.MoveTowards(this.transform.position, direction, 5);
+        direction.y = 0;
+        transform.position += Time.deltaTime * transform.forward * speed; ;
+        print("Moving");
     }
 
     public void SetPosition(Vector3 position)

@@ -7,8 +7,9 @@ public class FollowerController : NPCController<NPCStates>
 {
     private FollowerModel _model;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _model = GetComponent<FollowerModel>();
     }
     protected override void InitDecisionTree()
@@ -22,10 +23,10 @@ public class FollowerController : NPCController<NPCStates>
         var dead = new ActionTree(() => fsm.Transition(NPCStates.Dead));
 
         var qLeaderInSight = new QuestionTree(() => false, follow, idle);
-        var qCanAttack = new QuestionTree(() => true, attack, pursuit);
-        var qAnyEnemyAlive = new QuestionTree(() => true, qCanAttack, qLeaderInSight);
-        var qEnemiesInSight = new QuestionTree(() => true, qAnyEnemyAlive, qLeaderInSight);
-        var qINeedToReload = new QuestionTree(() => _model.NeedsToReload(), reload, qEnemiesInSight);
+        var qCanAttack = new QuestionTree(() => _model.IsTargetInAttackRange(), attack, pursuit);
+        var qAnyFoeInSightAlive = new QuestionTree(() => _model.IsAnyFoeInSightAlive(), qCanAttack, qLeaderInSight);
+        var qIsTargetSet = new QuestionTree(() => _model.IsTargetSet(), qCanAttack, qAnyFoeInSightAlive);
+        var qINeedToReload = new QuestionTree(() => _model.NeedsToReload(), reload, qIsTargetSet);
         var qIAmInPain = new QuestionTree(() => _model.IsInPain, pain, qINeedToReload);
         var qIAmReloading = new QuestionTree(() => _model.IsReloading, reload, qIAmInPain);
         var qIAmDead = new QuestionTree(() => _model.IsDead, dead, qIAmReloading); 
@@ -35,11 +36,11 @@ public class FollowerController : NPCController<NPCStates>
 
     protected override void GenerateStatesDictionary()
     {
-        var idle = new NPCStateIdle(_move);
-        var follow = new NPCStateFollow(_move);
-        var pursuit = new NPCStatePursuit(_move);
-        var attack = new NPCStateAttack(_attack);
-        var reload = new NPCStateReload(_reload);
+        var idle = new NPCStateIdle(_move, _foeDetection);
+        var follow = new NPCStateFollow(_move, _foeDetection);
+        var pursuit = new NPCStatePursuit(_move, _foeDetection, transform, _model.TimePrediction);
+        var attack = new NPCStateAttack(_move, _attack, _foeDetection, transform, _model.TimePrediction);
+        var reload = new NPCStateReload(_move, _reload, _foeDetection);
         var pain = new NPCStatePain(_move, _pain);
         var dead = new NPCStateDead(_move, _dead);
 
@@ -54,7 +55,6 @@ public class FollowerController : NPCController<NPCStates>
             { NPCStates.Dead, dead }
         };
     }
-
     protected override void SetInitialState()
     {
          fsm.SetInitial(statesDict[NPCStates.Idle]);
@@ -63,6 +63,6 @@ public class FollowerController : NPCController<NPCStates>
     {
         base.Update();
         // TODO: Borrar
-        // print(fsm.GetCurrent);
+        print(fsm.GetCurrent);
     }
 }

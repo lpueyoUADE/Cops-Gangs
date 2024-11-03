@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LineOfSight : MonoBehaviour
@@ -9,6 +11,13 @@ public class LineOfSight : MonoBehaviour
     [SerializeField] private float angle;
     [SerializeField] private LayerMask obstacle;
 
+    Collider[] entitiesInSight;
+    public Collider[] EntitiesInSight { get => entitiesInSight;}
+
+    private void Start()
+    {
+        entitiesInSight = new Collider[10];
+    }
     public bool CheckRange(Transform target)
     {
         float distanceToTarget = Vector3.Distance(target.position, Origin);
@@ -28,11 +37,16 @@ public class LineOfSight : MonoBehaviour
         return !Physics.Raycast(Origin, dirToTarget.normalized, dirToTarget.magnitude, obstacle);
     }
     Vector3 Origin { 
-        get { 
+        get 
+        {
             if (pov == null) { return transform.position; }
             else return pov.position;
+        } 
+    }
 
-            } 
+    public int GetEntitiesInSight(Vector3 position, LayerMask mask)
+    {
+        return Physics.OverlapSphereNonAlloc(position, range, EntitiesInSight, 1 << mask.value);
     }
 
     Vector3 Foward
@@ -43,6 +57,7 @@ public class LineOfSight : MonoBehaviour
             else return pov.forward;
         }
     }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;

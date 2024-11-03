@@ -6,8 +6,9 @@ public class LeaderController : NPCController<NPCStates>
 {
     private LeaderModel _model;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _model = GetComponent<LeaderModel>();
     }
     protected override void InitDecisionTree()
@@ -33,11 +34,11 @@ public class LeaderController : NPCController<NPCStates>
     }
     protected override void GenerateStatesDictionary()
     {
-        var idle = new NPCStateIdle(_move);
-        var patrol = new NPCStatePatrol(_move);
-        var pursuit = new NPCStatePursuit(_move);
-        var attack = new NPCStateAttack(_attack);
-        var reload = new NPCStateReload(_reload);
+        var idle = new NPCStateIdle(_move, _foeDetection);
+        var patrol = new NPCStatePatrol(_move, _foeDetection);
+        var pursuit = new NPCStatePursuit(_move, _foeDetection, transform, _model.TimePrediction);
+        var attack = new NPCStateAttack(_move, _attack, _foeDetection, transform, _model.TimePrediction);
+        var reload = new NPCStateReload(_move, _reload, _foeDetection);
         var pain = new NPCStatePain(_move, _pain);
         var dead = new NPCStateDead(_move, _dead);
 

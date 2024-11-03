@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BFS_Dijkstra: MonoBehaviour
+public class BFS_Dijkstra
 {
     private void Start()
     {
-        print("Using Dijkstra");
+        Debug.Log("Using Dijkstra");
     }
 
     public static List<T> Run<T>(T start, Func<T, bool> verification, Func<T, List<T>> getConections, Func<T,T, float> getCost,int watchDog = 500)
@@ -39,7 +39,7 @@ public class BFS_Dijkstra: MonoBehaviour
 
                 foreach (T node in path)
                 {
-                    print("Dijkstra:" + node);
+                    Debug.Log("Dijkstra:" + node);
                 }
                 return path;
             }

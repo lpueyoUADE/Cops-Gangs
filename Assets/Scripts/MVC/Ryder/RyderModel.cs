@@ -1,16 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RyderModel : EntityModel, IMoveMouse
 {
-
+    [Header("Money")]
     [SerializeField] private int currentMoney;
     public int CurrentMoney { get => currentMoney; set { currentMoney = value; ; OnMoneyAlteredAction?.Invoke(value); } }
     
     
     [Header("Raycast")]
     public LayerMask groundMask;
+
+    public static Action OnPlayerDeadAction;
     public override void Look(Vector3 dir)
     {
         dir = dir - transform.position;
@@ -23,6 +26,12 @@ public class RyderModel : EntityModel, IMoveMouse
 
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundMask))
             Look(hit.point);
+    }
+
+    public override void Die()
+    {
+        base.Die();
+        OnPlayerDeadAction?.Invoke();
     }
 
     private void Update()
