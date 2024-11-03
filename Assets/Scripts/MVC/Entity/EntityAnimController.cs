@@ -7,6 +7,7 @@ public class EntityAnimController : MonoBehaviour
 {
     public Action FinishedReloadAction;
     public Action FinishedPainAction;
+    public Action StepAction;
     public bool FinishedReloading()
     {
         FinishedReloadAction?.Invoke();
@@ -16,6 +17,12 @@ public class EntityAnimController : MonoBehaviour
     public bool FinishedPain()
     {
         FinishedPainAction?.Invoke();
+        return true;
+    }
+
+    public bool Step()
+    {
+        StepAction?.Invoke();
         return true;
     }
 }
