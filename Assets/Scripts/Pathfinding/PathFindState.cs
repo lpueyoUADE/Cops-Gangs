@@ -4,33 +4,12 @@ using UnityEngine;
 
 public class PathFindState<T> : BasePathFinderState<T>
 {
-    //public override void Enter()
-    //{
-    //    base.Enter();
-    //    OnStartMoving += SetStartPoint;
-    //}
-    //IMove mode;
-    //public PathFindState(Transform entity, IMove move, float minDistToTarget = 0.2F) : base(entity, minDistToTarget)
-    //{
-    //    mode = move;
-    //}
-
-    //protected override void Move(Vector3 direction)
-    //{
-    //    mode.Move(direction);
-    //    mode.Look(direction);
-    //}  
-
     IMove _move;
     Animator _anim;
     public Node _start;
     public Node _goal;
     public Transform target;
 
-    //public PathFindState(Transform entity, IMove move, float distanceToPoint = 0.2F) : base(entity, distanceToPoint)
-    //{
-    //    _move = move;
-    //}
     public PathFindState(Transform entity, IMove move, Node start, Node goal, List<Vector3> waypoints = null, float distanceToPoint = 0.2f) : base(entity, distanceToPoint)
     {
         _move = move;
