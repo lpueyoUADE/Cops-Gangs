@@ -50,7 +50,15 @@ public class RyderModel : EntityModel, IMoveMouse
     }
     public bool ReceiveItemIfAble(ItemType type, int cost, float value)
     {
-        if(type == ItemType.Money || CurrentMoney >= cost)
+        if( type == ItemType.Money || 
+            (
+                CurrentMoney >= cost &&
+                (
+                    (type == ItemType.Shield && CurrentShieldPoints != MaxShieldPoints) ||
+                    (type == ItemType.Life && CurrentLifePoints != MaxLifePoints)
+                )
+            )
+        )
         {
             CurrentMoney -= cost;
             ReceiveItem(type, value);

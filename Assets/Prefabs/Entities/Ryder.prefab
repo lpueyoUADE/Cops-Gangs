@@ -752,8 +752,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityName: Ryder
-  maxShieldPoints: 5
-  maxLifePoints: 5
+  maxShieldPoints: 10
+  maxLifePoints: 10
   painChance: 0.1
   speed: 7
   rotationSpeed: 10

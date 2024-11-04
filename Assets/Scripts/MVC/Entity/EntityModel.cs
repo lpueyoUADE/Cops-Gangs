@@ -41,8 +41,6 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public float currentShieldPoints;
     public float currentLifePoints;
     int currentAmmo;
-
-    protected Vector3 originalBCSize;
     private enum painRouletteEnum
     {
         Pain,
@@ -83,8 +81,6 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
         CurrentLifePoints = maxLifePoints;
         CurrentShieldPoints = maxShieldPoints;
         CurrentAmmo = MaxAmmo;
-
-        originalBCSize = Bc.size;
 
         painRoulette = new()
         {
@@ -229,7 +225,7 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public virtual void Die()
     {
         OnEmmitSound?.Invoke(Sound.dead);
-        Bc.size = new(Bc.size.x, 0.1f, Bc.size.z);
+        Bc.enabled = false;
     }
 
     void IMove.SetPosition(Vector3 position)

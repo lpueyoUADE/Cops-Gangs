@@ -14,11 +14,13 @@ public class Item : MonoBehaviour
     [Header("Audio")]
     [SerializeField] AudioClip collectedSound;
     [SerializeField] AudioClip cannotCollectSound;
+    public int Cost { get => cost; set => cost = value; }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out RyderModel player))
         {
-            if (player.ReceiveItemIfAble(type, cost, value))
+            if (player.ReceiveItemIfAble(type, Cost, value))
                 ItemPicked();
             else
                 CannotPick();
