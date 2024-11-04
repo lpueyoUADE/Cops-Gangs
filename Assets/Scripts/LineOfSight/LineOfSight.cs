@@ -11,12 +11,12 @@ public class LineOfSight : MonoBehaviour
     [SerializeField] private float angle;
     [SerializeField] private LayerMask obstacle;
 
-    Collider[] entitiesInSight;
-    public Collider[] EntitiesInSight { get => entitiesInSight;}
+    Collider[] entitiesInRange;
+    public Collider[] EntitiesInRange { get => entitiesInRange; }
 
     private void Start()
     {
-        entitiesInSight = new Collider[10];
+        entitiesInRange = new Collider[10];
     }
     public bool CheckRange(Transform target)
     {
@@ -36,6 +36,12 @@ public class LineOfSight : MonoBehaviour
         Vector3 dirToTarget = target.position - Origin;
         return !Physics.Raycast(Origin, dirToTarget.normalized, dirToTarget.magnitude, obstacle);
     }
+
+    public bool InSight(Transform target)
+    {
+        return InView(target) && CheckRange(target) && CheckAngle(target);
+    }
+
     Vector3 Origin { 
         get 
         {
@@ -44,9 +50,9 @@ public class LineOfSight : MonoBehaviour
         } 
     }
 
-    public int GetEntitiesInSight(Vector3 position, LayerMask mask)
+    public int GetEntitiesInRange(Vector3 position, LayerMask mask)
     {
-        return Physics.OverlapSphereNonAlloc(position, range, EntitiesInSight, 1 << mask.value);
+        return Physics.OverlapSphereNonAlloc(position, range, EntitiesInRange, 1 << mask.value);
     }
 
     Vector3 Foward

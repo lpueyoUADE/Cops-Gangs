@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LeaderController : NPCController<NPCStates>
+public class LeaderController : OffensiveNPCController<NPCStates>
 {
     private LeaderModel _model;
 
@@ -38,9 +38,9 @@ public class LeaderController : NPCController<NPCStates>
         var patrol = new NPCStatePatrol(_move, _foeDetection);
         var pursuit = new NPCStatePursuit(_move, _foeDetection, transform, _model.TimePrediction);
         var attack = new NPCStateAttack(_move, _attack, _foeDetection, transform, _model.TimePrediction);
-        var reload = new NPCStateReload(_move, _reload, _foeDetection);
+        var reload = new NPCStateReload(_move, _reload, _foeDetection, transform, _model.TimePrediction);
         var pain = new NPCStatePain(_move, _pain);
-        var dead = new NPCStateDead(_move, _dead);
+        var dead = new OffensiveNPCStateDead(_move, _dead, _respawn);
 
         statesDict = new()
         {

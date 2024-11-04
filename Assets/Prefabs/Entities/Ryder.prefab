@@ -757,14 +757,15 @@ MonoBehaviour:
   painChance: 0.1
   speed: 7
   rotationSpeed: 10
+  attackRange: 0
   attackSpawnPoint: {fileID: 4968073622283175010}
   bullet: {fileID: 4379533153359173236, guid: 3a47c496c51e7b34c98886670361737a, type: 3}
   attackCooldownTime: 0.15
   damage: 1
   maxAmmo: 30
   entityAnimController: {fileID: 1556188330565963465}
-  currentShieldPoints: 0
-  currentLifePoints: 0
+  currentShieldPoints: 1
+  currentLifePoints: 1
   currentMoney: 0
   groundMask:
     serializedVersion: 2

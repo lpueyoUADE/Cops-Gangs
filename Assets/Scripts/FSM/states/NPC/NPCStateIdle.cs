@@ -21,6 +21,5 @@ public class NPCStateIdle : State<NPCStates>
     public override void FixedExecute()
     {
         base.FixedExecute();
-        foeDetection.DetectAliveFoes();
     }
 }

@@ -15,6 +15,5 @@ public class NPCStatePatrol : State<NPCStates>
     public override void FixedExecute()
     {
         base.FixedExecute();
-        foeDetection.DetectAliveFoes();
     }
 }

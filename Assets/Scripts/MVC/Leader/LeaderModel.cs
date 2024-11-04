@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LeaderModel : NPCModel
+public class LeaderModel : OffensiveNPCModel
 {
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         // TODO: Remover
         if (Input.GetKeyDown(KeyCode.Space))
         {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class NPCStateAttack : State<NPCStates>
 {
@@ -24,29 +25,26 @@ public class NPCStateAttack : State<NPCStates>
     {
         base.Enter();
         attack.Attack();
-        foeDetection.DetectAliveFoes();
         move.Move(Vector3.zero);
     }
 
     public override void FixedExecute()
     {
         base.FixedExecute();
-
         attackCoolDown.RunCooldown();
-        
-        move.Look(Pursuit.GetDir(entity, foeDetection.Target.Rb, timePrediction));
 
-        if (!foeDetection.IsCurrentTargetAlive() || !foeDetection.IsCurrentTargetInSight())
+        if (!foeDetection.IsCurrentTargetSetAndAlive())
         {
             foeDetection.ClearTarget();
+            return;
         }
-        else
+
+        move.Look(Pursuit.GetDir(entity, foeDetection.Target.Rb, timePrediction));
+
+        if (!attackCoolDown.IsCooldown())
         {
-            if (!attackCoolDown.IsCooldown())
-            {
-                attack.Shoot();
-                attackCoolDown.ResetCooldown();
-            }
+            attack.Shoot();
+            attackCoolDown.ResetCooldown();
         }
     }
 

@@ -25,8 +25,9 @@ public class ClownModel : NPCModel, IRunningAway
         ClownDeadAction?.Invoke();
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         // TODO: Remover
         if (Input.GetKeyDown(KeyCode.Space))
         {
