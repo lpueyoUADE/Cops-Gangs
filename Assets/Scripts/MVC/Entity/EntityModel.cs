@@ -69,6 +69,7 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public Action<string> OnNameAlteredAction;
     public Action<SliderType, float> OnStatValueAlteredAction;
     public Action<Sound> OnEmmitSound;
+    public Action OnReceivedDamage;
 
     protected override void Awake()
     {
@@ -182,6 +183,8 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     /// <param name="amount"></param>
     public virtual void ReceiveDamage(float amount)
     {
+        OnReceivedDamage?.Invoke();
+
         amount = MathF.Abs(amount);
 
         if (CurrentShieldPoints > 0)
