@@ -105,9 +105,9 @@ GameObject:
   - component: {fileID: 3158245892375374714}
   - component: {fileID: 2052388479510373599}
   - component: {fileID: 4296288064415797269}
-  - component: {fileID: 2394930494649113331}
   - component: {fileID: 3476224901744595447}
-  - component: {fileID: 3524177145021671447}
+  - component: {fileID: 1640769644694707940}
+  - component: {fileID: 2394930494649113331}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Untagged
@@ -122,15 +122,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2350746288497013184}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -10.24, y: 0.57, z: -4.52}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 143.31, y: 143.31, z: 143.31}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5780467036245331367}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &2052388479510373599
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -181,6 +181,36 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3476224901744595447
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2350746288497013184}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0035630465, y: 0.004407404, z: 0.0059218416}
+  m_Center: {x: 0.00022047549, y: 0.000016959148, z: -0.0005162251}
+--- !u!114 &1640769644694707940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2350746288497013184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e369c856356a0fe48b6161a7f9d59092, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  cost: 200
+  value: 10
+  collectedSound: {fileID: 8300000, guid: f43cb8e4bc70fef4a861afcad139be1a, type: 3}
+  cannotCollectSound: {fileID: 8300000, guid: 8338ee524eddf3f429f5d782501bc35f, type: 3}
 --- !u!114 &2394930494649113331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,29 +227,3 @@ MonoBehaviour:
   amplitude: 0.2
   frequency: 5
   rotationSpeed: 25
---- !u!65 &3476224901744595447
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2350746288497013184}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.0035630465, y: 0.004407404, z: 0.0059218416}
-  m_Center: {x: 0.00022047549, y: 0.000016959148, z: -0.0005162251}
---- !u!114 &3524177145021671447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2350746288497013184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4589178ac283664c97e78f1a49a24d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  armorToIncrease: 10

@@ -7,15 +7,18 @@ public class GameManager : MonoBehaviour
 {
     float goToDefeatTime = 5;
     float goToVictoryTime = 5;
-    [SerializeField] private RyderModel _ryderModel;
-    [SerializeField] private GameObject armorItem;
+
+    [Header("Dynamic Item Roullete")]
+    [SerializeField] private GameObject shieldItem;
     [SerializeField] private GameObject lifeItem;
     [SerializeField] private GameObject moneyItem;
     
+    DynamicItemRoulette dynamicRoulette;
     
-    private DynamicItemRoulette Roulette;
+    Dictionary<ItemType, GameObject> items;
     
-    private Dictionary<ItemType, GameObject> items;
+    RyderModel _ryderModel;
+
     public static GameManager Instance { get; private set; }
     
     private void Awake()
@@ -28,15 +31,17 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
 
+        _ryderModel = FindObjectOfType<RyderModel>();
+
         RyderModel.OnPlayerDeadAction += OnPlayerDeadActionHandler;
         ClownModel.ClownDeadAction += OnClownDeadActionHandler;
         
         items = new Dictionary<ItemType, GameObject>(){
-            { ItemType.Shield, armorItem },
+            { ItemType.Shield, shieldItem },
             { ItemType.Life, lifeItem },
             { ItemType.Money, moneyItem }};
-        
-        Roulette = new(
+
+        dynamicRoulette = new(
             new()
             {
                 { ItemType.Shield },
@@ -50,9 +55,10 @@ public class GameManager : MonoBehaviour
         );
     }
 
-    public GameObject RollDynamicItem()
+    public void InstatiateRollDynamicItem(Vector3 position)
     {
-        return items[Roulette.RollItem()];
+        var item = items[dynamicRoulette.RollItem()];
+        Instantiate(item, position, item.transform.rotation);
     }
     
     private void OnDestroy()

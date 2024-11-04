@@ -5,15 +5,16 @@ using UnityEngine;
 
 public class DynamicItemRoulette 
 {
-    [SerializeField] private Dictionary<ItemType, float> items;
+    [SerializeField] Dictionary<ItemType, float> itemWeights;
 
-    [SerializeField] private List<List<Vector3>> bilinearInterpolationMatrix;
+    [SerializeField] List<List<Vector3>> bilinearInterpolationMatrix;
 
     (float min, float max) shieldRange;
     (float min, float max) lifeRange;
 
     Func<float> ShieldGetter;
     Func<float> LifeGetter;
+
     /// <summary>
     /// Interpolaci�n bilineal R2 -> R3
     /// Dominio(datos del modelo normalizados)
@@ -38,7 +39,7 @@ public class DynamicItemRoulette
 
         // Esta hardcodeadisimo para que la imagen de la interpolaci�n bilineal sea R3 (una dimension por item).
         // En algun momento se podr� implementar una versi�n generica. Por ahora vamos con esto.
-        this.items = new()
+        this.itemWeights = new()
         {
             {ItemType.Shield, 1/3},
             {ItemType.Life, 1/3},
@@ -59,7 +60,6 @@ public class DynamicItemRoulette
 
     private void CalculateDynamicWeights()
     {
-
         //Paso 1: Normalizo los parametros de entrada
         Vector2 input = new Vector2
         (
@@ -74,9 +74,9 @@ public class DynamicItemRoulette
         // Paso 3: Interpolaci�n en el eje y usando los resultados anteriores
         Vector3 f_xy = Vector3.Lerp(fx_y0, fx_y1, input.y);
 
-        items[ItemType.Shield] = f_xy.x;
-        items[ItemType.Life] = f_xy.y;
-        items[ItemType.Money] = f_xy.z;
+        itemWeights[ItemType.Shield] = f_xy.x;
+        itemWeights[ItemType.Life] = f_xy.y;
+        itemWeights[ItemType.Money] = f_xy.z;
 
         UnityEngine.Debug.Log(f_xy);
     }
@@ -84,6 +84,6 @@ public class DynamicItemRoulette
     public ItemType RollItem()
     {
         CalculateDynamicWeights();
-        return RandomUtils.Roulette(items);
+        return RandomUtils.Roulette(itemWeights);
     }
 }

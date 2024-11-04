@@ -70,11 +70,6 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
 
     public Action<string> OnNameAlteredAction;
     public Action<SliderType, float> OnStatValueAlteredAction;
-    public Action<float> OnLifePointsAlteredAction;
-    public Action<float> OnShieldPointsAlteredAction;
-    public Action<float> OnAmmoAlteredAction;
-    public Action<float> OnMoneyAlteredAction;
-
     public Action<Sound> OnEmmitSound;
 
     protected override void Awake()

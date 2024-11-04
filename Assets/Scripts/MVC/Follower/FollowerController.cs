@@ -42,7 +42,7 @@ public class FollowerController : OffensiveNPCController<NPCStates>
         var attack = new NPCStateAttack(_move, _attack, _foeDetection, transform, _model.TimePrediction);
         var reload = new NPCStateReload(_move, _reload, _foeDetection, transform, _model.TimePrediction);
         var pain = new NPCStatePain(_move, _pain);
-        var dead = new OffensiveNPCStateDead(_move, _dead, _respawn);
+        var dead = new OffensiveNPCStateDead(_move, _foeDetection, _dead, _respawn, transform);
 
         statesDict = new()
         {

@@ -21,6 +21,7 @@ public class OffensiveNPCModel : NPCModel, IRespawn
     {
         ReceiveLife(MaxLifePoints);
         ReceiveShield(MaxShieldPoints);
+        RefillAmmo();
         transform.position = respawnPoint;
         Bc.size = originalBCSize;
     }

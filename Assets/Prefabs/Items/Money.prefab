@@ -105,9 +105,9 @@ GameObject:
   - component: {fileID: 8959083757358107121}
   - component: {fileID: 5474922082833942100}
   - component: {fileID: 7790703890815693470}
-  - component: {fileID: 5351180915747100649}
   - component: {fileID: 7995789454868672005}
-  - component: {fileID: 8353169999784946319}
+  - component: {fileID: 5351180915747100649}
+  - component: {fileID: 4184572979601330874}
   m_Layer: 0
   m_Name: Money
   m_TagString: Untagged
@@ -123,7 +123,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8583543789597823819}
   m_LocalRotation: {x: -0.7071069, y: 0, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: -11.48, y: 0.723, z: -4.417}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 274.13, y: 274.13, z: 274.13}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -181,6 +181,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7995789454868672005
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8583543789597823819}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0042017805, y: 0.0015756678, z: 0.0015756678}
+  m_Center: {x: -0.00005672456, y: 0.00006538391, z: 0.00037499997}
 --- !u!114 &5351180915747100649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,20 +210,7 @@ MonoBehaviour:
   amplitude: 0.2
   frequency: 4
   rotationSpeed: 30
---- !u!65 &7995789454868672005
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8583543789597823819}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.0042017805, y: 0.0015756678, z: 0.0015756678}
-  m_Center: {x: -0.00005672456, y: 0.00006538391, z: 0.00037499997}
---- !u!114 &8353169999784946319
+--- !u!114 &4184572979601330874
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -219,7 +219,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8583543789597823819}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38b28dc949886b54db85bf46fb727f3e, type: 3}
+  m_Script: {fileID: 11500000, guid: e369c856356a0fe48b6161a7f9d59092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyToIncrease: 100
+  type: 2
+  cost: 0
+  value: 150
+  collectedSound: {fileID: 8300000, guid: 58082ab25c1a92e459b0b0ea0067b9fa, type: 3}
+  cannotCollectSound: {fileID: 0}

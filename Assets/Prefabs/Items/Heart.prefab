@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6782520680350303259}
   - component: {fileID: 1724393726125671299}
   - component: {fileID: 4264628783693727370}
-  - component: {fileID: 6938656490558471986}
+  - component: {fileID: 8997935547831816055}
   m_Layer: 0
   m_Name: Heart
   m_TagString: Untagged
@@ -28,15 +28,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4981164736196044238}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -9.089999, y: 0.49, z: -5.2}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 35.758324, y: 35.758324, z: 35.758324}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3448494534499181256}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &8774329110539645137
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -116,7 +116,7 @@ MonoBehaviour:
   amplitude: 0.1
   frequency: 3
   rotationSpeed: 10
---- !u!114 &6938656490558471986
+--- !u!114 &8997935547831816055
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,10 +125,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4981164736196044238}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12282dbb9766a094fba8b8dc3f1d7457, type: 3}
+  m_Script: {fileID: 11500000, guid: e369c856356a0fe48b6161a7f9d59092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeToIncrease: 25
+  type: 1
+  cost: 100
+  value: 10
+  collectedSound: {fileID: 8300000, guid: 4e0e8f51b1950484bbe19ba6e9c081d9, type: 3}
+  cannotCollectSound: {fileID: 8300000, guid: 8338ee524eddf3f429f5d782501bc35f, type: 3}
 --- !u!1 &8300389590869957925
 GameObject:
   m_ObjectHideFlags: 0
