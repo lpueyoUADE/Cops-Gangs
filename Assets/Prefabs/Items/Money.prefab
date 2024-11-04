@@ -107,6 +107,7 @@ GameObject:
   - component: {fileID: 7790703890815693470}
   - component: {fileID: 5351180915747100649}
   - component: {fileID: 7995789454868672005}
+  - component: {fileID: 8353169999784946319}
   m_Layer: 0
   m_Name: Money
   m_TagString: Untagged
@@ -209,3 +210,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.0042017805, y: 0.0015756678, z: 0.0015756678}
   m_Center: {x: -0.00005672456, y: 0.00006538391, z: 0.00037499997}
+--- !u!114 &8353169999784946319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8583543789597823819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38b28dc949886b54db85bf46fb727f3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneyToIncrease: 100
