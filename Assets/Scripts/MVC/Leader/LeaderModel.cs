@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class LeaderModel : OffensiveNPCModel
 {
+    [SerializeField] Node _start;
+    public Node Start { get { return _start; } }
+    [SerializeField] Node _goal;
+    public Node Goal { get { return _goal; } }
+
     protected override void Update()
     {
         base.Update();

@@ -21,7 +21,7 @@ public class LeaderController : OffensiveNPCController<NPCStates>
         var pain = new ActionTree(() => fsm.Transition(NPCStates.Pain));
         var dead = new ActionTree(() => fsm.Transition(NPCStates.Dead));
         
-        var qIsPatrolTime = new QuestionTree(() => false, patrol, idle);
+        var qIsPatrolTime = new QuestionTree(() => true, patrol, idle);
         var qCanAttack = new QuestionTree(() => true, attack, pursuit);
         var qAnyEnemyAlive = new QuestionTree(() => true, qCanAttack, qIsPatrolTime);
         var qEnemyInSight = new QuestionTree(() => true, qAnyEnemyAlive, qIsPatrolTime);
@@ -29,13 +29,15 @@ public class LeaderController : OffensiveNPCController<NPCStates>
         var qIAmInPain = new QuestionTree(() => _model.IsInPain, pain, qINeedToReload);
         var qIAmReloading = new QuestionTree(() => _model.IsReloading, reload, qIAmInPain);
         var qIAmDead = new QuestionTree(() => _model.IsDead, dead, qIAmReloading);
-        
+
+
         actionTreeRoot = qIAmDead;
+        //actionTreeRoot = qIsPatrolTime;
     }
     protected override void GenerateStatesDictionary()
     {
         var idle = new NPCStateIdle(_move, _foeDetection);
-        var patrol = new NPCStatePatrol(_move, _foeDetection);
+        var patrol = new NPCStatePatrol(this.gameObject.transform, _move, _model.Start, _model.Goal);
         var pursuit = new NPCStatePursuit(_move, _foeDetection, transform, _model.TimePrediction);
         var attack = new NPCStateAttack(_move, _attack, _foeDetection, transform, _model.TimePrediction);
         var reload = new NPCStateReload(_move, _reload, _foeDetection, transform, _model.TimePrediction);
@@ -56,13 +58,13 @@ public class LeaderController : OffensiveNPCController<NPCStates>
 
     protected override void SetInitialState()
     {
-        fsm.SetInitial(statesDict[NPCStates.Idle]);
+        fsm.SetInitial(statesDict[NPCStates.Patrol]);
     }
     override protected void Update()
     {
         base.Update();
 
         // TODO: Quitar en todos los controllers
-        // print(fsm.GetCurrent);
+        //print(fsm.GetCurrent);
     }
 }

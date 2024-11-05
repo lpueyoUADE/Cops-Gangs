@@ -125,6 +125,7 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public virtual void Move(Vector3 dir)
     {
         _Move(dir, Speed);
+        print("Moving");
     }
     public void MoveSlow(Vector3 dir)
     {
