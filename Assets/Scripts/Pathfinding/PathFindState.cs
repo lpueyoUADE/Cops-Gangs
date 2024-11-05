@@ -6,9 +6,9 @@ public class PathFindState<T> : BasePathFinderState<T>
 {
     IMove _move;
     Animator _anim;
-    public Node _start;
-    public Node _goal;
-    public Transform target;
+    protected Node _start;
+    protected Node _goal;
+    protected Transform target;
 
     public PathFindState(Transform entity, IMove move, Node start, Node goal, List<Vector3> waypoints = null, float distanceToPoint = 0.2f) : base(entity, distanceToPoint)
     {
@@ -21,15 +21,21 @@ public class PathFindState<T> : BasePathFinderState<T>
     {
         Debug.Log("Pathfinding");
         base.Enter();
-        SetPath();
+        SetPath();        
     }
 
+    protected override void Move(Vector3 pos)
+    {
+        base.Move(pos);
+        _move.Move(pos);
+        _move.Look(pos);
+    }
     protected override void Move(Vector3 pos, Vector3 dir)
     {
         base.Move(pos, dir);
         _move.Move(pos);
         _move.Look(dir);
-    }   
+    }
 
     public void SetPath()
     {
