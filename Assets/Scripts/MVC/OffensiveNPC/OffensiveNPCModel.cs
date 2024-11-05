@@ -23,7 +23,7 @@ public class OffensiveNPCModel : NPCModel, IRespawn
         ReceiveShield(MaxShieldPoints);
         RefillAmmo();
         transform.position = respawnPoint;
-        Bc.size = originalBCSize;
+        Bc.enabled = true;
     }
 
     protected override void OnDrawGizmosSelected()

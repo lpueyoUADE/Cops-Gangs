@@ -41,8 +41,6 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public float currentShieldPoints;
     public float currentLifePoints;
     int currentAmmo;
-
-    protected Vector3 originalBCSize;
     private enum painRouletteEnum
     {
         Pain,
@@ -71,6 +69,7 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public Action<string> OnNameAlteredAction;
     public Action<SliderType, float> OnStatValueAlteredAction;
     public Action<Sound> OnEmmitSound;
+    public Action OnReceivedDamage;
 
     protected override void Awake()
     {
@@ -83,8 +82,6 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
         CurrentLifePoints = maxLifePoints;
         CurrentShieldPoints = maxShieldPoints;
         CurrentAmmo = MaxAmmo;
-
-        originalBCSize = Bc.size;
 
         painRoulette = new()
         {
@@ -186,6 +183,8 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     /// <param name="amount"></param>
     public virtual void ReceiveDamage(float amount)
     {
+        OnReceivedDamage?.Invoke();
+
         amount = MathF.Abs(amount);
 
         if (CurrentShieldPoints > 0)
@@ -229,7 +228,7 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public virtual void Die()
     {
         OnEmmitSound?.Invoke(Sound.dead);
-        Bc.size = new(Bc.size.x, 0.1f, Bc.size.z);
+        Bc.enabled = false;
     }
 
     void IMove.SetPosition(Vector3 position)

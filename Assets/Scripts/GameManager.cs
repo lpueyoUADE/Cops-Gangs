@@ -58,7 +58,10 @@ public class GameManager : MonoBehaviour
     public void InstatiateRollDynamicItem(Vector3 position)
     {
         var item = items[dynamicRoulette.RollItem()];
-        Instantiate(item, position, item.transform.rotation);
+        var newItem = Instantiate(item, position, item.transform.rotation);
+        
+        // Los items spawneados son gratis
+        newItem.GetComponent<Item>().Cost = 0;
     }
     
     private void OnDestroy()

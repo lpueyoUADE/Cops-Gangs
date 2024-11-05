@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public abstract class EntityView : EntityBase
 {
@@ -17,9 +17,14 @@ public abstract class EntityView : EntityBase
     [SerializeField] AudioClip deadSound;
 
     EntityModel model;
+    Material material;
 
     protected Dictionary<Sound, AudioClip> audioClipDict;
     protected Dictionary<Sound, AudioSource> audioSourceDict;
+
+    private Color intialMaterialColor;
+
+    public float transitionDuration = 0.4f;
 
     protected void AddAudioSource(Sound soundKey, AudioClip audioClip)
     {
@@ -33,6 +38,10 @@ public abstract class EntityView : EntityBase
     protected override void Awake()
     {
         base.Awake();
+
+        material = Instantiate(GetComponentInChildren<SkinnedMeshRenderer>().sharedMaterial);
+        GetComponentInChildren<SkinnedMeshRenderer>().sharedMaterial = material;
+        intialMaterialColor = material.color;
 
         audioClipDict = new()
         {
@@ -53,11 +62,13 @@ public abstract class EntityView : EntityBase
 
         model = GetComponent<EntityModel>();
         model.OnEmmitSound += OnEmmitSoundHandler;
+        model.OnReceivedDamage += OnReceivedDamageHandler;
     }
 
     protected virtual void OnDestroy()
     {
         model.OnEmmitSound -= OnEmmitSoundHandler;
+        model.OnReceivedDamage -= OnReceivedDamageHandler;
     }
 
     private void OnEmmitSoundHandler(Sound sound)
@@ -66,6 +77,28 @@ public abstract class EntityView : EntityBase
         {
             audioSourceDict[sound].Play();
         }
+    }
+    private IEnumerator DamageEffectCoroutine()
+    {
+        material.color = Color.red;
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < transitionDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / transitionDuration;
+
+            material.color = Color.Lerp(Color.red, intialMaterialColor, t);
+
+            yield return null;
+        }
+
+        material.color = intialMaterialColor;
+    }
+    private void OnReceivedDamageHandler()
+    {
+        StartCoroutine(DamageEffectCoroutine());
     }
 
     protected virtual void Update()

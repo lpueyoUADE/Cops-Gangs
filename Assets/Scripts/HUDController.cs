@@ -14,6 +14,11 @@ public class HUDController : MonoBehaviour
     [SerializeField] Slider lifeSlider;
     [SerializeField] Slider shieldSlider;
     [SerializeField] Slider ammoSlider;
+    [SerializeField] Image speachBubble;
+    [SerializeField] List<Sprite> dialogues;
+    private bool showingDialogue = false;
+    private float dialogueTime;
+    private float currentDialogueTime;
 
     [Header("Position offset")]
     [SerializeField] Vector3 offset;
@@ -66,6 +71,21 @@ public class HUDController : MonoBehaviour
     private void Update()
     {
         transform.position = entityModel.transform.position + offset;
+
+        if (showingDialogue)
+        {
+            if(currentDialogueTime < dialogueTime)
+            {
+                currentDialogueTime += Time.deltaTime;
+            }
+            else
+            {
+                speachBubble.enabled = false;
+                dialogueTime = 0;
+                currentDialogueTime = 0;
+                showingDialogue = false;
+            }
+        }
     }
 
     public void SetName(string name)
@@ -81,5 +101,13 @@ public class HUDController : MonoBehaviour
     public void SetSliderValue(SliderType sliderType, float currentValue)
     {
         sliderDict[sliderType].value = currentValue;
+    }
+
+    public void ShowDialogue(int index, float showTime)
+    {
+        dialogueTime = showTime;
+        speachBubble.sprite = dialogues[index];
+        speachBubble.enabled = true;
+        showingDialogue = true;
     }
 }
