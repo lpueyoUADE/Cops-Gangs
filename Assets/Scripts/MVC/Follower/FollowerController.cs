@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FollowerController : OffensiveNPCController<NPCStates>
+public class FollowerController : OffensiveNPCController<NPCStates>, IBoid
 {
     private FollowerModel _model;
+
+    public Vector3 Position => transform.position;
+
+    public Vector3 Forward => transform.forward;
 
     protected override void Awake()
     {
