@@ -110,8 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ad901bec55c78a408d6c1e3dc7f0ca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Neighbours:
-  - {fileID: 0}
+  Neighbours: []
   hasObstacle: 0
   obstacle:
     serializedVersion: 2
