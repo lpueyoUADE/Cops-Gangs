@@ -2,14 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LeaderController : OffensiveNPCController<NPCStates>
+public class LeaderController : OffensiveNPCController<NPCStates>, IFlockingBehaviour
 {
     private LeaderModel _model;
+    public float timePrediction;
+    public float multiplier;
+    Pursuit pursuit;
+    public Transform target;
 
     protected override void Awake()
     {
         base.Awake();
         _model = GetComponent<LeaderModel>();
+
+        pursuit = new Pursuit(transform, null, timePrediction);
+        SetTarget(target);
     }
     protected override void InitDecisionTree()
     {
@@ -67,5 +74,20 @@ public class LeaderController : OffensiveNPCController<NPCStates>
 
         // TODO: Quitar en todos los controllers
         //print(fsm.GetCurrent);
+    }
+
+    public void SetTarget(Transform newTarget)
+    {
+        if (newTarget == null) return;
+        target = newTarget;
+
+        var rb = target.GetComponent<Rigidbody>();
+        pursuit.Target = rb;
+    }
+
+    public Vector3 GetDir(List<IBoid> boids, IBoid self)
+    {
+        if (target == null) return Vector3.zero;    
+        return pursuit.GetDir() * multiplier;
     }
 }
