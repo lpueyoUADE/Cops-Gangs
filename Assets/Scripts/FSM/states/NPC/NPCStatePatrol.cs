@@ -35,7 +35,7 @@ public class NPCStatePatrol : PathFindState<NPCStates>
     {
         base.Exit();
         OnDestinationReached -= SwitchWaypoints;
-    }
+    }    
 
     private void SwitchWaypoints()
     {

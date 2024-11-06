@@ -44,14 +44,14 @@ public class PathFindState<T> : BasePathFinderState<T>
         SetNodes(GetPathVector(path));
     }
 
-    float GetHeuristic(Node node)
+    protected virtual float GetHeuristic(Node node)
     {
         float h = 0;
         h += Vector3.Distance(node.transform.position, _goal.transform.position);
         return h;
     }
 
-    float GetCost(Node parent, Node child)
+    protected virtual float GetCost(Node parent, Node child)
     {
         float multiplierDistance = 1;
 
@@ -69,7 +69,7 @@ public class PathFindState<T> : BasePathFinderState<T>
         
         return cost;
     }
-    List<Vector3> GetPathVector(List<Node> path)
+    protected virtual List<Vector3> GetPathVector(List<Node> path)
     {
         List<Vector3> pathVector = new List<Vector3>();
         for (int i = 0; i < path.Count; i++)
@@ -78,11 +78,11 @@ public class PathFindState<T> : BasePathFinderState<T>
         }
         return pathVector;
     }
-    bool IsSatisfies(Node current)
+    protected virtual bool IsSatisfies(Node current)
     {
         return current == _goal;
     }
-    List<Node> GetConnections(Node current)
+    protected virtual List<Node> GetConnections(Node current)
     {
         return current.Neighbours;
     }
