@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FollowerModel : OffensiveNPCModel
 {
-    LeaderModel leader;
+    private LeaderModel leader;
 
     public LeaderModel Leader { get => leader; set => leader = value; }
 

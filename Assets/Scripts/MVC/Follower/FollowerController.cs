@@ -3,15 +3,23 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
-public class FollowerController : OffensiveNPCController<NPCStates>
+public class FollowerController : OffensiveNPCController<NPCStates>, IFlockingBehaviour
 {
     private FollowerModel _model;
+    public float multiplier;
+    public float timePrediction;
+    Pursuit pursuit;
+    public Transform target;
     
     protected override void Awake()
     {
         base.Awake();
         _model = GetComponent<FollowerModel>();
+
+        pursuit = new Pursuit(transform, null, timePrediction);
+        SetTarget(target);
     }
     protected override void InitDecisionTree()
     {
@@ -66,5 +74,20 @@ public class FollowerController : OffensiveNPCController<NPCStates>
         base.Update();
         // TODO: Borrar
         print(fsm.GetCurrent);
+    }
+
+    public void SetTarget(Transform newTarget)
+    {
+        if (newTarget == null) return;
+        target = newTarget;
+
+        var rb = target.GetComponent<Rigidbody>();
+        pursuit.Target = rb;
+    }
+
+    public Vector3 GetDir(List<IBoid> boids, IBoid self)
+    {
+        if (target == null) return Vector3.zero;
+        return pursuit.GetDir() * multiplier;
     }
 }
