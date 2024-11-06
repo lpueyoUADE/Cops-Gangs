@@ -902,7 +902,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.802902, g: 1, b: 0, a: 1}
   m_FlipX: 0
@@ -1178,6 +1178,7 @@ GameObject:
   - component: {fileID: 4111677956691615771}
   - component: {fileID: 4111677956691615770}
   - component: {fileID: 4940435727828513644}
+  - component: {fileID: 4245535847570493793}
   m_Layer: 8
   m_Name: Grove2
   m_TagString: Gang
@@ -1275,6 +1276,7 @@ MonoBehaviour:
   respawnTransform: {fileID: 0}
   respawnTime: 5
   accuracy: 0
+  leader: {fileID: 0}
 --- !u!114 &4111677956691615771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1324,6 +1326,23 @@ MonoBehaviour:
   obstacle:
     serializedVersion: 2
     m_Bits: 128
+--- !u!114 &4245535847570493793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7252028129645289689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54a6a9e22834c87489e775e37d990094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxBoids: 10
+  radius: 10
+  maskBoids:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &7296848975488027819
 GameObject:
   m_ObjectHideFlags: 0
