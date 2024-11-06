@@ -29,7 +29,7 @@ public class LeaderController : OffensiveNPCController<NPCStates>, IFlockingBeha
         var dead = new ActionTree(() => fsm.Transition(NPCStates.Dead));
         
         // TODO conectar el pathfinding
-        var qIsPatrolTime = new QuestionTree(() => true, patrol, idle);
+        var qIsPatrolTime = new QuestionTree(() => _model.isIdle, idle, patrol);
         var qCanAttack = new QuestionTree(() => _model.IsTargetInAttackRange(), attack, pursuit);
         var qAnyFoeInSightAlive = new QuestionTree(() => _model.DetectAliveFoes(), qCanAttack, qIsPatrolTime);
         var qIsCurrentTargetSetAndAlive = new QuestionTree(() => _model.IsCurrentTargetSetAndAlive(), qCanAttack, qAnyFoeInSightAlive);
@@ -52,6 +52,8 @@ public class LeaderController : OffensiveNPCController<NPCStates>, IFlockingBeha
         var pain = new NPCStatePain(_move, _pain);
         var dead = new OffensiveNPCStateDead(_move, _foeDetection, _dead, _respawn, transform);
 
+        patrol.OnDestinationReached += _model.StartIdle;
+
         statesDict = new()
         {
             { NPCStates.Idle, idle },
@@ -66,7 +68,7 @@ public class LeaderController : OffensiveNPCController<NPCStates>, IFlockingBeha
 
     protected override void SetInitialState()
     {
-        fsm.SetInitial(statesDict[NPCStates.Patrol]);
+        fsm.SetInitial(statesDict[NPCStates.Idle]);
     }
     override protected void Update()
     {

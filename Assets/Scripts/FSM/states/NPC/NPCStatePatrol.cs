@@ -16,7 +16,7 @@ public class NPCStatePatrol : PathFindState<NPCStates>
     {
         base.Enter();        
         OnDestinationReached += SwitchWaypoints;
-        OnDestinationReached += TestDestination;
+        //OnDestinationReached += TestDestination;
     }
 
     private void TestDestination()
