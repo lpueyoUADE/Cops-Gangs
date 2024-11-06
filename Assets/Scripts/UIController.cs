@@ -59,7 +59,7 @@ public class UIController : MonoBehaviour
         if (ryderReference != null)
         {
             moneyAmount.text = ryderReference.CurrentMoney.ToString();
-            ammoAmount.text = ryderReference.CurrentAmmo.ToString();
+            ammoAmount.text = ryderReference.CurrentAmmo.ToString() + "/" + ryderReference.MaxAmmo.ToString();
         }
     }
 

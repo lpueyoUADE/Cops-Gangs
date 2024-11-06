@@ -1137,6 +1137,7 @@ MonoBehaviour:
   timePrediction: 1
   respawnTransform: {fileID: 0}
   respawnTime: 5
+  accuracy: 0
 --- !u!114 &4111677956691615771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2028,19 +2029,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.00000058114523
-      objectReference: {fileID: 0}
-    - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
-      propertyPath: m_LocalRotation.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
       propertyPath: m_AnchoredPosition.x

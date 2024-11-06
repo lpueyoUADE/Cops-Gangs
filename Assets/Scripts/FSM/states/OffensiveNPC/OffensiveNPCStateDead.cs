@@ -18,7 +18,8 @@ public class OffensiveNPCStateDead : NPCStateDead
     {
         base.Enter();
         respawnCooldoown.ResetCooldown();
-        GameManager.Instance.InstatiateRollDynamicItem(tranform.position);
+        if(tranform.gameObject.layer == LayerMask.NameToLayer("Police"))
+            GameManager.Instance.InstatiateRollDynamicItem(tranform.position);
         foeDetection.ClearTarget();
     }
     public override void Execute()
