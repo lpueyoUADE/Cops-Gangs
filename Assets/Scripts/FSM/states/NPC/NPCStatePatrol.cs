@@ -35,7 +35,19 @@ public class NPCStatePatrol : PathFindState<NPCStates>
     {
         base.Exit();
         OnDestinationReached -= SwitchWaypoints;
-    }    
+    }
+
+    protected override float CalculateCost(Node parent, Node child)
+    {
+        float cost = base.CalculateCost(parent, child);
+
+        if (child.hasEnemy)
+        {
+            cost -= 50;
+        }
+
+        return cost;
+    }
 
     private void SwitchWaypoints()
     {

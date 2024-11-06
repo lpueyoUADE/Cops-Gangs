@@ -38,51 +38,45 @@ public class PathFindState<T> : BasePathFinderState<T>
 
     public void SetPath()
     {
-        List<Node> path = AStar.Run<Node>(_start, IsSatisfies, GetConnections, GetCost, GetHeuristic);
+        List<Node> path = AStar.Run<Node>(_start, CheckForGoal, GetNeighbours, CalculateCost, CalculateHeuristic);
         //Debug.Log(path.Count);
         if (path.Count <= 0) return;
-        SetNodes(GetPathVector(path));
+        SetNodes(BuildPath(path));
     }
 
-    protected virtual float GetHeuristic(Node node)
+    protected virtual float CalculateHeuristic(Node node)
     {
         float h = 0;
         h += Vector3.Distance(node.transform.position, _goal.transform.position);
         return h;
     }
 
-    protected virtual float GetCost(Node parent, Node child)
+    protected virtual float CalculateCost(Node parent, Node child)
     {
-        float multiplierDistance = 1;
-
         float cost = 0;
-        cost += Vector3.Distance(parent.transform.position, child.transform.position) * multiplierDistance;
+        cost += Vector3.Distance(parent.transform.position, child.transform.position);
 
         if (child.hasObstacle)
         {
             cost += 100;
-        }
-        else if (child.hasEnemy)
-        {
-            cost -= 50;
-        }
+        }        
         
         return cost;
     }
-    protected virtual List<Vector3> GetPathVector(List<Node> path)
+    private List<Vector3> BuildPath(List<Node> path)
     {
-        List<Vector3> pathVector = new List<Vector3>();
+        List<Vector3> newPath = new List<Vector3>();
         for (int i = 0; i < path.Count; i++)
         {
-            pathVector.Add(path[i].transform.position);
+            newPath.Add(path[i].transform.position);
         }
-        return pathVector;
+        return newPath;
     }
-    protected virtual bool IsSatisfies(Node current)
+    protected virtual bool CheckForGoal(Node current)
     {
         return current == _goal;
     }
-    protected virtual List<Node> GetConnections(Node current)
+    protected virtual List<Node> GetNeighbours(Node current)
     {
         return current.Neighbours;
     }
