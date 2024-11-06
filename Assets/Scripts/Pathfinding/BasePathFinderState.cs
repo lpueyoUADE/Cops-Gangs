@@ -38,9 +38,7 @@ public abstract class BasePathFinderState <T> : State<T>
             Vector3 currentTargetNode = nodes[index];
             Vector3 direction = currentTargetNode - user.position;
 
-            //float dist = currentTargetNode.magnitude - user.position.magnitude;
             if (direction.magnitude <= AcceptableDistanceToTarget)
-            //if (Mathf.Abs(dist) <= 0.2f)
             {
                 if (index + 1 < nodes.Count)
                 {
@@ -55,11 +53,8 @@ public abstract class BasePathFinderState <T> : State<T>
             }
             else
             {
-                //Move(nodes[index].normalized, nodes[index]);
                 Move(direction.normalized);
             }
-            //Move(direction.normalized);
-            
         }
         else
         {

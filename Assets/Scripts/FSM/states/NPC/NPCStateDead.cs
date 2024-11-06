@@ -5,19 +5,15 @@ using UnityEngine;
 
 public class NPCStateDead : State<NPCStates>
 {
-    IMove move;
-    IDead dead;
+    IMove move;  
     
-    
-    public NPCStateDead(IMove move, IDead dead)
+    public NPCStateDead(IMove move)
     {
         this.move = move;
-        this.dead = dead;
     }
     public override void Enter()
     {
         base.Enter();
         move.Move(Vector3.zero);
-        //GameManager.Instance.RollDynamicItem();
     }
 }

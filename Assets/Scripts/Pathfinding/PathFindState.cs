@@ -5,7 +5,6 @@ using UnityEngine;
 public class PathFindState<T> : BasePathFinderState<T>
 {
     IMove _move;
-    Animator _anim;
     protected Node _start;
     protected Node _goal;
     protected Transform target;
@@ -39,7 +38,6 @@ public class PathFindState<T> : BasePathFinderState<T>
     public void SetPath()
     {
         List<Node> path = AStar.Run<Node>(_start, CheckForGoal, GetNeighbours, CalculateCost, CalculateHeuristic);
-        //Debug.Log(path.Count);
         if (path.Count <= 0) return;
         SetNodes(BuildPath(path));
     }

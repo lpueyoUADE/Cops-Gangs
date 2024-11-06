@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, IDead
+public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, IDead, IBoid
 {
     [Header("Name")]
     [SerializeField] string entityName;
@@ -66,6 +66,9 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public int CurrentAmmo { get => currentAmmo; set { currentAmmo = value; ; OnStatValueAlteredAction?.Invoke(SliderType.Ammo, value); } }
     public float AttackRange { get => attackRange; set => attackRange = value; }
     public BulletController Bullet { get => bullet; set => bullet = value; }
+
+    public Vector3 Position => transform.position;
+    public Vector3 Forward => transform.forward;
 
     public Action<string> OnNameAlteredAction;
     public Action<SliderType, float> OnStatValueAlteredAction;

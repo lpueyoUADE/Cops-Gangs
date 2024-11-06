@@ -22,7 +22,7 @@ public class ClownController : NPCController<NPCStates>
         var pain = new ActionTree(() => fsm.Transition(NPCStates.Pain));
         var dead = new ActionTree(() => fsm.Transition(NPCStates.Dead));
     
-        var qPlayerInSight = new QuestionTree(() => true, runningAway, idle);
+        var qPlayerInSight = new QuestionTree(() => _model.IsCurrentTargetInSight(), runningAway, idle);
         var qIAmInPain = new QuestionTree(() => _model.IsInPain, pain, qPlayerInSight);
         var qIAmDead = new QuestionTree(() => _model.IsDead, dead, qIAmInPain);
 
@@ -34,7 +34,7 @@ public class ClownController : NPCController<NPCStates>
         var idle = new NPCStateIdle(_move, _foeDetection);
         var runningAway = new NPCStateRunningAway(_move, _runningAway, transform, _model.Target.Rb, _model.TimePrediction);
         var pain = new NPCStatePain(_move, _pain);
-        var dead = new NPCStateDead(_move, _dead);
+        var dead = new NPCStateDead(_move);
 
         statesDict = new()
         {

@@ -2,23 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LeaderController : OffensiveNPCController<NPCStates>, IFlockingBehaviour
+public class LeaderController : OffensiveNPCController<NPCStates>
 {
     private LeaderModel _model;
-    public float timePrediction;
-    public float multiplier;
-    Pursuit pursuit;
-    public Transform target;
-
     public EntityModel Leader => gameObject.GetComponent<FollowerModel>().Leader;
 
     protected override void Awake()
     {
         base.Awake();
         _model = GetComponent<LeaderModel>();
-
-        pursuit = new Pursuit(transform, null, timePrediction);
-        SetTarget(_model.transform);
     }
     protected override void InitDecisionTree()
     {
@@ -30,7 +22,6 @@ public class LeaderController : OffensiveNPCController<NPCStates>, IFlockingBeha
         var pain = new ActionTree(() => fsm.Transition(NPCStates.Pain));
         var dead = new ActionTree(() => fsm.Transition(NPCStates.Dead));
         
-        // TODO conectar el pathfinding
         var qIsPatrolTime = new QuestionTree(() => _model.isIdle, idle, patrol);
         var qCanAttack = new QuestionTree(() => _model.IsTargetInAttackRange(), attack, pursuit);
         var qAnyFoeInSightAlive = new QuestionTree(() => _model.DetectAliveFoes(), qCanAttack, qIsPatrolTime);
@@ -40,9 +31,7 @@ public class LeaderController : OffensiveNPCController<NPCStates>, IFlockingBeha
         var qIAmReloading = new QuestionTree(() => _model.IsReloading, reload, qIAmInPain);
         var qIAmDead = new QuestionTree(() => _model.IsDead, dead, qIAmReloading);
 
-
         actionTreeRoot = qIAmDead;
-        //actionTreeRoot = qIsPatrolTime;
     }
     protected override void GenerateStatesDictionary()
     {
@@ -52,7 +41,7 @@ public class LeaderController : OffensiveNPCController<NPCStates>, IFlockingBeha
         var attack = new NPCStateAttack(_moveNPC, _attack, _foeDetection);
         var reload = new NPCStateReload(_move, _reload, _foeDetection);
         var pain = new NPCStatePain(_move, _pain);
-        var dead = new OffensiveNPCStateDead(_move, _foeDetection, _dead, _respawn, transform);
+        var dead = new OffensiveNPCStateDead(_move, _foeDetection, _reload, _respawn, transform);
 
         patrol.OnDestinationReached += _model.StartIdle;
 
@@ -78,20 +67,5 @@ public class LeaderController : OffensiveNPCController<NPCStates>, IFlockingBeha
 
         // TODO: Quitar en todos los controllers
         //print(fsm.GetCurrent);
-    }
-
-    public void SetTarget(Transform newTarget)
-    {
-        if (newTarget == null) return;
-        target = newTarget;
-
-        var rb = target.GetComponent<Rigidbody>();
-        pursuit.Target = rb;
-    }
-
-    public Vector3 GetDir(List<IBoid> boids, IBoid self)
-    {
-        if (target == null) return Vector3.zero;    
-        return pursuit.GetDir() * multiplier;
     }
 }

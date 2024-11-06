@@ -76,6 +76,11 @@ public class NPCModel : EntityModel, IFoeDetection
         personalSpaceRange = enlargedPersonalSpaceRange; 
     }
 
+    protected bool IsInPersonalSpaceRange(Transform other)
+    {
+        return (other.position - transform.position).magnitude <= personalSpaceRange;
+    }
+
     private void GetMyEnemiesLayer()
     {
         Assert.IsTrue(
@@ -111,7 +116,7 @@ public class NPCModel : EntityModel, IFoeDetection
         {
             var entityModel = lineOfSight.EntitiesInRange[i].gameObject.GetComponent<EntityModel>();
 
-            if (entityModel.IsAlive && ((entityModel.transform.position - transform.position).magnitude <= personalSpaceRange || lineOfSight.InSight(entityModel.transform)))
+            if (entityModel.IsAlive && (IsInPersonalSpaceRange(entityModel.transform) || lineOfSight.InSight(entityModel.transform)))
                 entitiesInSight.Add(entityModel);
         }
 
@@ -145,10 +150,10 @@ public class NPCModel : EntityModel, IFoeDetection
     {
         bool InSightAndInRangeAndWithinAngle = lineOfSight.InSight(target.transform);
 
-        if (InSightAndInRangeAndWithinAngle)
+        if (InSightAndInRangeAndWithinAngle || IsInPersonalSpaceRange(target.transform))
             graceTimeCooldown.ResetCooldown();
 
-        return graceTimeCooldown.IsCooldown() || InSightAndInRangeAndWithinAngle;
+        return graceTimeCooldown.IsCooldown() || InSightAndInRangeAndWithinAngle || IsInPersonalSpaceRange(target.transform);
     }
 
     protected virtual void Update()

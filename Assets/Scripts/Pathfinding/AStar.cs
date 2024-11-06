@@ -36,11 +36,11 @@ public class AStar
                 }
 
                 path.Reverse();
-
+                /*
                 foreach (T node in path)
                 {
                     Debug.Log("A-Star:" + node);
-                }
+                }*/
                 return path;
             }
             else

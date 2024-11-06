@@ -28,7 +28,7 @@ public class FollowerController : OffensiveNPCController<NPCStates>
         var dead = new ActionTree(() => fsm.Transition(NPCStates.Dead));
 
         // TODO Conectar el flocking
-        var qLeaderInSight = new QuestionTree(() => true, follow, idle);
+        var qLeaderInSight = new QuestionTree(() => _model.IsLeaderInSight(), follow, idle);
         var qCanAttack = new QuestionTree(() => _model.IsTargetInAttackRange(), attack, pursuit);
         var qAnyFoeInSightAlive = new QuestionTree(() => _model.DetectAliveFoes(), qCanAttack, qLeaderInSight);
         var qIsCurrentTargetSetAndAlive = new QuestionTree(() => _model.IsCurrentTargetSetAndAlive(), qCanAttack, qAnyFoeInSightAlive);
@@ -43,12 +43,12 @@ public class FollowerController : OffensiveNPCController<NPCStates>
     protected override void GenerateStatesDictionary()
     {
         var idle = new NPCStateIdle(_move, _foeDetection);
-        var follow = new NPCStateFollow(_move, _foeDetection, _flockingManager);
+        var follow = new NPCStateFollow(_move, _flockingManager, _model.Leader.transform);
         var pursuit = new NPCStatePursuit(_move, _foeDetection, transform, _model.TimePrediction);
         var attack = new NPCStateAttack(_moveNPC, _attack, _foeDetection);
         var reload = new NPCStateReload(_move, _reload, _foeDetection);
         var pain = new NPCStatePain(_move, _pain);
-        var dead = new OffensiveNPCStateDead(_move, _foeDetection, _dead, _respawn, transform);
+        var dead = new OffensiveNPCStateDead(_move, _foeDetection, _reload, _respawn, transform);
 
         statesDict = new()
         {
@@ -69,6 +69,6 @@ public class FollowerController : OffensiveNPCController<NPCStates>
     {
         base.Update();
         // TODO: Borrar
-        print(fsm.GetCurrent);
+        // print(fsm.GetCurrent);
     }
 }

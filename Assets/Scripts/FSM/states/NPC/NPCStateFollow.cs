@@ -5,14 +5,14 @@ using UnityEngine;
 public class NPCStateFollow : State<NPCStates>
 {
     IMove move;
-    IFoeDetection foeDetection;
     FlockingManager flockingManager;
+    Transform leader;
 
-    public NPCStateFollow(IMove move, IFoeDetection foeDetection, FlockingManager flockingManager)
+    public NPCStateFollow(IMove move, FlockingManager flockingManager, Transform leader)
     {
         this.move = move;
-        this.foeDetection = foeDetection;
         this.flockingManager = flockingManager;
+        this.leader = leader;
     }
 
     public override void Enter()
@@ -25,5 +25,6 @@ public class NPCStateFollow : State<NPCStates>
         base.FixedExecute();
         var dir = flockingManager.GetDir();
         move.Move(dir);
+        move.Look(leader);
     }
 }
