@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class UIController : MonoBehaviour
 {
@@ -11,8 +12,8 @@ public class UIController : MonoBehaviour
     public GameObject pauseButton;
     public GameObject miniMap;
 
-    public Text moneyAmount;
-    public Text ammoAmount;
+    public TextMeshProUGUI moneyAmount;
+    public TextMeshProUGUI ammoAmount;
     public RyderModel ryderReference;
 
     bool isPaused;
@@ -59,7 +60,7 @@ public class UIController : MonoBehaviour
         if (ryderReference != null)
         {
             moneyAmount.text = ryderReference.CurrentMoney.ToString();
-            ammoAmount.text = ryderReference.CurrentAmmo.ToString();
+            ammoAmount.text = ryderReference.CurrentAmmo.ToString() + " - " + ryderReference.MaxAmmo.ToString();
         }
     }
 

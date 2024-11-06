@@ -130,7 +130,7 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     }
     public void MoveSlow(Vector3 dir)
     {
-        _Move(dir, Speed / 3);
+        _Move(dir, Speed / 10);
     }
     public virtual void Look(Vector3 dir)
     {
@@ -220,7 +220,7 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     }
     public void Pain()
     {
-        if (RandomUtils.Roulette(painRoulette) == painRouletteEnum.Pain)
+        if (!IsReloading && RandomUtils.Roulette(painRoulette) == painRouletteEnum.Pain)
         {
             OnEmmitSound?.Invoke(Sound.pain);
             IsInPain = true;

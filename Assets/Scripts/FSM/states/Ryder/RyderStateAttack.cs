@@ -48,7 +48,7 @@ public class RyderStateAttack : State<PlayerStates>
 
         moveMouse.MoveSlow(dir);
 
-            if (!Input.GetMouseButton(0))
+        if (!Input.GetMouseButton(0))
         {
             attack.IsAttacking = false;
             fsm.Transition(PlayerStates.Idle);

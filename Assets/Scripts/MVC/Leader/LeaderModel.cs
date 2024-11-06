@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LeaderModel : OffensiveNPCModel
 {
+    [Header("Patrol")]
     [SerializeField] Node _start;
     public Node Start { get { return _start; } }
     [SerializeField] Node _goal;
