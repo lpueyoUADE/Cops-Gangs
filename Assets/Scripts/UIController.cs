@@ -40,7 +40,13 @@ public class UIController : MonoBehaviour
 
     private void ToggleMiniMap()
     {
-        if (miniMap) miniMap.SetActive(!miniMap.activeSelf);
+        if (miniMap)
+        {
+            miniMap.SetActive(!miniMap.activeSelf);
+            moneyAmount.gameObject.transform.parent.gameObject.SetActive(!miniMap.activeSelf);
+            ammoAmount.gameObject.transform.parent.gameObject.SetActive(!miniMap.activeSelf);
+        }
+
     }
     private void Update()
     {
