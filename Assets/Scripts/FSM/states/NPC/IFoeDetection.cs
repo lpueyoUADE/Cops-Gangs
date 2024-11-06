@@ -2,7 +2,7 @@ using UnityEngine;
 
 public interface IFoeDetection
 {
-    public void DetectAliveFoes();
+    public bool DetectAliveFoes();
 
     public EntityModel Target {get;}
 
@@ -10,7 +10,7 @@ public interface IFoeDetection
 
     public void ClearTarget();
     
-    public bool IsCurrentTargetAlive();
+    public bool IsCurrentTargetSetAndAlive();
 
     public bool IsCurrentTargetInSight();
 }

@@ -5,5 +5,5 @@ using UnityEngine;
 public interface IDead
 {
     void Die();
-    bool IsDead { get; set; }
+    bool IsDead { get; }
 }

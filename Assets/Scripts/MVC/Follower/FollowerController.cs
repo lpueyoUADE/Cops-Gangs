@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FollowerController : NPCController<NPCStates>
+public class FollowerController : OffensiveNPCController<NPCStates>
 {
     private FollowerModel _model;
-
+    
     protected override void Awake()
     {
         base.Awake();
@@ -22,11 +23,12 @@ public class FollowerController : NPCController<NPCStates>
         var pain = new ActionTree(() => fsm.Transition(NPCStates.Pain));
         var dead = new ActionTree(() => fsm.Transition(NPCStates.Dead));
 
+        // TODO Conectar el flocking
         var qLeaderInSight = new QuestionTree(() => false, follow, idle);
         var qCanAttack = new QuestionTree(() => _model.IsTargetInAttackRange(), attack, pursuit);
-        var qAnyFoeInSightAlive = new QuestionTree(() => _model.IsAnyFoeInSightAlive(), qCanAttack, qLeaderInSight);
-        var qIsTargetSet = new QuestionTree(() => _model.IsTargetSet(), qCanAttack, qAnyFoeInSightAlive);
-        var qINeedToReload = new QuestionTree(() => _model.NeedsToReload(), reload, qIsTargetSet);
+        var qAnyFoeInSightAlive = new QuestionTree(() => _model.DetectAliveFoes(), qCanAttack, qLeaderInSight);
+        var qIsCurrentTargetSetAndAlive = new QuestionTree(() => _model.IsCurrentTargetSetAndAlive(), qCanAttack, qAnyFoeInSightAlive);
+        var qINeedToReload = new QuestionTree(() => _model.NeedsToReload(), reload, qIsCurrentTargetSetAndAlive);
         var qIAmInPain = new QuestionTree(() => _model.IsInPain, pain, qINeedToReload);
         var qIAmReloading = new QuestionTree(() => _model.IsReloading, reload, qIAmInPain);
         var qIAmDead = new QuestionTree(() => _model.IsDead, dead, qIAmReloading); 
@@ -39,10 +41,10 @@ public class FollowerController : NPCController<NPCStates>
         var idle = new NPCStateIdle(_move, _foeDetection);
         var follow = new NPCStateFollow(_move, _foeDetection);
         var pursuit = new NPCStatePursuit(_move, _foeDetection, transform, _model.TimePrediction);
-        var attack = new NPCStateAttack(_move, _attack, _foeDetection, transform, _model.TimePrediction);
+        var attack = new NPCStateAttack(_moveNPC, _attack, _foeDetection);
         var reload = new NPCStateReload(_move, _reload, _foeDetection);
         var pain = new NPCStatePain(_move, _pain);
-        var dead = new NPCStateDead(_move, _dead);
+        var dead = new OffensiveNPCStateDead(_move, _foeDetection, _dead, _respawn, transform);
 
         statesDict = new()
         {

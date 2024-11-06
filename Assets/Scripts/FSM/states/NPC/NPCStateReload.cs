@@ -23,9 +23,13 @@ public class NPCStateReload : State<NPCStates>
     public override void FixedExecute()
     {
         base.FixedExecute();
-        if(foeDetection.Target != null)
+
+        if (!foeDetection.IsCurrentTargetSetAndAlive())
         {
-            move.Look(foeDetection.Target.Rb.position);
+            foeDetection.ClearTarget();
+            return;
         }
+
+        move.Look(foeDetection.Target.Rb.position);
     }
 }

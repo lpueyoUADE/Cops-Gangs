@@ -26,15 +26,11 @@ public class NPCStatePursuit : State<NPCStates>
     {
         base.FixedExecute();
 
-        foeDetection.DetectAliveFoes();
-
-        if (!foeDetection.IsCurrentTargetAlive() || !foeDetection.IsCurrentTargetInSight())
+        if (!foeDetection.IsCurrentTargetSetAndAlive())
         {
             foeDetection.ClearTarget();
+            return;
         }
-        else
-        {
-            move.Move(Pursuit.GetDir(entity, foeDetection.Target.Rb, timePrediction));
-        } 
+        move.Move(Pursuit.GetDir(entity, foeDetection.Target.Rb, timePrediction));
     }
 }

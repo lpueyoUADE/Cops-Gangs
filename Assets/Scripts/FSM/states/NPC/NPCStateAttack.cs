@@ -1,52 +1,45 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class NPCStateAttack : State<NPCStates>
 {
-    IMove move;
+    IMoveNPC moveNPC;
     IAttack attack;
     IFoeDetection foeDetection;
     Cooldown attackCoolDown;
-    Transform entity;
-    float timePrediction;
-    public NPCStateAttack(IMove move, IAttack attack, IFoeDetection foeDetection, Transform entity, float timePrediction)
+
+    public NPCStateAttack(IMoveNPC moveNPC, IAttack attack, IFoeDetection foeDetection)
     {
-        this.move = move;
+        this.moveNPC = moveNPC;
         this.attack = attack;
         this.foeDetection = foeDetection;
-        this.entity = entity;
-        this.timePrediction = timePrediction;
-
         attackCoolDown = new(this.attack.AttackCooldownTime);
     }
     public override void Enter()
     {
         base.Enter();
         attack.Attack();
-        foeDetection.DetectAliveFoes();
-        move.Move(Vector3.zero);
     }
 
     public override void FixedExecute()
     {
         base.FixedExecute();
-
         attackCoolDown.RunCooldown();
-        
-        move.Look(Pursuit.GetDir(entity, foeDetection.Target.Rb, timePrediction));
 
-        if (!foeDetection.IsCurrentTargetAlive() || !foeDetection.IsCurrentTargetInSight())
+        if (!foeDetection.IsCurrentTargetSetAndAlive())
         {
             foeDetection.ClearTarget();
+            return;
         }
-        else
+
+        moveNPC.AimAhead(foeDetection.Target.Rb);
+
+        if (!attackCoolDown.IsCooldown())
         {
-            if (!attackCoolDown.IsCooldown())
-            {
-                attack.Shoot();
-                attackCoolDown.ResetCooldown();
-            }
+            attack.Shoot();    
+            attackCoolDown.ResetCooldown();
         }
     }
 

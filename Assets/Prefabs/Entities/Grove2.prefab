@@ -1142,7 +1142,7 @@ Rigidbody:
   m_GameObject: {fileID: 7252028129645289689}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 5
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -1164,20 +1164,22 @@ MonoBehaviour:
   entityName: Combo
   maxShieldPoints: 3
   maxLifePoints: 3
-  painChance: 1
+  painChance: 0.5
   speed: 10
   rotationSpeed: 6
+  attackRange: 10
   attackSpawnPoint: {fileID: 7522428616621208228}
   bullet: {fileID: 4379533153359173236, guid: 3a47c496c51e7b34c98886670361737a, type: 3}
   attackCooldownTime: 0.8
   damage: 1
   maxAmmo: 5
   entityAnimController: {fileID: 7522428616119600167}
-  currentShieldPoints: 0
-  currentLifePoints: 0
+  currentShieldPoints: 1
+  currentLifePoints: 1
   eyeSight: {fileID: 7522428616548162755}
   lineOfSightGraceTime: 0
-  attackRange: 0
+  personalSpaceRange: 5
+  enlargedPersonalSpaceRangeTime: 5
   radius: 4
   angle: 150
   personalArea: 1
@@ -1185,6 +1187,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   timePrediction: 1
+  respawnTransform: {fileID: 0}
+  respawnTime: 5
 --- !u!114 &4111677956691615771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1927,19 +1931,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.00000058114523
-      objectReference: {fileID: 0}
-    - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
-      propertyPath: m_LocalRotation.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2531869709452548365, guid: 8695e497766e9fd4f87f9f9fffb7557d, type: 3}
       propertyPath: m_AnchoredPosition.x

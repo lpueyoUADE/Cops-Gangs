@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class RandomUtils
 {
+    public static float Range(int min, int max)
+    {
+        return min + UnityEngine.Random.value * (max - min);
+    }
     /// <summary>
     /// Devuelve un numero aleatorio entre [min, max]
     /// </summary>

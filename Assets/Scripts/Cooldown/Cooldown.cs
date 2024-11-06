@@ -38,6 +38,7 @@ public class Cooldown
     /// <summary>
     /// Devuelve true mientras el tiempo siga corriendo.
     /// Cuando el timer se agota, IsCoolDown devuelve false.
+    /// Si el cooldown tiene onFinishCooldown seteado, se ejecuta al agotar el timer.
     /// </summary>
     /// <returns></returns>
     public bool IsCooldown()

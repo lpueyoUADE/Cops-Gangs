@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,9 @@ public class NPCModel : EntityModel, IFoeDetection
     [SerializeField] Transform eyeSight;
     [SerializeField] float lineOfSightGraceTime;
 
-    [Header("Attack")]
-    [SerializeField] float attackRange;
+    [Header("Personal Space Range")]
+    [SerializeField] float personalSpaceRange; // Si un enemigo está en este rango lo ve aunque esté a sus espaldas.
+    [SerializeField] float enlargedPersonalSpaceRangeTime;
 
     [Header("Obstacle Avoidance")]
     [SerializeField] float radius;
@@ -26,14 +28,16 @@ public class NPCModel : EntityModel, IFoeDetection
     protected LineOfSight lineOfSight;
 
     protected Cooldown graceTimeCooldown;
+    private Cooldown enlargedPersonalSpaceRangeCooldown;
 
     private LayerMask foeMask;
-    private int aliveFoesCount;
+
+    private float initialPersonalSpaceRange;
+    private float enlargedPersonalSpaceRange;
 
     public Transform EyeSight { get => eyeSight; set => eyeSight = value; }
     public float LineOfSightGraceTime { get => lineOfSightGraceTime; set => lineOfSightGraceTime = value; }
     public EntityModel Target { get => target; }
-    public float AttackRange { get => attackRange; set => attackRange = value; }
     public float TimePrediction { get => timePrediction; set => timePrediction = value; }
 
     protected override void Awake()
@@ -42,7 +46,9 @@ public class NPCModel : EntityModel, IFoeDetection
         obstacleAvoidance = new ObstacleAvoidance(transform, radius, angle, personalArea, obsMask);
         lineOfSight = GetComponent<LineOfSight>();
         graceTimeCooldown = new Cooldown(LineOfSightGraceTime);
-
+        enlargedPersonalSpaceRangeCooldown = new Cooldown(enlargedPersonalSpaceRangeTime, ResetPersonalSpaceRange);
+        initialPersonalSpaceRange = personalSpaceRange;
+        enlargedPersonalSpaceRange = personalSpaceRange * 5;
         GetMyEnemiesLayer();
     }
 
@@ -52,6 +58,22 @@ public class NPCModel : EntityModel, IFoeDetection
         obsDir.y = 0;
         base.Move(obsDir);
         Look(obsDir);
+    }
+
+    public override void ReceiveDamage(float amount)
+    {
+        base.ReceiveDamage(amount);
+        EnlargePersonalSpaceRange();
+    }
+
+    private void ResetPersonalSpaceRange()
+    {
+        personalSpaceRange = initialPersonalSpaceRange;
+    }
+    private void EnlargePersonalSpaceRange()
+    {
+        enlargedPersonalSpaceRangeCooldown.ResetCooldown();
+        personalSpaceRange = enlargedPersonalSpaceRange; 
     }
 
     private void GetMyEnemiesLayer()
@@ -71,29 +93,42 @@ public class NPCModel : EntityModel, IFoeDetection
             LayerMask.NameToLayer("Gangster") : 
             LayerMask.NameToLayer("Police");
     }
-    public void DetectAliveFoes()
+    /// <summary>
+    /// Busca todas las entidades enemigas, de aquellas que estén vivas y, muy cerca o a la vista
+    /// elije 1 al azar como objetivo.
+    /// Devuelve true si encuentra y setea un nuevo target, false caso contrario.
+    /// </summary>
+    /// <returns></returns>
+    public bool DetectAliveFoes()
     {
         if (IsTargetSet())
-            return;
+            return true;
 
-        aliveFoesCount = lineOfSight.GetEntitiesInSight(transform.position, foeMask);
+        var closeFoesCount = lineOfSight.GetEntitiesInRange(transform.position, foeMask);
+        List<EntityModel> entitiesInSight = new();
 
-        if (aliveFoesCount > 0)
+        for (int i = 0; i < closeFoesCount; i++)
         {
-            SetTarget(lineOfSight.EntitiesInSight[Random.Range(0, aliveFoesCount)].gameObject.GetComponent<EntityModel>());
-        }
-    }
+            var entityModel = lineOfSight.EntitiesInRange[i].gameObject.GetComponent<EntityModel>();
 
-    public bool IsAnyFoeInSightAlive()
-    {
-        return aliveFoesCount > 0;
+            if (entityModel.IsAlive && ((entityModel.transform.position - transform.position).magnitude <= personalSpaceRange || lineOfSight.InSight(entityModel.transform)))
+                entitiesInSight.Add(entityModel);
+        }
+
+        if (entitiesInSight.Count > 0)
+        {
+            SetTarget(entitiesInSight[UnityEngine.Random.Range(0, entitiesInSight.Count)]);
+            return true;
+        }
+
+        return false;
     }
 
     public bool IsTargetSet()
     {
         return target != null;
     }
-    public bool IsCurrentTargetAlive()
+    public bool IsCurrentTargetSetAndAlive()
     {
         return IsTargetSet() && target.IsAlive;
     }
@@ -101,7 +136,6 @@ public class NPCModel : EntityModel, IFoeDetection
     {
         this.target = target;
     }
-
     public void ClearTarget()
     {
         this.target = null;
@@ -109,10 +143,7 @@ public class NPCModel : EntityModel, IFoeDetection
 
     public bool IsCurrentTargetInSight()
     {
-        bool InSightAndInRangeAndWithinAngle =
-            lineOfSight.InView(target.transform) &&
-            lineOfSight.CheckRange(target.transform) &&
-            lineOfSight.CheckAngle(target.transform);
+        bool InSightAndInRangeAndWithinAngle = lineOfSight.InSight(target.transform);
 
         if (InSightAndInRangeAndWithinAngle)
             graceTimeCooldown.ResetCooldown();
@@ -120,14 +151,15 @@ public class NPCModel : EntityModel, IFoeDetection
         return graceTimeCooldown.IsCooldown() || InSightAndInRangeAndWithinAngle;
     }
 
-    public bool IsTargetInAttackRange()
+    protected virtual void Update()
     {
-        return IsTargetSet() && (target.transform.position - transform.position).magnitude <= attackRange;
+        enlargedPersonalSpaceRangeCooldown.IsCooldown();
     }
 
-    private void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        // Personal Area Range
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, personalSpaceRange);
     }
 }

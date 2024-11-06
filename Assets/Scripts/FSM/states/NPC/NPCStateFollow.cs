@@ -23,8 +23,5 @@ public class NPCStateFollow : State<NPCStates>
         
         // Follow the leader
         move.Move(new Vector3(1,0,0));
-
-        // Search for enemies
-        foeDetection.DetectAliveFoes();
     }
 }

@@ -22,6 +22,7 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     [SerializeField] float rotationSpeed = 6;
 
     [Header("Attack")]
+    [SerializeField] float attackRange;
     [SerializeField] Transform attackSpawnPoint;
     [SerializeField] BulletController bullet;
     [SerializeField] float attackCooldownTime;
@@ -34,15 +35,12 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     bool isAttacking;
     bool isReloading;
     bool isInPain;
-    bool isDead;
 
     float acceleration = 35f;
 
     public float currentShieldPoints;
     public float currentLifePoints;
     int currentAmmo;
-
-    Vector3 originalBCSize;
     private enum painRouletteEnum
     {
         Pain,
@@ -59,24 +57,25 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
     public bool IsReloading { get => isReloading; set => isReloading = value; }
     public bool IsInPain { get => isInPain; set => isInPain = value; }
-    public bool IsDead { get => isDead; set => isDead = value; }
-    public bool IsAlive { get => !isDead; }
+    public bool IsDead { get => currentLifePoints <= 0; }
+    public bool IsAlive { get => !IsDead; }
     public string EntityName { get => entityName; set { entityName = value; ; OnNameAlteredAction?.Invoke(value); } }
     public int MaxAmmo { get => maxAmmo; set => maxAmmo = value; }
-    public float CurrentLifePoints { get => currentLifePoints; set { currentLifePoints = value; ; OnLifePointsAlteredAction?.Invoke(value); } }
-    public float CurrentShieldPoints { get => currentShieldPoints; set { currentShieldPoints = value; ; OnShieldPointsAlteredAction?.Invoke(value); } }
-    public int CurrentAmmo { get => currentAmmo; set { currentAmmo = value; ; OnAmmoAlteredAction?.Invoke(value); } }
+    public float CurrentLifePoints { get => currentLifePoints; set { currentLifePoints = value; ; OnStatValueAlteredAction?.Invoke(SliderType.Life, value); } }
+    public float CurrentShieldPoints { get => currentShieldPoints; set { currentShieldPoints = value; ; OnStatValueAlteredAction?.Invoke(SliderType.Shield, value); } }
+    public int CurrentAmmo { get => currentAmmo; set { currentAmmo = value; ; OnStatValueAlteredAction?.Invoke(SliderType.Ammo, value); } }
+    public float AttackRange { get => attackRange; set => attackRange = value; }
+    public BulletController Bullet { get => bullet; set => bullet = value; }
 
     public Action<string> OnNameAlteredAction;
-    public Action<float> OnLifePointsAlteredAction;
-    public Action<float> OnShieldPointsAlteredAction;
-    public Action<float> OnAmmoAlteredAction;
-    public Action<float> OnMoneyAlteredAction;
-
+    public Action<SliderType, float> OnStatValueAlteredAction;
     public Action<Sound> OnEmmitSound;
+    public Action OnReceivedDamage;
 
-    protected void Start()
+    protected override void Awake()
     {
+        base.Awake();
+
         IsAttacking = false;
         IsReloading = false;
 
@@ -85,18 +84,11 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
         CurrentShieldPoints = maxShieldPoints;
         CurrentAmmo = MaxAmmo;
 
-        originalBCSize = Bc.size;
-
         painRoulette = new()
         {
             { painRouletteEnum.Pain, painChance },
             { painRouletteEnum.NoPain, 1f - painChance }
         };
-    }
-
-    protected override void Awake()
-    {
-        base.Awake();
         entityAnimController.FinishedReloadAction += FinishedReloadActionHandler;
         entityAnimController.FinishedPainAction += FinishedPainActionHandler;
         entityAnimController.StepAction += StepActionHandler;
@@ -134,6 +126,7 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public virtual void Move(Vector3 dir)
     {
         _Move(dir, Speed);
+        //print("Moving");
     }
     public void MoveSlow(Vector3 dir)
     {
@@ -157,7 +150,7 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public void Shoot()
     {
         OnEmmitSound?.Invoke(Sound.shoot);
-        var newBullet = Instantiate(bullet, attackSpawnPoint.position, bullet.transform.rotation);
+        var newBullet = Instantiate(Bullet, attackSpawnPoint.position, Bullet.transform.rotation);
         newBullet.Direction = transform.forward;
         newBullet.Owner = this.tag;
         newBullet.Damage = this.damage;
@@ -190,8 +183,10 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     /// Amount es un valor positivo que indica cuantos puntos se restan al escudo o la vida seg�n corresponda.
     /// </summary>
     /// <param name="amount"></param>
-    public void ReceiveDamage(float amount)
+    public virtual void ReceiveDamage(float amount)
     {
+        OnReceivedDamage?.Invoke();
+
         amount = MathF.Abs(amount);
 
         if (CurrentShieldPoints > 0)
@@ -218,6 +213,11 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
         amount = MathF.Abs(amount);
         CurrentLifePoints = Mathf.Clamp(CurrentLifePoints + amount, 0, MaxLifePoints);
     }
+
+    public void RefillAmmo()
+    {
+        CurrentAmmo = MaxAmmo;
+    }
     public void Pain()
     {
         if (RandomUtils.Roulette(painRoulette) == painRouletteEnum.Pain)
@@ -230,8 +230,7 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public virtual void Die()
     {
         OnEmmitSound?.Invoke(Sound.dead);
-        Bc.size = new(Bc.size.x, 0.1f, Bc.size.z);
-        IsDead = true;
+        Bc.enabled = false;
     }
 
     void IMove.SetPosition(Vector3 position)

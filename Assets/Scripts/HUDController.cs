@@ -7,13 +7,6 @@ using UnityEditor.UIElements;
 
 public class HUDController : MonoBehaviour
 {
-    public enum SliderType
-    {
-        Life,
-        Shield,
-        Ammo    
-    }
-
     private Dictionary<SliderType, Slider> sliderDict;
 
     [Header("Parameters")]
@@ -21,6 +14,11 @@ public class HUDController : MonoBehaviour
     [SerializeField] Slider lifeSlider;
     [SerializeField] Slider shieldSlider;
     [SerializeField] Slider ammoSlider;
+    [SerializeField] Image speachBubble;
+    [SerializeField] List<Sprite> dialogues;
+    private bool showingDialogue = false;
+    private float dialogueTime;
+    private float currentDialogueTime;
 
     [Header("Position offset")]
     [SerializeField] Vector3 offset;
@@ -44,18 +42,20 @@ public class HUDController : MonoBehaviour
             { SliderType.Ammo, ammoSlider},
         };
 
+        transform.SetParent(canvas);
+
+        InitSlider(SliderType.Life, entityModel.MaxLifePoints);
+        InitSlider(SliderType.Shield, entityModel.MaxShieldPoints);
+        InitSlider(SliderType.Ammo, entityModel.MaxAmmo);
+
         entityModel.OnNameAlteredAction += OnNameAlteredActionHandler;
-        entityModel.OnLifePointsAlteredAction += OnLifePointsAlteredActionHandler;
-        entityModel.OnShieldPointsAlteredAction += OnShieldPointsAlteredActionHandler;
-        entityModel.OnAmmoAlteredAction += OnAmmoAlteredActionHandler;
+        entityModel.OnStatValueAlteredAction += OnSliderValueAlteredActionHandler;
     }
 
     private void OnDestroy()
     {
         entityModel.OnNameAlteredAction += OnNameAlteredActionHandler;
-        entityModel.OnLifePointsAlteredAction += OnLifePointsAlteredActionHandler;
-        entityModel.OnShieldPointsAlteredAction += OnShieldPointsAlteredActionHandler;
-        entityModel.OnAmmoAlteredAction += OnAmmoAlteredActionHandler;
+        entityModel.OnStatValueAlteredAction -= OnSliderValueAlteredActionHandler;
     }
 
     private void OnNameAlteredActionHandler(string name)
@@ -63,34 +63,29 @@ public class HUDController : MonoBehaviour
         SetName(name);
     }
 
-    private void OnLifePointsAlteredActionHandler(float lifePoints)
+    private void OnSliderValueAlteredActionHandler(SliderType sliderType, float value)
     {
-        SetSliderValue(SliderType.Life, lifePoints);
-    }
-
-    private void OnShieldPointsAlteredActionHandler(float shieldPoints)
-    {
-        SetSliderValue(SliderType.Shield, shieldPoints);
-    }
-    private void OnAmmoAlteredActionHandler(float ammo)
-    {
-        SetSliderValue(SliderType.Ammo, ammo);
-    }
-
-    private void Start()
-    {
-        transform.SetParent(canvas);
-
-        InitSlider(SliderType.Life, entityModel.MaxLifePoints);
-        InitSlider(SliderType.Shield, entityModel.MaxShieldPoints);
-        InitSlider(SliderType.Ammo, entityModel.MaxAmmo);
-
+        SetSliderValue(sliderType, value);
     }
 
     private void Update()
     {
         transform.position = entityModel.transform.position + offset;
-        // transform.LookAt(Camera.main.transform);
+
+        if (showingDialogue)
+        {
+            if(currentDialogueTime < dialogueTime)
+            {
+                currentDialogueTime += Time.deltaTime;
+            }
+            else
+            {
+                speachBubble.enabled = false;
+                dialogueTime = 0;
+                currentDialogueTime = 0;
+                showingDialogue = false;
+            }
+        }
     }
 
     public void SetName(string name)
@@ -106,5 +101,13 @@ public class HUDController : MonoBehaviour
     public void SetSliderValue(SliderType sliderType, float currentValue)
     {
         sliderDict[sliderType].value = currentValue;
+    }
+
+    public void ShowDialogue(int index, float showTime)
+    {
+        dialogueTime = showTime;
+        speachBubble.sprite = dialogues[index];
+        speachBubble.enabled = true;
+        showingDialogue = true;
     }
 }

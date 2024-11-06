@@ -6,18 +6,27 @@ public class Node : MonoBehaviour
 {
     public List<Node> Neighbours;
 
-    public bool hasBonus;
-
     public bool hasObstacle;
 
-    private void OnDrawGizmos()
+    [SerializeField] LayerMask obstacle;
+
+    private void Start()
     {
-        foreach(var node in Neighbours)
+        if (Physics.CheckSphere(transform.position, 1, obstacle))
         {
-            Gizmos.DrawLine(transform.position, node.transform.position);
+            hasObstacle = true;
         }
-        
     }
 
+    private void OnDrawGizmos()
+    {        
+        foreach(Node node in Neighbours)
+        {
+            if (node.Neighbours.Contains(this))
+            {
+                Gizmos.DrawLine(transform.position, node.transform.position);
+            }            
+        }
+    }
 
 }
