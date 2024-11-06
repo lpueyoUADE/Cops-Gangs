@@ -19,7 +19,6 @@ public class PathFindState<T> : BasePathFinderState<T>
 
     public override void Enter()
     {
-        Debug.Log("Pathfinding");
         base.Enter();
         SetPath();        
     }
