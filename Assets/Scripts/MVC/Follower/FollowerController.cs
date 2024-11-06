@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class FollowerController : OffensiveNPCController<NPCStates>
 {
     private FollowerModel _model;
-
+    
     protected override void Awake()
     {
         base.Awake();
@@ -22,6 +23,7 @@ public class FollowerController : OffensiveNPCController<NPCStates>
         var pain = new ActionTree(() => fsm.Transition(NPCStates.Pain));
         var dead = new ActionTree(() => fsm.Transition(NPCStates.Dead));
 
+        // TODO Conectar el flocking
         var qLeaderInSight = new QuestionTree(() => false, follow, idle);
         var qCanAttack = new QuestionTree(() => _model.IsTargetInAttackRange(), attack, pursuit);
         var qAnyFoeInSightAlive = new QuestionTree(() => _model.DetectAliveFoes(), qCanAttack, qLeaderInSight);
@@ -39,8 +41,8 @@ public class FollowerController : OffensiveNPCController<NPCStates>
         var idle = new NPCStateIdle(_move, _foeDetection);
         var follow = new NPCStateFollow(_move, _foeDetection);
         var pursuit = new NPCStatePursuit(_move, _foeDetection, transform, _model.TimePrediction);
-        var attack = new NPCStateAttack(_move, _attack, _foeDetection, transform, _model.TimePrediction);
-        var reload = new NPCStateReload(_move, _reload, _foeDetection, transform, _model.TimePrediction);
+        var attack = new NPCStateAttack(_moveNPC, _attack, _foeDetection);
+        var reload = new NPCStateReload(_move, _reload, _foeDetection);
         var pain = new NPCStatePain(_move, _pain);
         var dead = new OffensiveNPCStateDead(_move, _foeDetection, _dead, _respawn, transform);
 

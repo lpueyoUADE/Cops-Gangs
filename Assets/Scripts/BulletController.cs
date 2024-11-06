@@ -21,13 +21,15 @@ public class BulletController : MonoBehaviour
     public Vector3 Direction { get => transform.forward; set => transform.forward = value; }
     public string Owner { get => owner; set => owner = value; }
     public float Damage { get => damage; set => damage = value; }
+    public Rigidbody Rb { get => rb; set => rb = value; }
+    public float Speed { get => speed * Time.fixedDeltaTime; }
 
     private string owner;
     private float damage;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        Rb = GetComponent<Rigidbody>();
         lifetimeCooldown = new Cooldown(lifetime, Die);
         lifetimeCooldown.ResetCooldown();
     }
@@ -48,19 +50,13 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        /*if (other.tag == "Player")
-        {
-            RemyModel remyModel = other.GetComponent<RemyModel>();
-            remyModel.ChangeLife(-1);
-        }
-        */
         ApplyDamage(other);
         Die();
     }
-    // Update is called once per frame
+
     void FixedUpdate()
     {
-        rb.velocity = transform.forward * speed *  Time.fixedDeltaTime;
+        Rb.velocity = transform.forward * Speed;
         lifetimeCooldown.RunCooldown();
     }
 }

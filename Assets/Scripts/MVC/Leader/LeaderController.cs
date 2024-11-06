@@ -21,11 +21,12 @@ public class LeaderController : OffensiveNPCController<NPCStates>
         var pain = new ActionTree(() => fsm.Transition(NPCStates.Pain));
         var dead = new ActionTree(() => fsm.Transition(NPCStates.Dead));
         
+        // TODO conectar el pathfinding
         var qIsPatrolTime = new QuestionTree(() => false, patrol, idle);
-        var qCanAttack = new QuestionTree(() => true, attack, pursuit);
-        var qAnyEnemyAlive = new QuestionTree(() => true, qCanAttack, qIsPatrolTime);
-        var qEnemyInSight = new QuestionTree(() => true, qAnyEnemyAlive, qIsPatrolTime);
-        var qINeedToReload = new QuestionTree(() => _model.NeedsToReload(), reload, qEnemyInSight);
+        var qCanAttack = new QuestionTree(() => _model.IsTargetInAttackRange(), attack, pursuit);
+        var qAnyFoeInSightAlive = new QuestionTree(() => _model.DetectAliveFoes(), qCanAttack, qIsPatrolTime);
+        var qIsCurrentTargetSetAndAlive = new QuestionTree(() => _model.IsCurrentTargetSetAndAlive(), qCanAttack, qAnyFoeInSightAlive);
+        var qINeedToReload = new QuestionTree(() => _model.NeedsToReload(), reload, qIsCurrentTargetSetAndAlive);
         var qIAmInPain = new QuestionTree(() => _model.IsInPain, pain, qINeedToReload);
         var qIAmReloading = new QuestionTree(() => _model.IsReloading, reload, qIAmInPain);
         var qIAmDead = new QuestionTree(() => _model.IsDead, dead, qIAmReloading);
@@ -37,8 +38,8 @@ public class LeaderController : OffensiveNPCController<NPCStates>
         var idle = new NPCStateIdle(_move, _foeDetection);
         var patrol = new NPCStatePatrol(_move, _foeDetection);
         var pursuit = new NPCStatePursuit(_move, _foeDetection, transform, _model.TimePrediction);
-        var attack = new NPCStateAttack(_move, _attack, _foeDetection, transform, _model.TimePrediction);
-        var reload = new NPCStateReload(_move, _reload, _foeDetection, transform, _model.TimePrediction);
+        var attack = new NPCStateAttack(_moveNPC, _attack, _foeDetection);
+        var reload = new NPCStateReload(_move, _reload, _foeDetection);
         var pain = new NPCStatePain(_move, _pain);
         var dead = new OffensiveNPCStateDead(_move, _foeDetection, _dead, _respawn, transform);
 

@@ -6,9 +6,12 @@ using UnityEngine;
 public abstract class OffensiveNPCController<T> : NPCController<T> where T : Enum
 {
     protected IRespawn _respawn;
+    protected IMoveNPC _moveNPC;
+
     protected override void Awake()
     {
         base.Awake();
         _respawn = GetComponent<IRespawn>();
+        _moveNPC = GetComponent<IMoveNPC>();
     }
 }

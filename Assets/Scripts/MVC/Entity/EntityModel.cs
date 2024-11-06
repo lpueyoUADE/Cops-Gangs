@@ -65,6 +65,7 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public float CurrentShieldPoints { get => currentShieldPoints; set { currentShieldPoints = value; ; OnStatValueAlteredAction?.Invoke(SliderType.Shield, value); } }
     public int CurrentAmmo { get => currentAmmo; set { currentAmmo = value; ; OnStatValueAlteredAction?.Invoke(SliderType.Ammo, value); } }
     public float AttackRange { get => attackRange; set => attackRange = value; }
+    public BulletController Bullet { get => bullet; set => bullet = value; }
 
     public Action<string> OnNameAlteredAction;
     public Action<SliderType, float> OnStatValueAlteredAction;
@@ -148,7 +149,7 @@ public abstract class EntityModel : EntityBase, IMove, IAttack, IReload, IPain, 
     public void Shoot()
     {
         OnEmmitSound?.Invoke(Sound.shoot);
-        var newBullet = Instantiate(bullet, attackSpawnPoint.position, bullet.transform.rotation);
+        var newBullet = Instantiate(Bullet, attackSpawnPoint.position, Bullet.transform.rotation);
         newBullet.Direction = transform.forward;
         newBullet.Owner = this.tag;
         newBullet.Damage = this.damage;
