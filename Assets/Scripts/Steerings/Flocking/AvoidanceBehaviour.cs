@@ -7,6 +7,8 @@ public class AvoidanceBehaviour : MonoBehaviour, IFlockingBehaviour
     public float multiplier;
     public float personalArea;
 
+    public EntityModel Leader => gameObject.GetComponent<FollowerModel>().Leader;
+
     public Vector3 GetDir(List<IBoid> boids, IBoid self)
     {
         Vector3 avoidance = Vector3.zero;

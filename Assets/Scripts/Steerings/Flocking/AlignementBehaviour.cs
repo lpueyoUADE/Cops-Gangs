@@ -6,6 +6,8 @@ public class AlignementBehaviour : MonoBehaviour, IFlockingBehaviour
 {
     public float multiplier;
 
+    public EntityModel Leader { get => gameObject.GetComponent<FollowerModel>().Leader; }
+
     public Vector3 GetDir(List<IBoid> boids, IBoid self)
     {
         Vector3 alignement = Vector3.zero;

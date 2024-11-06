@@ -6,6 +6,8 @@ public class CohesionBehaviour : MonoBehaviour, IFlockingBehaviour
 {
     public float multiplier;
 
+    public EntityModel Leader => gameObject.GetComponent<FollowerModel>().Leader;
+
     public Vector3 GetDir(List<IBoid> boids, IBoid self)
     {
         Vector3 center = Vector3.zero;

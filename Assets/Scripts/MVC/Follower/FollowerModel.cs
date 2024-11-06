@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class FollowerModel : OffensiveNPCModel
 {
-    LeaderModel leader;
+    [Header("Flocking Leader")]
+    [SerializeField]
+    EntityModel leader;
 
-    public LeaderModel Leader { get => leader; set => leader = value; }
+    public EntityModel Leader { get => leader; set => leader = value; }
 
     protected override void Update()
     {

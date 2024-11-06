@@ -19,6 +19,7 @@ public abstract class NPCController<T> : EntityController<T> where T : Enum
         lineOfSight = GetComponent<LineOfSight>();
         _foeDetection = GetComponent<IFoeDetection>();
     }
+
     protected override void Start()
     {
         base.Start();
@@ -30,5 +31,6 @@ public abstract class NPCController<T> : EntityController<T> where T : Enum
         base.Update();
         actionTreeRoot.Execute();
     }
+
     protected abstract void InitDecisionTree();
 }
