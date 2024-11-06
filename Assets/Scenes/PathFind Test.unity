@@ -156,8 +156,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Neighbours: []
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &10067975
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -166,7 +168,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 10067973}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -234,8 +236,101 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &41526177
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2725130066962479625, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2725130066962479625, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3053781497671510274, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
+      propertyPath: _goal
+      value: 
+      objectReference: {fileID: 1349330066}
+    - target: {fileID: 3053781497671510274, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
+      propertyPath: _start
+      value: 
+      objectReference: {fileID: 611994394}
+    - target: {fileID: 5424034822340749950, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014378520008865310, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014378520008865310, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074734779691144291, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7074734779691144291, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7252028129645289689, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
+      propertyPath: m_Name
+      value: Tempenny
+      objectReference: {fileID: 0}
+    - target: {fileID: 8065860645151947363, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8065860645151947363, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 8065860645151947363, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8065860645151947363, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.3940458
+      objectReference: {fileID: 0}
+    - target: {fileID: 8065860645151947363, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8065860645151947363, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8065860645151947363, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8065860645151947363, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8065860645151947363, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8065860645151947363, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8065860645151947363, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
 --- !u!1 &145655544
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,7 +423,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &157720137
 GameObject:
@@ -363,8 +458,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Neighbours: []
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &157720139
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -373,7 +470,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157720137}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -441,7 +538,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &242395071
 GameObject:
@@ -476,8 +573,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Neighbours: []
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &242395073
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -486,7 +585,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 242395071}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -554,7 +653,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &300843705
 GameObject:
@@ -589,8 +688,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Neighbours: []
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &300843707
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -599,7 +700,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 300843705}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -667,7 +768,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &340537044
 GameObject:
@@ -705,8 +806,10 @@ MonoBehaviour:
   - {fileID: 1485608933}
   - {fileID: 1040314195}
   - {fileID: 1175218676}
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &340537046
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -715,7 +818,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 340537044}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -783,7 +886,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 26
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &402292527
 GameObject:
@@ -902,8 +1005,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Neighbours: []
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &428575400
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -912,7 +1017,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 428575398}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -980,7 +1085,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &512768881
 GameObject:
@@ -1010,7 +1115,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 512768881}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -1078,7 +1183,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &512768886
 MonoBehaviour:
@@ -1095,8 +1200,10 @@ MonoBehaviour:
   Neighbours:
   - {fileID: 1312103229}
   - {fileID: 1312601974}
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &520947617
 GameObject:
   m_ObjectHideFlags: 0
@@ -1133,8 +1240,10 @@ MonoBehaviour:
   - {fileID: 964399093}
   - {fileID: 870048604}
   - {fileID: 1040314195}
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &520947619
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1143,7 +1252,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 520947617}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -1211,7 +1320,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &587368338
 GameObject:
@@ -1248,8 +1357,10 @@ MonoBehaviour:
   Neighbours:
   - {fileID: 870048604}
   - {fileID: 1032989959}
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &587368340
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1258,7 +1369,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 587368338}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -1326,7 +1437,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &611994389
 GameObject:
@@ -1356,7 +1467,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 611994389}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -1424,7 +1535,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &611994394
 MonoBehaviour:
@@ -1440,8 +1551,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Neighbours:
   - {fileID: 512768886}
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &629085864
 GameObject:
   m_ObjectHideFlags: 0
@@ -1475,8 +1588,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Neighbours: []
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &629085866
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1485,7 +1600,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 629085864}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -1553,7 +1668,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &717165995
 GameObject:
@@ -1588,8 +1703,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Neighbours: []
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &717165997
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1598,7 +1715,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 717165995}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -1666,7 +1783,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 30
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &870048603
 GameObject:
@@ -1704,8 +1821,10 @@ MonoBehaviour:
   - {fileID: 1312601974}
   - {fileID: 520947618}
   - {fileID: 587368339}
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &870048605
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1714,7 +1833,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 870048603}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -1782,7 +1901,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &891300889
 GameObject:
@@ -1817,8 +1936,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Neighbours: []
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &891300891
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1827,7 +1948,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 891300889}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -1895,7 +2016,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &956460219
 GameObject:
@@ -1934,8 +2055,10 @@ MonoBehaviour:
   - {fileID: 1040314195}
   - {fileID: 2147255090}
   - {fileID: 717165996}
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &956460221
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1944,7 +2067,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 956460219}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -2012,7 +2135,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 29
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &964399092
 GameObject:
@@ -2050,8 +2173,10 @@ MonoBehaviour:
   - {fileID: 1187089090}
   - {fileID: 520947618}
   - {fileID: 956460220}
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &964399094
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2060,7 +2185,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 964399092}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -2128,7 +2253,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1032989958
 GameObject:
@@ -2166,8 +2291,10 @@ MonoBehaviour:
   - {fileID: 587368339}
   - {fileID: 1485608933}
   - {fileID: 1891327650}
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &1032989960
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2176,7 +2303,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1032989958}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -2244,7 +2371,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1040314194
 GameObject:
@@ -2282,8 +2409,10 @@ MonoBehaviour:
   - {fileID: 520947618}
   - {fileID: 340537045}
   - {fileID: 956460220}
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &1040314196
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2292,7 +2421,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1040314194}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -2360,7 +2489,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 25
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1123051641
 GameObject:
@@ -2381,7 +2510,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &1123051642
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2458,7 +2587,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1123051646
 MonoBehaviour:
@@ -2508,8 +2637,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Neighbours: []
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &1151078093
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2518,7 +2649,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1151078091}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -2586,7 +2717,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1175218675
 GameObject:
@@ -2624,8 +2755,10 @@ MonoBehaviour:
   - {fileID: 1485608933}
   - {fileID: 340537045}
   - {fileID: 1349330066}
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &1175218677
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2634,7 +2767,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1175218675}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -2702,7 +2835,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 27
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1187089085
 GameObject:
@@ -2732,7 +2865,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1187089085}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -2800,7 +2933,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1187089090
 MonoBehaviour:
@@ -2815,8 +2948,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Neighbours: []
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1312103224
 GameObject:
   m_ObjectHideFlags: 0
@@ -2845,7 +2980,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1312103224}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -2913,7 +3048,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1312103229
 MonoBehaviour:
@@ -2928,8 +3063,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Neighbours: []
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1312601973
 GameObject:
   m_ObjectHideFlags: 0
@@ -2966,8 +3103,10 @@ MonoBehaviour:
   - {fileID: 512768886}
   - {fileID: 964399093}
   - {fileID: 870048604}
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &1312601975
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2976,7 +3115,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1312601973}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -3044,7 +3183,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1349330065
 GameObject:
@@ -3079,8 +3218,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Neighbours: []
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &1349330067
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3089,7 +3230,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1349330065}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -3157,7 +3298,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 31
+  m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1415551002
 GameObject:
@@ -3192,8 +3333,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Neighbours: []
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &1415551004
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3202,7 +3345,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1415551002}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -3270,7 +3413,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1485608932
 GameObject:
@@ -3307,8 +3450,10 @@ MonoBehaviour:
   Neighbours:
   - {fileID: 1032989959}
   - {fileID: 1175218676}
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &1485608934
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3317,7 +3462,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1485608932}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -3385,7 +3530,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1891327649
 GameObject:
@@ -3420,8 +3565,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Neighbours: []
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &1891327651
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3430,7 +3577,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1891327649}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -3498,7 +3645,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1968571468
 GameObject:
@@ -3533,8 +3680,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Neighbours: []
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &1968571470
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3543,7 +3692,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1968571468}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -3611,7 +3760,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2147255089
 GameObject:
@@ -3646,8 +3795,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Neighbours: []
-  hasBonus: 0
   hasObstacle: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &2147255091
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3656,7 +3807,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2147255089}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -3724,5 +3875,5 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 28
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
