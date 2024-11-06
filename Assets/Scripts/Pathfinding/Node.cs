@@ -19,10 +19,13 @@ public class Node : MonoBehaviour
     }
 
     private void OnDrawGizmos()
-    {
+    {        
         foreach(Node node in Neighbours)
         {
-            Gizmos.DrawLine(transform.position, node.transform.position);
+            if (node.Neighbours.Contains(this))
+            {
+                Gizmos.DrawLine(transform.position, node.transform.position);
+            }            
         }
     }
 
