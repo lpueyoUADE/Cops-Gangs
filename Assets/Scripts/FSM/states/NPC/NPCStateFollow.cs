@@ -6,12 +6,15 @@ public class NPCStateFollow : State<NPCStates>
 {
     IMove move;
     IFoeDetection foeDetection;
+    FlockingManager flockingManager;
 
-    public NPCStateFollow(IMove move, IFoeDetection foeDetection)
+    public NPCStateFollow(IMove move, IFoeDetection foeDetection, FlockingManager flockingManager)
     {
         this.move = move;
         this.foeDetection = foeDetection;
+        this.flockingManager = flockingManager;
     }
+
     public override void Enter()
     {
         base.Enter();
@@ -20,8 +23,7 @@ public class NPCStateFollow : State<NPCStates>
     public override void FixedExecute()
     {
         base.FixedExecute();
-        
-        // Follow the leader
-        move.Move(new Vector3(1,0,0));
+        var dir = flockingManager.GetDir();
+        move.Move(dir);
     }
 }

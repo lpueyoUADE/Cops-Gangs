@@ -5,22 +5,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
-public class FollowerController : OffensiveNPCController<NPCStates>, IFlockingBehaviour
+public class FollowerController : OffensiveNPCController<NPCStates>
 {
     private FollowerModel _model;
-    public float multiplier;
-    public float timePrediction;
-    Pursuit pursuit;
-    public Transform target;
-    
+    FlockingManager _flockingManager;
+
     protected override void Awake()
     {
         base.Awake();
         _model = GetComponent<FollowerModel>();
-
-        pursuit = new Pursuit(transform, null, timePrediction);
-        SetTarget(target);
+        _flockingManager = GetComponent<FlockingManager>();
     }
+
     protected override void InitDecisionTree()
     {
         var idle = new ActionTree(() => fsm.Transition(NPCStates.Idle));
@@ -32,7 +28,7 @@ public class FollowerController : OffensiveNPCController<NPCStates>, IFlockingBe
         var dead = new ActionTree(() => fsm.Transition(NPCStates.Dead));
 
         // TODO Conectar el flocking
-        var qLeaderInSight = new QuestionTree(() => false, follow, idle);
+        var qLeaderInSight = new QuestionTree(() => true, follow, idle);
         var qCanAttack = new QuestionTree(() => _model.IsTargetInAttackRange(), attack, pursuit);
         var qAnyFoeInSightAlive = new QuestionTree(() => _model.DetectAliveFoes(), qCanAttack, qLeaderInSight);
         var qIsCurrentTargetSetAndAlive = new QuestionTree(() => _model.IsCurrentTargetSetAndAlive(), qCanAttack, qAnyFoeInSightAlive);
@@ -47,7 +43,7 @@ public class FollowerController : OffensiveNPCController<NPCStates>, IFlockingBe
     protected override void GenerateStatesDictionary()
     {
         var idle = new NPCStateIdle(_move, _foeDetection);
-        var follow = new NPCStateFollow(_move, _foeDetection);
+        var follow = new NPCStateFollow(_move, _foeDetection, _flockingManager);
         var pursuit = new NPCStatePursuit(_move, _foeDetection, transform, _model.TimePrediction);
         var attack = new NPCStateAttack(_moveNPC, _attack, _foeDetection);
         var reload = new NPCStateReload(_move, _reload, _foeDetection);
@@ -74,20 +70,5 @@ public class FollowerController : OffensiveNPCController<NPCStates>, IFlockingBe
         base.Update();
         // TODO: Borrar
         print(fsm.GetCurrent);
-    }
-
-    public void SetTarget(Transform newTarget)
-    {
-        if (newTarget == null) return;
-        target = newTarget;
-
-        var rb = target.GetComponent<Rigidbody>();
-        pursuit.Target = rb;
-    }
-
-    public Vector3 GetDir(List<IBoid> boids, IBoid self)
-    {
-        if (target == null) return Vector3.zero;
-        return pursuit.GetDir() * multiplier;
     }
 }

@@ -10,13 +10,15 @@ public class LeaderController : OffensiveNPCController<NPCStates>, IFlockingBeha
     Pursuit pursuit;
     public Transform target;
 
+    public EntityModel Leader => gameObject.GetComponent<FollowerModel>().Leader;
+
     protected override void Awake()
     {
         base.Awake();
         _model = GetComponent<LeaderModel>();
 
         pursuit = new Pursuit(transform, null, timePrediction);
-        SetTarget(target);
+        SetTarget(_model.transform);
     }
     protected override void InitDecisionTree()
     {
