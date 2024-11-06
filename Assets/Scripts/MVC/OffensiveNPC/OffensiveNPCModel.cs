@@ -17,16 +17,23 @@ public class OffensiveNPCModel : NPCModel, IMoveNPC, IRespawn
     public float RespawnTime { get => respawnTime; set => respawnTime = value; }
     public float Accuracy { get => accuracy; set => accuracy = value; }
 
+    /// <summary>
+    /// https://discussions.unity.com/t/target-movement-prediction-for-projectile/929069
+    /// </summary>
+    /// <param name="targetPosition"></param>
+    /// <param name="shooterPosition"></param>
+    /// <param name="targetVelocity"></param>
+    /// <param name="projectileSpeed"></param>
+    /// <returns></returns>
     private Vector3 predictedPosition(Vector3 targetPosition, Vector3 shooterPosition, Vector3 targetVelocity, float projectileSpeed)
     {
         Vector3 displacement = targetPosition - shooterPosition;
         float targetMoveAngle = Vector3.Angle(-displacement, targetVelocity) * Mathf.Deg2Rad;
-        //if the target is stopping or if it is impossible for the projectile to catch up with the target (Sine Formula)
+        //if the target is stopping or if it is impossible for the projectile to catch up with the target
         if (targetVelocity.magnitude == 0 || targetVelocity.magnitude > projectileSpeed && Mathf.Sin(targetMoveAngle) / projectileSpeed > Mathf.Cos(targetMoveAngle) / targetVelocity.magnitude)
         {
             return targetPosition;
         }
-        //also Sine Formula
         float shootAngle = Mathf.Asin(Mathf.Sin(targetMoveAngle) * targetVelocity.magnitude / projectileSpeed);
         return targetPosition + targetVelocity * displacement.magnitude / Mathf.Sin(Mathf.PI - targetMoveAngle - shootAngle) * Mathf.Sin(shootAngle) / targetVelocity.magnitude;
     }

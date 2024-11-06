@@ -24,7 +24,7 @@ public abstract class EntityView : EntityBase
 
     private Color intialMaterialColor;
 
-    public float transitionDuration = 0.4f;
+    float transitionDuration = 0.3f;
 
     protected void AddAudioSource(Sound soundKey, AudioClip audioClip)
     {
