@@ -10,6 +10,12 @@ public class LeaderModel : OffensiveNPCModel
     [SerializeField] Node _goal;
     public Node Goal { get { return _goal; } }
 
+    [SerializeField] float idleTime;
+    private float currentIdleTime;
+
+    private bool _isIdle = false;
+    public bool isIdle { get { return _isIdle; } }
+
     protected override void Update()
     {
         base.Update();
@@ -18,5 +24,25 @@ public class LeaderModel : OffensiveNPCModel
         {
             ReceiveDamage(1);
         }
+
+        if (isIdle)
+        {
+            if(currentIdleTime < idleTime)
+            {
+                currentIdleTime += Time.deltaTime;
+            }
+            else
+            {
+                _isIdle = false;
+                currentIdleTime = 0;
+            }
+        }
+
+        //print("idle: " + isIdle);
+    }
+
+    public void StartIdle()
+    {
+        _isIdle = true;
     }
 }

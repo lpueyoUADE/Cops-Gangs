@@ -14,9 +14,9 @@ public class NPCStatePatrol : PathFindState<NPCStates>
 
     public override void Enter()
     {
-        base.Enter();        
         OnDestinationReached += SwitchWaypoints;
-        OnDestinationReached += TestDestination;
+        base.Enter();        
+        //OnDestinationReached += TestDestination;
     }
 
     private void TestDestination()
@@ -29,6 +29,12 @@ public class NPCStatePatrol : PathFindState<NPCStates>
     public override void FixedExecute()
     {
         base.FixedExecute();
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        OnDestinationReached -= SwitchWaypoints;
     }
 
     private void SwitchWaypoints()
