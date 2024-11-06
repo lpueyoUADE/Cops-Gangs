@@ -261,6 +261,10 @@ PrefabInstance:
       propertyPath: _start
       value: 
       objectReference: {fileID: 611994394}
+    - target: {fileID: 3053781497671510274, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
+      propertyPath: idleTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5424034822340749950, guid: f0463f5ed5dc7b94cbd450d2ac64d489, type: 3}
       propertyPath: m_IsActive
       value: 0
