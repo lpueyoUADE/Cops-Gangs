@@ -62,6 +62,11 @@ public class PathFindState<T> : BasePathFinderState<T>
         {
             cost += 100;
         }
+        else if (child.hasEnemy)
+        {
+            cost -= 50;
+        }
+        
         return cost;
     }
     List<Vector3> GetPathVector(List<Node> path)
@@ -80,10 +85,5 @@ public class PathFindState<T> : BasePathFinderState<T>
     List<Node> GetConnections(Node current)
     {
         return current.Neighbours;
-    }
-
-    public void SetStartPoint()
-    {
-        _move.SetPosition(nodes[0]);
     }
 }

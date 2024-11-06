@@ -1200,6 +1200,7 @@ MonoBehaviour:
   Neighbours:
   - {fileID: 1312103229}
   - {fileID: 1312601974}
+  - {fileID: 611994394}
   hasObstacle: 0
   obstacle:
     serializedVersion: 2
@@ -1702,7 +1703,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ad901bec55c78a408d6c1e3dc7f0ca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Neighbours: []
+  Neighbours:
+  - {fileID: 956460220}
+  - {fileID: 1349330066}
   hasObstacle: 0
   obstacle:
     serializedVersion: 2
@@ -3217,7 +3220,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ad901bec55c78a408d6c1e3dc7f0ca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Neighbours: []
+  Neighbours:
+  - {fileID: 1175218676}
+  - {fileID: 717165996}
   hasObstacle: 0
   obstacle:
     serializedVersion: 2

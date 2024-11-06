@@ -8,6 +8,10 @@ public class Node : MonoBehaviour
 
     public bool hasObstacle;
 
+    private bool _hasEnemy;
+
+    public bool hasEnemy { get { return _hasEnemy; } }
+
     [SerializeField] LayerMask obstacle;
 
     private void Start()
@@ -26,6 +30,22 @@ public class Node : MonoBehaviour
             {
                 Gizmos.DrawLine(transform.position, node.transform.position);
             }            
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Gang"))
+        {
+            _hasEnemy = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Gang"))
+        {
+            _hasEnemy = false;
         }
     }
 

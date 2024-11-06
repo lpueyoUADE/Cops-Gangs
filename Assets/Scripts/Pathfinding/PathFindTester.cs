@@ -20,7 +20,6 @@ public class PathFindTester : MonoBehaviour, IMove
             InitializeTree();
 
         _statePathfinding.OnStartMoving += TestStart;
-        _statePathfinding.OnStartMoving += _statePathfinding.SetStartPoint;
         _statePathfinding.OnDestinationReached += TestEnd;
     }
 
