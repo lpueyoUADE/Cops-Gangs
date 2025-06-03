@@ -3,23 +3,26 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Gang
+  - WorldCanvas
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Boid
+  - Obstacle
+  - Gangster
+  - Police
+  - Clown
+  - Bullet
+  - Item
+  - Map
+  - PathFindNode
   - 
   - 
   - 
