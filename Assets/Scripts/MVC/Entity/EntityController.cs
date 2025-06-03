@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EntityController<T> : MonoBehaviour where T: Enum, IComparable
+public abstract class EntityController<T> : MonoBehaviour where T : Enum, IComparable
 {
     protected FSM<T> fsm;
 
@@ -13,6 +13,7 @@ public abstract class EntityController<T> : MonoBehaviour where T: Enum, ICompar
     protected IReload _reload;
     protected IPain _pain;
     protected IDead _dead;
+    protected T entity;
 
     protected Dictionary<T, IState<T>> statesDict;
     /// <summary>

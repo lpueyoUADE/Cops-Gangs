@@ -72,7 +72,7 @@ public class UIController : MonoBehaviour
 
     public void GoToNewGame()
     {
-        SceneManager.LoadScene("Gameplay");
+        SceneManager.LoadScene("Level 2");
     }
 
     public void GoToMainMenu()
